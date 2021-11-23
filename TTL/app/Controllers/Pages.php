@@ -2,9 +2,8 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
 
-class Pages extends Controller
+class Pages extends BaseController
 {
     public function index()
     {
