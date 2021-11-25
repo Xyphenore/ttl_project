@@ -1,12 +1,12 @@
 <?php
-/* Smarty version 3.1.40, created on 2021-11-25 01:38:13
+/* Smarty version 3.1.40, created on 2021-11-25 01:50:23
   from '/home/suzy/proj_suzy/ttl_project/TTL/app/Views/templates/index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.40',
-  'unifunc' => 'content_619f3d65b490e6_61199625',
-  'has_nocache_code' => true,
+  'unifunc' => 'content_619f403f5ccc44_06175292',
+  'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8e49486f0496e544b80b9418172447df7651a555' => 
@@ -22,13 +22,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_619f3d65b490e6_61199625 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619f403f5ccc44_06175292 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/suzy/proj_suzy/ttl_project/TTL/app/ThirdParty/Smarty/libs/plugins/modifier.capitalize.php','function'=>'smarty_modifier_capitalize',),1=>array('file'=>'/home/suzy/proj_suzy/ttl_project/TTL/app/ThirdParty/Smarty/libs/plugins/modifier.date_format.php','function'=>'smarty_modifier_date_format',),2=>array('file'=>'/home/suzy/proj_suzy/ttl_project/TTL/app/ThirdParty/Smarty/libs/plugins/function.html_select_date.php','function'=>'smarty_function_html_select_date',),3=>array('file'=>'/home/suzy/proj_suzy/ttl_project/TTL/app/ThirdParty/Smarty/libs/plugins/function.html_select_time.php','function'=>'smarty_function_html_select_time',),4=>array('file'=>'/home/suzy/proj_suzy/ttl_project/TTL/app/ThirdParty/Smarty/libs/plugins/function.html_options.php','function'=>'smarty_function_html_options',),));
-$_smarty_tpl->compiled->nocache_hash = '513016494619f3d65b0ef14_24802719';
 $_smarty_tpl->smarty->ext->configLoad->_loadConfigFile($_smarty_tpl, "test.conf", "setup", 0);
 ?>
 
-<?php $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array('title'=>'foo'), 0, false);
+<?php $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('title'=>'foo'), 0, false);
 ?>
 
 <PRE>
@@ -47,14 +46,12 @@ $_smarty_tpl->smarty->ext->configLoad->_loadConfigFile($_smarty_tpl, "test.conf"
     Example of accessing server environment variable SERVER_NAME: <?php echo $_SERVER['SERVER_NAME'];?>
 
 
-    The value of {$Name} is <b><?php echo '/*%%SmartyNocache:513016494619f3d65b0ef14_24802719%%*/<?php echo $_smarty_tpl->tpl_vars[\'Name\']->value;?>
-/*/%%SmartyNocache:513016494619f3d65b0ef14_24802719%%*/';?>
+    The value of {$Name} is <b><?php echo $_smarty_tpl->tpl_vars['Name']->value;?>
 </b>
 
 variable modifier example of {$Name|upper}
 
-<b><?php echo '/*%%SmartyNocache:513016494619f3d65b0ef14_24802719%%*/<?php echo mb_strtoupper($_smarty_tpl->tpl_vars[\'Name\']->value, \'UTF-8\');?>
-/*/%%SmartyNocache:513016494619f3d65b0ef14_24802719%%*/';?>
+<b><?php echo mb_strtoupper($_smarty_tpl->tpl_vars['Name']->value, 'UTF-8');?>
 </b>
 
 
@@ -141,6 +138,6 @@ This is an example of the html_options function:
     </select>
 </form>
 
-<?php $_smarty_tpl->_subTemplateRender("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 9999, $_smarty_tpl->cache_lifetime, array(), 0, false);
+<?php $_smarty_tpl->_subTemplateRender("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 }
 }

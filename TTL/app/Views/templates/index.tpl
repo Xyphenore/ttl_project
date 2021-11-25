@@ -9,7 +9,7 @@
         Title: {#title#|capitalize}
         {if #bold#}</b>{/if}
 
-    The current date and time is {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
+    The current date and time is {$smarty.now|date_format:"%d-%m-%Y %H:%M:%S"}
 
     The value of global assigned variable $SCRIPT_NAME is {$SCRIPT_NAME}
 

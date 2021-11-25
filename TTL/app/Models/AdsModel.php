@@ -4,13 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class NewsModel extends Model
+class AdsModel extends Model
 {
-    protected $table = 'news';
+    protected $table = 'ads';
 
     protected $allowedFields = ['title', 'slug', 'body'];
 
-    public function getNews($slug = false)
+    public function getAds($slug = false)
     {
         if ($slug === false) {
             return $this->findAll();

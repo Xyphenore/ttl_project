@@ -2,45 +2,45 @@
 
 namespace App\Controllers;
 
-use App\Models\NewsModel;
+use App\Models\AdsModel;
 
 
-class News extends BaseController
+class Ads extends BaseController
 {
     public function index()
     {
-        $model = model(NewsModel::class);
+        $model = model(AdsModel::class);
 
         $data = [
-            'news'  => $model->getNews(),
-            'title' => 'News archive',
+            'ads'  => $model->getAds(),
+            'title' => 'Ads archive',
         ];
 
         echo view('templates/header', $data);
-        echo view('news/overview', $data);
+        echo view('ads/overview', $data);
         echo view('templates/footer', $data);
     }
 
     public function view($slug = null)
     {
-        $model = model(NewsModel::class);
+        $model = model(AdsModel::class);
 
-        $data['news'] = $model->getNews($slug);
+        $data['ads'] = $model->getAds($slug);
 
-        if (empty($data['news'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: ' . $slug);
+        if (empty($data['ads'])) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the ads item: ' . $slug);
         }
 
-        $data['title'] = $data['news']['title'];
+        $data['title'] = $data['ads']['title'];
 
         echo view('templates/header', $data);
-        echo view('news/view', $data);
+        echo view('ads/view', $data);
         echo view('templates/footer', $data);
     }
 
     public function create()
     {
-        $model = model(NewsModel::class);
+        $model = model(AdsModel::class);
 
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
@@ -52,10 +52,10 @@ class News extends BaseController
                 'body'  => $this->request->getPost('body'),
             ]);
 
-            echo view('news/success');
+            echo view('ads/success');
         } else {
-            echo view('templates/header', ['title' => 'Create a news item']);
-            echo view('news/create');
+            echo view('templates/header', ['title' => 'Create a ads item']);
+            echo view('ads/create');
             echo view('templates/footer');
         }
     }

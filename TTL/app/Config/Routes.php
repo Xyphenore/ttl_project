@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Pages');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -33,18 +33,18 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 // any incoming request without any content specified 
 // should be handled by the index() method inside the Home controller.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Pages::index');
 
-$routes->match(['get', 'post'], 'news/create', 'News::create');
-// This makes sure the requests reach the News controller 
+$routes->match(['get', 'post'], 'ads/create', 'Ads::create');
+// This makes sure the requests reach the Ads controller 
 // instead of going directly to the Pages controller
-$routes->get('news/(:segment)', 'News::view/$1');
-$routes->get('news', 'News::index');
+$routes->get('ads/(:segment)', 'Ads::view/$1');
+$routes->get('ads', 'Ads::index');
 
 // Here, the second rule in the $routes object matches any request 
 // using the wildcard string (:any). and passes the parameter to 
 // the view() method of the Pages class.
-$routes->get('(:any)', 'Test::view/$1');
+$routes->get('(:any)', 'Pages::view/$1');
 
 /*
  * --------------------------------------------------------------------

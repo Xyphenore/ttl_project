@@ -7,10 +7,10 @@ class Pages extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
+        return service('SmartyEngine')->view('index');
     }
 
-    public function view($page = 'home')
+    public function view($page = 'index')
     {
         echo (ucfirst($page));
         echo '->'.APPPATH . 'Views/pages/' . $page . '.php<br/>';
@@ -21,8 +21,6 @@ class Pages extends BaseController
         
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
-        echo view('templates/header', $data);
-        echo view('pages/' . $page, $data);
-        echo view('templates/footer', $data);
+       echo view('pages/' . $page, $data);
     }
 }
