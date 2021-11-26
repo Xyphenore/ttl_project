@@ -1,11 +1,3 @@
--- création du type
-CREATE TYPE type_chauffage AS ENUM ('collectif', 'individuel');
-
-CREATE TYPE type_maison AS ENUM ('T1', 'T2', 'T3', 'T4', 'T5', 'T6');
-
-CREATE TYPE type_etat AS ENUM ('en cours de rédaction', 'publiée', 'archivée');
-
--- création des tables
 CREATE TABLE T_annonce (
     A_idannonce INT UNSIGNED NOT NULL AUTO_INCREMENT,
     A_titre VARCHAR(128) NOT NULL,
@@ -13,22 +5,20 @@ CREATE TABLE T_annonce (
     A_cout_charges INT UNSIGNED NOT NULL,
     A_date_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     A_date_modification DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    A_type_chauffage type_chauffage,
+    A_type_chauffage ENUM('collectif', 'individuel') NOT NULL,
     A_superficie INT UNSIGNED NOT NULL,
     A_description TEXT NOT NULL,
     A_adresse VARCHAR(128) NOT NULL,
     A_ville VARCHAR(128) NOT NULL,
-    A_CP DECIMAL(5, 0),
-    A_etat type_etat,
-    slug VARCHAR(128) NOT NULL,
+    A_CP DECIMAL(5, 0) NOT NULL,
+    A_etat ENUM('en cours de rédaction', 'publiée', 'archivée') NOT NULL DEFAULT 'en cours de rédaction' ,
 
     E_idengie INT UNSIGNED NOT NULL,
-    T_type type_maison NOT NULL,
+    T_type ENUM('T1', 'T2', 'T3', 'T4', 'T5', 'T6') NOT NULL,
     U_mail VARCHAR(128) UNIQUE NOT NULL,
 
-
     PRIMARY KEY (A_idannonce),
-    KEY slug (slug)
+    KEY idx_annonce(A_idannonce)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE T_photo(
@@ -36,32 +26,12 @@ CREATE TABLE T_photo(
     P_titre VARCHAR(128) NOT NULL,
     P_nom VARCHAR(128) NOT NULL,
 
-    A_idannonce INT UNSIGNED NOT NULL
+    A_idannonce INT UNSIGNED NOT NULL,
 
     PRIMARY KEY (P_idphoto),
+    KEY idx_photo(P_idphoto)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-
-CREATE TABLE T_typeMaison(
-    T_type type_maison NOT NULL,
-    T_description VARCHAR(128) NOT NULL,
-
-    PRIMARY KEY (T_type),
-
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
-CREATE TABLE T_utilisateur(
-    --add constraint mail
-    U_mail VARCHAR(128) UNIQUE NOT NULL,
-    U_mdp VARCHAR(128) NOT NULL,
-    U_pseudo VARCHAR(128) UNIQUE NOT NULL,
-    U_nom VARCHAR(128) NOT NULL,
-    U_prenom VARCHAR(128) NOT NULL,
-    U_admin BOOLEAN NOT NULL DEFAULT false, 
-
-    PRIMARY KEY (U_mail)
-
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE T_message(
     M_dateheure_message TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -77,9 +47,38 @@ CREATE TABLE T_energie(
     E_idengie INT UNSIGNED NOT NULL AUTO_INCREMENT,
     E_description VARCHAR(128) NOT NULL,
 
-    PRIMARY KEY(E_idengie)
+    PRIMARY KEY(E_idengie),
+    KEY idx_engie(E_idengie)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+
+CREATE TABLE T_typeMaison(
+    T_type ENUM('T1', 'T2', 'T3', 'T4', 'T5', 'T6') NOT NULL,
+    T_description VARCHAR(128) NOT NULL,
+
+    PRIMARY KEY (T_type),
+    KEY idx_type(T_type)
+
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+CREATE TABLE T_utilisateur(
+    U_mail VARCHAR(128) UNIQUE NOT NULL,
+    U_mdp VARCHAR(128) NOT NULL,
+    U_pseudo VARCHAR(128) UNIQUE NOT NULL,
+    U_nom VARCHAR(128) NOT NULL,
+    U_prenom VARCHAR(128) NOT NULL,
+    U_admin BOOLEAN NOT NULL DEFAULT false, 
+
+    PRIMARY KEY (U_mail),
+    KEY idx_profil(U_pseudo)
+
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+
+
+
+
 
 
 -- ajout des contraintes de clé étrangères

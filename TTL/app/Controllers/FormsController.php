@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 
-class Pages extends BaseController
+class FormsControllers extends BaseController
 {
     public function index()
     {
@@ -13,14 +13,14 @@ class Pages extends BaseController
     public function view($page = 'index')
     {
         echo (ucfirst($page));
-        echo '->'.APPPATH . 'Views/pages/' . $page . '.php<br/>';
-        if (!is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
+        echo '->'.APPPATH . 'Views/forms/' . $page . '.php<br/>';
+        if (!is_file(APPPATH . 'Views/forms/' . $page . '.php')) {
             // Whoops, we don't have a page for that!
             throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
         }
         
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
-       echo view('pages/' . $page, $data);
+       echo view('forms/' . $page, $data);
     }
 }

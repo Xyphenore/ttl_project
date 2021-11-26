@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\AdsModel;
 
 
-class Ads extends BaseController
+class AdsController extends BaseController
 {
     public function index()
     {

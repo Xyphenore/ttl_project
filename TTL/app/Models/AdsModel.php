@@ -6,9 +6,11 @@ use CodeIgniter\Model;
 
 class AdsModel extends Model
 {
-    protected $table = 'ads';
+    protected $table = 'T_annonce';
 
-    protected $allowedFields = ['title', 'slug', 'body'];
+    protected $allowedFields = ['A_idannonce','A_title', 'A_cout_loyer', 'A_cout_charges',
+    'A_date_creation','A_date_modification','A_type_chauffage','A_superficie','A_description',
+    'A_adresse','A_ville','A_CP','A_etat','slug','E_idengie','T_type','U_mail'];
 
     public function getAds($slug = false)
     {
@@ -19,3 +21,4 @@ class AdsModel extends Model
         return $this->where(['slug' => $slug])->first();
     }
 }
+
