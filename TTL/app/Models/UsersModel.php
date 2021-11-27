@@ -10,7 +10,8 @@ class UsersModel extends Model
     protected $primaryKey = 'U_mail';
     protected $useAutoIncrement = false;
 
-    protected $allowedFields = ['U_mail','U_mdp','U_pseudo','U_nom','U_prenom'];
+    protected $allowedFields = ['U_mail', 'U_mdp', 'U_pseudo', 'U_nom', 'U_prenom'];
+
 
     /**
      * récupère les informations d'un ou plusieurs utilisateur dans la base de données
@@ -27,4 +28,3 @@ class UsersModel extends Model
         return $this->where(['U_pseudo' => $pseudo])->first();
     }
 }
-

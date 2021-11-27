@@ -105,3 +105,16 @@ ALTER TABLE T_photo
     ON UPDATE CASCADE; --ON DELETE CASCADE; ?
 
     --TODO gérer les repercussion ON DELETE
+
+
+
+-- création Table pour stocker les informations de sessions
+CREATE TABLE T_session (
+    S_idsession VARCHAR(128) NOT NULL,
+    S_ipaddress VARCHAR(45) NOT NULL,
+    S_timestamp INT(10) UNSIGNED DEFAULT 0 NOT NULL,
+    S_data BLOB NOT NULL,
+
+    PRIMARY KEY (S_idsession),
+    KEY idx_timestamp(S_timestamp)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;

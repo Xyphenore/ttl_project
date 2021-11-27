@@ -35,7 +35,7 @@ $routes->setAutoRoute(false);
 // should be handled by the index() method inside the Home controller.
 //$routes->get('/', 'PagesController::index');
 
-$routes->match(['get', 'post'], 'users/subscribe', 'UsersController::subscribe');
+$routes->match(['get', 'post'], 'users/register', 'UsersController::register');
 // This makes sure the requests reach the Ads controller 
 // instead of going directly to the Pages controller
 $routes->get('users/(:segment)', 'UsersController::view/$1');

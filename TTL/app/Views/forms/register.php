@@ -1,7 +1,7 @@
 <h2><?= esc($title) ?></h2>
 
 <?= service('validation')->listErrors() ?>
-<form action="/users/subscribe" method="post">
+<form action="/users/register" method="post">
     <?= csrf_field() ?>
 
     <label for="email">email</label>
@@ -9,6 +9,9 @@
 
     <label for="pass">password</label>
     <input type="password" name="pass" /><br />
+
+    <label for="confirm">password</label>
+    <input type="password" name="confirm" /><br />
 
     <label for="pseudo">pseudo</label>
     <input type="text" name="pseudo" /><br />
