@@ -27,4 +27,6 @@ class UsersModel extends Model
 
         return $this->where(['U_pseudo' => $pseudo])->first();
     }
+
+
 }

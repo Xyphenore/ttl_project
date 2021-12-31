@@ -35,11 +35,18 @@ $routes->setAutoRoute(false);
 // should be handled by the index() method inside the Home controller.
 //$routes->get('/', 'PagesController::index');
 
-$routes->match(['get', 'post'], 'users/register', 'UsersController::register');
-// This makes sure the requests reach the Ads controller 
-// instead of going directly to the Pages controller
+$routes->match(['get', 'post'], 'forms/register', 'UsersController::register');
+$routes->match(['get', 'post'], 'forms/loggin', 'UsersController::loggin');
+// This makes sure the requests reach the UsersController 
+// instead of going directly to the PagesController
 $routes->get('users/(:segment)', 'UsersController::view/$1');
 $routes->get('users', 'UsersController::index');
+
+$routes->get('privates/(:segment)', 'PrivateController::view/$1');
+$routes->get('privates', 'PrivateController::index');
+
+$routes->get('pages/(:segment)', 'PagesController::view/$1');
+$routes->get('pages', 'PagesController::index');
 
 // Here, the second rule in the $routes object matches any request 
 // using the wildcard string (:any). and passes the parameter to 

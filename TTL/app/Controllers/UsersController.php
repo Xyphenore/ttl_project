@@ -23,7 +23,7 @@ class UsersController extends BaseController
         if ($this->request->getMethod() === 'post' && $this->validate(
             [
                 'email'     => 'required|valid_email',
-                'pass'      => 'required|isValidLoggin[email,pass]',
+                'pass'      => 'required|isValidLoggin[T_utilisateur.U_email,T_utilisateur.U_mdp]',
             ],
             ['pass'     => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
         )) {
@@ -55,7 +55,9 @@ class UsersController extends BaseController
             $userSession->set_flashdata('success', 'Inscription validée');
 
             // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
-            redirect('privates_pages/private_index');
+            echo view('templates/header', ['title' => 'Index privé']);
+            echo view('privates/private_index');
+            echo view('templates/footer');
 
             // Récupérer le message flash sur la nouvelle vue
             $this->userSession->flashdata('success');
@@ -65,24 +67,12 @@ class UsersController extends BaseController
             // echo view('templates/footer');
         } else {
 
-            echo view('templates/header', ['title' => 'Formulaire d\'inscription']);
-            echo view('forms/logging');
+            echo view('templates/header', ['title' => 'Formulaire de connexion']);
+            echo view('forms/loggin');
             echo view('templates/footer');
         }
     }
 
-
-    public function isValidLoggin($userData)
-    {
-        $userModel = model(UsersModel::class);
-        $user = $userModel->where('U_mail', $userData['email'])
-            ->first();
-
-        if (!$user)
-            return false;
-
-        return password_verify($userData['pass'], $user['U_mdp']);
-    }
 
     public function index()
     {
@@ -135,14 +125,17 @@ class UsersController extends BaseController
                 'U_prenom'  => $this->request->getPost('prenom')
             ]);
 
-            $userSession = session();
-            $userSession->set_flashdata('success', 'Inscription validée');
+            // $userSession = session();
+            // $userSession->set_flashdata('success', 'Inscription validée');
 
             // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
-            redirect('forms/authent');
+            echo view('templates/header', ['title' => 'Formulaire de connexion']);
+            echo view('forms/loggin');
+            echo view('templates/footer');
+            //return redirect()->route('named_route');
 
             // Récupérer le message flash sur la nouvelle vue
-            $this->userSession->flashdata('success');
+            // $this->userSession->flashdata('success');
 
             // echo view('templates/header', ['title' => 'Inscription validée']);
             // echo view('forms/authent');

@@ -1,7 +1,7 @@
 <h2><?= esc($title) ?></h2>
 
 <?= service('validation')->listErrors() ?>
-<form action="/users/authent" method="post">
+<form action="/forms/loggin" method="post">
     <?= csrf_field() ?>
 
     <label for="pseudo">pseudo</label>
