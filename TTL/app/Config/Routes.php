@@ -40,6 +40,7 @@ $routes->setAutoRoute(false);
  */
 $routes->match(['get', 'post'], 'forms/register', 'UsersController::register');
 $routes->match(['get', 'post'], 'forms/loggin', 'UsersController::loggin');
+$routes->match(['get', 'post'], 'forms/logout', 'UsersController::logout');
 $routes->get('users/(:segment)', 'UsersController::view/$1');
 $routes->get('users', 'UsersController::index');
 
