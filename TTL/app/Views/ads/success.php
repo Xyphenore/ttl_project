@@ -1,5 +1,6 @@
+<h2><?= esc($title) ?></h2>
 <?php
 
 
-echo '<p> Ads item created successfully</p><br/>';
+echo '<p>Annonce publiée avec succès</p><br/>';
 ?>

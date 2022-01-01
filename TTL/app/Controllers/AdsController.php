@@ -13,25 +13,25 @@ class AdsController extends BaseController
 
         $data = [
             'ads'  => $model->getAds(),
-            'title' => 'Ads archive',
+            'title' => 'Annonce publiées',
         ];
 
         echo view('templates/header', $data);
-        echo view('ads/overview', $data);
+        echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
 
-    public function view($slug = null)
+    public function view($idAnnonce = null)
     {
-        $model = model(AdsModel::class);
+        $adsModel = model(AdsModel::class);
 
-        $data['ads'] = $model->getAds($slug);
+        $data['ads'] = $adsModel->getAds($idAnnonce);
 
         if (empty($data['ads'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the ads item: ' . $slug);
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the ads item: ' . $idAnnonce);
         }
 
-        $data['title'] = $data['ads']['title'];
+        $data['title'] = $data['ads']['A_titre'];
 
         echo view('templates/header', $data);
         echo view('ads/view', $data);
@@ -40,23 +40,56 @@ class AdsController extends BaseController
 
     public function create()
     {
-        $model = model(AdsModel::class);
+        $adsModel = model(AdsModel::class);
 
         if ($this->request->getMethod() === 'post' && $this->validate([
-            'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required',
+            'title'      => 'required|min_length[3]|max_length[128]',
+            'loyer'      => 'required',
+            'chauffage'  => 'required',
+            'superficie' => 'required',
+            'type'       => 'required',
+            'adresse'    => 'required|max_length[128]',
+            'ville'      => 'required|max_length[128]',
+            'cp'         => 'required|min_length[5]|max_length[5]',
         ])) {
-            $model->save([
-                'title' => $this->request->getPost('title'),
-                'slug'  => url_title($this->request->getPost('title'), '-', true),
-                'body'  => $this->request->getPost('body'),
+            $adsModel->save([
+                'A_titre'            => $this->request->getPost('title'),
+                'A_cout_loyer'       => $this->request->getPost('loyer'),
+                'A_cout_charges'     => $this->request->getPost('charges'),
+                'A_type_chauffage'   => $this->request->getPost('chauffage'),
+                'A_superficie'       => $this->request->getPost('superficie'),
+                'A_description'      => $this->request->getPost('description'),
+                'A_adresse'          => $this->request->getPost('adresse'),
+                'A_ville'            => $this->request->getPost('ville'),
+                'A_CP'               => $this->request->getPost('cp'),
+                'E_idenergie'        => $this->request->getPost('energie'),
+                'T_type'             => $this->request->getPost('type'),
+                'U_mail'             => "goi.suzy@gmail.com",
             ]);
 
-            echo view('ads/success');
+            echo view('ads/publish',['title' => 'vérification avant publication']);
         } else {
-            echo view('templates/header', ['title' => 'Create a ads item']);
+            echo view('templates/header', ['title' => 'création d\'une annonce']);
             echo view('ads/create');
             echo view('templates/footer');
         }
     }
-}
+
+    /**
+     * Fonction de validation avant publication d'une annonce
+     *
+     * @return void
+     */
+    public function publishAd()
+    {
+        $adsModel = model(AdsModel::class);
+
+        if ($this->request->getMethod() === 'post') {
+            $adsModel->save(['A_etat'    => "Publiée"]);
+        } 
+            echo view('templates/header', ['title' => 'Liste des annonces']);
+            echo view('ads/allAds');
+            echo view('templates/footer');
+        }
+    }
+

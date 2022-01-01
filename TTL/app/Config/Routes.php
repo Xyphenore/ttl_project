@@ -35,12 +35,27 @@ $routes->setAutoRoute(false);
 // should be handled by the index() method inside the Home controller.
 
 
+/**
+ * Routes pour les utilisateurs
+ */
 $routes->match(['get', 'post'], 'forms/register', 'UsersController::register');
 $routes->match(['get', 'post'], 'forms/loggin', 'UsersController::loggin');
-// This makes sure the requests reach the UsersController
-// instead of going directly to the PagesController
+$routes->match(['get', 'post'], 'forms/logout', 'UsersController::logout');
 $routes->get('users/(:segment)', 'UsersController::view/$1');
 $routes->get('users', 'UsersController::index');
+
+/**
+ * Routes pour les annonces
+ */
+$routes->match(['get', 'post'], 'ads/create', 'AdsController::create');
+$routes->match(['get', 'post'], 'ads/publish', 'AdsController::publishAd');
+$routes->get('ads/(:segment)', 'AdsController::view/$1');
+$routes->get('ads', 'AdsController::index');
+
+
+// This makes sure the requests reach the UsersController 
+// instead of going directly to the PagesController
+
 
 $routes->get('privates/(:segment)', 'PrivateController::view/$1');
 $routes->get('privates', 'PrivateController::index');
