@@ -18,13 +18,14 @@ class UsersRules
     public function isValidLoggin($str, $field, $userData)
     {
         $userModel = model(UsersModel::class);
-        $user = $userModel->where('email', $userData['email'])
+        $user = $userModel->where($userModel->primaryKey, $userData['email'])
             ->first();
 
         if (!$user)
             return false;
 
-        return password_verify($userData['pass'], $user['pass']);
+        return password_verify($userData['pass'], $user['U_mdp']);
     }
+
 
 }
