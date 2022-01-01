@@ -4,7 +4,7 @@
 
         <?php foreach ($ads as $ads_item) : ?>
             <p><a title="Voir le détail" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"> <?= esc($ads_item['A_idannonce']) ?> </a>
-             (en cours de développement)</p>
+            <?= esc($ads_item['A_titre']) ?></p>
 
         <?php endforeach; ?>
 

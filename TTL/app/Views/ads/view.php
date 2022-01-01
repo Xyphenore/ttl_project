@@ -1,8 +1,8 @@
+
+<hr/>
 <h2><?= esc($ads['A_titre']) ?></h2>
 <hr/>
-TODO : ajouter un bouton pour modifier, supprimer, archiver l'annonce.
-<br/>
-<hr/>
+id : <?= esc($ads['A_idannonce']) ?><br/>
 Loyer : <?= esc($ads['A_cout_loyer']) ?> €<br/>
 Charges : <?= esc($ads['A_cout_charges']) ?>€<br/>
 Type chauffage : <?= esc($ads['A_type_chauffage']) ?><br/>
@@ -21,4 +21,14 @@ Photo : <br/>
 <br/>
 
 <br/>
+<form action="/ads/action" method="post">
+    <?= csrf_field() ?>  
+    <input type="hidden" name="id" value=<?= esc($ads['A_idannonce']) ?> /><br />
+
+    <input type="submit" name="act" value="Archiver" />
+    <input type="submit" name="act" value="Publier" />
+    <input type="submit" name="act" value="Brouillon" />
+    <input type="submit" name="act" value="Modifier" />
+    <input type="submit" name="act" value="Supprimer" />
+</form>
 

@@ -26,5 +26,14 @@ class AdsModel extends Model
 
         return $this->where(['A_idannonce' => $idAnnonce])->first();
     }
+
+    /**
+     * récupère les informations d'une ou plusieurs annonces dans la base de données
+     *
+     */
+    public function getUserAds($idUser)
+    {
+        return $this->where(['U_mail' => $idUser])->findAll();
+    }
 }
 

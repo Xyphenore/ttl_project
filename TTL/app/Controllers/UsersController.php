@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UsersModel;
+use App\Models\AdsModel;
 use App\Models\SessionsModel;
 
 
@@ -54,7 +55,7 @@ class UsersController extends BaseController
                     'isAdmin' => $user['u_admin'],
                 ];
 
-                $session->set($userData);
+                // $session->set($userData);
             }
         }
 
@@ -142,6 +143,7 @@ class UsersController extends BaseController
     public function view($pseudo = null)
     {
         $usersModel = model(UsersModel::class);
+        $adsModel = model(AdsModel::class);
 
         $data['user'] = $usersModel->getUser($pseudo);
 
@@ -150,6 +152,9 @@ class UsersController extends BaseController
         }
 
         $data['title'] = $data['user']['U_pseudo'];
+
+        // Les annonces de cet utilisateur (état publié ou non)
+        $data['ads'] = $adsModel->getUserAds($data['user']['U_mail']);
 
         echo view('templates/header', $data);
         echo view('users/userProfil', $data);
