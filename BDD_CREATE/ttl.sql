@@ -91,10 +91,12 @@ ALTER TABLE T_annonce
     ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE T_annonce
-    ADD CONSTRAINT FK_ANNONCE_ENERGIE FOREIGN KEY (E_idenergie) REFERENCES T_energie(E_idenergie);
+    ADD CONSTRAINT FK_ANNONCE_ENERGIE FOREIGN KEY (E_idenergie) REFERENCES T_energie(E_idenergie)
+     ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE T_annonce
-    ADD CONSTRAINT FK_ANNONCE_TYPEMAISON FOREIGN KEY (T_type) REFERENCES T_typeMaison(T_type);
+    ADD CONSTRAINT FK_ANNONCE_TYPEMAISON FOREIGN KEY (T_type) REFERENCES T_typeMaison(T_type)
+    ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE T_photo
     ADD CONSTRAINT FK_PHOTO_ANNONCE FOREIGN KEY (A_idannonce) REFERENCES T_annonce(A_idannonce)
@@ -128,8 +130,13 @@ VALUES
 (NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '01000', 'En cours de rédaction', NULL, 'T4', 'admin@domaine.com'), 
 (NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '02900', 'En cours de rédaction', 'Fuel', 'T3', 'admin@domaine.com'),
 (NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', 'En cours de rédaction', 'Bois', 'T2', 'goi.suzy@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ; 
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com'),
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')    ; 
 
 
 INSERT INTO `T_message` (`M_dateheure_message`, `M_texte_message`, `U_mail`, `A_idannonce`) VALUES (current_timestamp(), 'Test d\'un message entre chonchon et suzy sur l\'annonce d\'identifiant 3', 'chonchon@gmail.com', '3') ;
+
 
