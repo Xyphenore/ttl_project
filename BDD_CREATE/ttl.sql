@@ -1,8 +1,11 @@
 CREATE TABLE T_annonce (
     A_idannonce INT UNSIGNED NOT NULL AUTO_INCREMENT,
+
     A_titre VARCHAR(128) NOT NULL,
+
     A_cout_loyer INT UNSIGNED NOT NULL,
     A_cout_charges INT UNSIGNED NOT NULL,
+
     A_date_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     A_date_modification TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     A_type_chauffage ENUM('Collectif', 'Individuel') NOT NULL,
