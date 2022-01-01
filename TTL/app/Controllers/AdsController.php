@@ -99,9 +99,11 @@ class AdsController extends BaseController
     public function actionAd()
     {
         $adsModel = model(AdsModel::class);
+       
 
         // Récupération de l'id depuis le formulaire
         $idAnnonce = $this->request->getPost('id');
+        $data['ads']=$adsModel->getAds($idAnnonce);
         $action = $this->request->getPost('act');
 
         // Mise à jour de l'état de l'annonce en BDD
@@ -122,7 +124,8 @@ class AdsController extends BaseController
                     $adsModel->update($idAnnonce, ['A_etat' => "En cours de rédaction"]);
                     break;
                     case 'Modifier';
-                   $this->updateAd();
+                    echo view('templates/header', ['title' => 'Mise à jour d\'une annonce']);
+                    echo view('ads/updateAd', $data);
                     break;
                 default:
                     $adsModel->update($idAnnonce, ['A_etat' => "En cours de rédaction"]);
@@ -169,10 +172,10 @@ class AdsController extends BaseController
 
             $iduser = "goi.suzy@gmail.com";
 
-            $this->privateView($iduser);
+            $this->view($idAnnonce);
         } else {
             echo view('templates/header', ['title' => 'création d\'une annonce']);
-            echo view('ads/create');
+            echo view('ads/update');
             echo view('templates/footer');
         }
     }
