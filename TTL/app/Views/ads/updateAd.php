@@ -102,6 +102,11 @@
     <label for="cp">Code postal :</label>
     <input type="number" name="cp"  min="01000" max="99999" value="<?= esc($ads['A_CP']) ?>"/><br />
 
+
+    <label for="photo">Photo :</label>
+    <input type="text" name="titrePhoto" maxlength="128" /><br />
+    <input type="file" name="photo" accept="image/png, image/jpeg">
+
     <input type="hidden" name="id" value="<?= esc($ads['A_idannonce']) ?>" /><br />
     <input type="submit" name="submit" value="Valider les modifications" />
 </form>

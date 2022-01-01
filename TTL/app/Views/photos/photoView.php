@@ -4,7 +4,9 @@
 <hr/>
 
 Photo : <br/>
-<?= esc($photo['P_data']) ?>
+<?php echo' <img src = "data:image/png;base64,' 
+. base64_encode($photo['P_data']) . '" width = "800px" height = "600px"/>'?> </a></p>
+           
 <br/>
 <br/>
 

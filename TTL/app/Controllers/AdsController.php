@@ -47,7 +47,7 @@ class AdsController extends BaseController
         }
 
         $data['title'] = $data['ads']['A_titre'];
-        
+
 
         // récupération des photos rattachées à l'annonce
         $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
@@ -104,11 +104,11 @@ class AdsController extends BaseController
     public function actionAd()
     {
         $adsModel = model(AdsModel::class);
-       
+
 
         // Récupération de l'id depuis le formulaire
         $idAnnonce = $this->request->getPost('id');
-        $data['ads']=$adsModel->getAds($idAnnonce);
+        $data['ads'] = $adsModel->getAds($idAnnonce);
         $action = $this->request->getPost('act');
 
         // Mise à jour de l'état de l'annonce en BDD
@@ -125,10 +125,10 @@ class AdsController extends BaseController
                 case 'Archiver';
                     $adsModel->update($idAnnonce, ['A_etat' => "Archivée"]);
                     break;
-                    case 'Brouillon';
+                case 'Brouillon';
                     $adsModel->update($idAnnonce, ['A_etat' => "En cours de rédaction"]);
                     break;
-                    case 'Modifier';
+                case 'Modifier';
                     echo view('templates/header', ['title' => 'Mise à jour d\'une annonce']);
                     echo view('ads/updateAd', $data);
                     break;
@@ -151,6 +151,8 @@ class AdsController extends BaseController
         $adsModel = model(AdsModel::class);
         $idAnnonce = $this->request->getPost('id');
 
+        $photoModel = model(PhotoModel::class);
+
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title'      => 'required|min_length[3]|max_length[128]',
             'loyer'      => 'required',
@@ -161,7 +163,7 @@ class AdsController extends BaseController
             'ville'      => 'required|max_length[128]',
             'cp'         => 'required|min_length[5]|max_length[5]',
         ])) {
-            $adsModel->update($idAnnonce,[
+            $adsModel->update($idAnnonce, [
                 'A_titre'            => $this->request->getPost('title'),
                 'A_cout_loyer'       => $this->request->getPost('loyer'),
                 'A_cout_charges'     => $this->request->getPost('charges'),
@@ -175,7 +177,11 @@ class AdsController extends BaseController
                 'T_type'             => $this->request->getPost('type'),
             ]);
 
-            $iduser = "goi.suzy@gmail.com";
+            $photoModel->save([
+                'P_titre'            => $this->request->getPost('titrePhoto'),
+                'P_data'             => $this->request->getPost('photo'),
+                'A_idannonce'        => $idAnnonce,
+            ]);
 
             $this->view($idAnnonce);
         } else {
@@ -184,5 +190,4 @@ class AdsController extends BaseController
             echo view('templates/footer');
         }
     }
-
 }

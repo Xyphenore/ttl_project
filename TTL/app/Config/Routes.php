@@ -59,9 +59,9 @@ $routes->get('ads', 'AdsController::index');
 /**
  * Routes pour les photo
  */
-$routes->get('photos/userAds', 'AdsController::privateView/$1');
-$routes->get('photo/(:segment)', 'AdsController::view/$1');
-$routes->get('photo', 'AdsController::index');
+$routes->get('photos/adsPhoto', 'PhotoController::privateView/$1');
+$routes->get('photos/(:segment)', 'PhotoController::view/$1');
+$routes->get('photos', 'PhotoController::index');
 
 // This makes sure the requests reach the UsersController 
 // instead of going directly to the PagesController

@@ -88,7 +88,6 @@
     <label for="cp">Code postal :</label>
     <input type="number" name="cp"  min="01000" max="99999" /><br />
 
-
     <input type="submit" name="submit" value="Créer l'annonce" />
 </form>
 

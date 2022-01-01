@@ -20,9 +20,9 @@ Photo : <br />
     <?php if (!empty($photo) && is_array($photo)) : ?>
 
         <?php foreach ($photo as $photo_item) : ?>
-            <p><a title="Voir la photo" href="/photos/<?= esc($photo_item['P_idphoto'], 'url') ?>"> <?= esc($photo_item['P_titre']) ?> </a>
-            </p>
-
+            <p><a title="Voir la photo" href="/photos/<?= esc($photo_item['P_idphoto'], 'url') ?>"> 
+            <?php echo' <img src = "data:image/png;base64,' . base64_encode($photo_item['P_data']) . '" width = "300px" height = "300px"/>'?> </a></p>
+            
         <?php endforeach; ?>
 
     <?php else : ?>
