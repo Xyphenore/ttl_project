@@ -75,3 +75,23 @@ CREATE TABLE T_photo (
     A_idannonce BIGINT UNSIGNED NOT NULL,
     CONSTRAINT fk_idannonce FOREIGN KEY (A_idannonce) REFERENCES T_annonce(A_idannonce)
 );
+
+delimiter $$
+CREATE TRIGGER trigger_insert_mdp BEFORE INSERT ON T_utilisateur FOR EACH ROW
+    BEGIN
+        IF UPPER(NEW.U_mdp) = 'FALSE' THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Cannot insert into T_mdp : hash_password (PHP) failed';
+        END IF;
+    END;
+
+CREATE TRIGGER trigger_update_mdp BEFORE UPDATE ON T_utilisateur FOR EACH ROW
+    BEGIN
+        IF UPPER(NEW.U_mdp) = 'FALSE' THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Cannot update T_mdp : hash_password (PHP) failed';
+        END IF;
+    END;
+$$
+
+delimiter ;
