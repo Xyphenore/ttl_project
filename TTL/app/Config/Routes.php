@@ -51,11 +51,17 @@ $routes->match(['get', 'post'], 'ads/create', 'AdsController::create');
 $routes->match(['get', 'post'], 'ads/action', 'AdsController::actionAd');
 $routes->match(['get', 'post'], 'ads/update', 'AdsController::updateAd');
 
-
 $routes->get('ads/userAds', 'AdsController::privateView/$1');
 $routes->get('ads/(:segment)', 'AdsController::view/$1');
 $routes->get('ads', 'AdsController::index');
 
+
+/**
+ * Routes pour les photo
+ */
+$routes->get('photos/userAds', 'AdsController::privateView/$1');
+$routes->get('photo/(:segment)', 'AdsController::view/$1');
+$routes->get('photo', 'AdsController::index');
 
 // This makes sure the requests reach the UsersController 
 // instead of going directly to the PagesController
