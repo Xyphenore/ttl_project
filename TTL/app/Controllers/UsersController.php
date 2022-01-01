@@ -12,65 +12,116 @@ class UsersController extends BaseController
 
     public function logout()
     {
-        session()->destroy();
+        $session = session();
+
+        if ( isset($session) ) {
+            $session->destroy();
+        }
+
         redirect('pages/index');
     }
 
     public function loggin()
     {
-        $usersModel = model(UsersModel::class); 
+        // Init de la session
+        $session = session();
 
-        if ($this->request->getMethod() === 'post' && $this->validate(
-            [
-                'email'     => 'required|valid_email',
-                'pass'      => 'required|isValidLoggin[T_utilisateur.U_email,T_utilisateur.U_mdp]',
-            ],
-            ['pass'     => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
-        )) {
-            $user = $usersModel->where('U_mail', $this->request->getVar('email'))
-                ->first();
+        if ( !isset($session) ) {
+            // Alors on crée la session
+            // Donc il faut se connecter
+
+            if ($this->request->getMethod() === 'post' && $this->validate(
+                [
+                    'email'     => 'required|valid_email',
+                    'pass'      => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+                ],
+                ['pass'     => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
+            )) {
+
+                $usersModel = model(UsersModel::class);
+
+                // Récupération des informations de l'utilisateur de la base de donnée
+                $user = $usersModel->where('U_mail', $this->request->getVar('email'))->first();
 
 
-            $userData = [
-                'umail' => $user['U_mail'],
-                'upseudo' => $user['U_pseudo'],
-                'unom' => $user['U_nom'],
-                'uprenom' => $user['U_prenom'],
-                'isLoogedIn' => true,
-            ];
-            
-            $userSession = session();
-            $userSession->set($userData);
+                // Création de la session
+                $userData = [
+                    'umail' => $user['U_mail'],
+                    'upseudo' => $user['U_pseudo'],
+//                'unom' => $user['U_nom'],
+//                'uprenom' => $user['U_prenom'],
+                    'isLoogedIn' => true,
+                    'isAdmin' => $user['u_admin'],
+                ];
 
-            // Pour sauvegarder la session en BDD
-            // TODO à revoir
-            $sessionsModel = model(UsersModel::class); 
-            $sessionsModel->save([
-                'S_idsession'   => $this->userSession->session_id, 
-                'S_ipaddress'   => $this->userSession->ip_address, 
-                'S_timestamp'   => $this->userSession->last_activity, 
-                'S_data'        => $this->userData
-            ]);
-
-            $userSession->set_flashdata('success', 'Inscription validée');
-
-            // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
-            echo view('templates/header', ['title' => 'Index privé']);
-            echo view('privates/private_index');
-            echo view('templates/footer');
-
-            // Récupérer le message flash sur la nouvelle vue
-            $this->userSession->flashdata('success');
-
-            // echo view('templates/header', ['title' => 'Inscription validée']);
-            // echo view('forms/authent');
-            // echo view('templates/footer');
-        } else {
-
-            echo view('templates/header', ['title' => 'Formulaire de connexion']);
-            echo view('forms/loggin');
-            echo view('templates/footer');
+                $session->set($userData);
+            }
         }
+
+        redirect('pages/index');
+
+
+
+//        $usersModel = model(UsersModel::class);
+//
+//        if ($this->request->getMethod() === 'post' && $this->validate(
+//                [
+//                    'email'     => 'required|valid_email',
+//                    'pass'      => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+//                ],
+//                ['pass'     => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
+//            )) {
+//            // Récupération des informations de l'utilisateur de la base de donnée
+//            $user = $usersModel->where('U_mail', $this->request->getVar('email'))
+//                ->first();
+//
+//
+//            // Création de la session
+//            $userData = [
+//                'umail' => $user['U_mail'],
+//                'upseudo' => $user['U_pseudo'],
+////                'unom' => $user['U_nom'],
+////                'uprenom' => $user['U_prenom'],
+//                'isLoogedIn' => true,
+//                'isAdmin' => $user['u_admin'],
+//            ];
+//
+////            $userSession = session();
+////            $userSession->set($userData);
+//            $this->session->set($userData);
+//
+//            // Sauvegarde de la session
+//
+//
+////            // Pour sauvegarder la session en BDD
+////            // TODO à revoir
+////            $sessionsModel = model(UsersModel::class);
+////            $sessionsModel->save([
+////                'S_idsession'   => $this->userSession->session_id,
+////                'S_ipaddress'   => $this->userSession->ip_address,
+////                'S_timestamp'   => $this->userSession->last_activity,
+////                'S_data'        => $this->userData
+////            ]);
+////
+////            $userSession->set_flashdata('success', 'Inscription validée');
+////
+////            // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
+////            echo view('templates/header', ['title' => 'Index privé']);
+////            echo view('privates/private_index');
+////            echo view('templates/footer');
+////
+////            // Récupérer le message flash sur la nouvelle vue
+////            $userSession->flashdata('success');
+////
+////            // echo view('templates/header', ['title' => 'Inscription validée']);
+////            // echo view('forms/authent');
+////            // echo view('templates/footer');
+//        } else {
+//
+//            echo view('templates/header', ['title' => 'Formulaire de connexion']);
+//            echo view('forms/loggin');
+//            echo view('templates/footer');
+//        }
     }
 
 

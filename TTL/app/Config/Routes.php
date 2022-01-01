@@ -33,7 +33,7 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 // any incoming request without any content specified 
 // should be handled by the index() method inside the Home controller.
-//$routes->get('/', 'PagesController::index');
+
 
 /**
  * Routes pour les utilisateurs
@@ -62,10 +62,13 @@ $routes->get('privates', 'PrivateController::index');
 $routes->get('pages/(:segment)', 'PagesController::view/$1');
 $routes->get('pages', 'PagesController::index');
 
-// Here, the second rule in the $routes object matches any request 
-// using the wildcard string (:any). and passes the parameter to 
+// Here, the second rule in the $routes object matches any request
+// using the wildcard string (:any). and passes the parameter to
 // the view() method of the Pages class.
+$routes->get('/', 'PagesController::view/index');
 $routes->get('(:any)', 'PagesController::view/$1');
+
+
 
 /*
  * --------------------------------------------------------------------
