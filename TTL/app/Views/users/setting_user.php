@@ -1,7 +1,5 @@
 <h2>Setting </h2>
 
-<?php var_dump($data)?>
-
 <?= service('validation')->listErrors() ?>
 <?php echo form_open('users/setting_user'); ?>
     <label for='nom'>Nom</label>

@@ -1,14 +1,14 @@
-<h2><?= esc($title) ?></h2>
+<h2><?= esc($data['title']) ?></h2>
 
 <?= service('validation')->listErrors() ?>
-<form action="/forms/loggin" method="post">
-    <?= csrf_field() ?>
+<?php echo form_open('forms/loggin'); ?>
+<label for='email'>Adresse mail</label>
+<input type='email' name='email'/><br/>
 
-    <label for="email">email</label>
-    <input type="text" name="email" /><br />
+<label for='pass'>Mot de passe</label>
+<input type='password' name='pass'/><br/>
 
-    <label for="pass">password</label>
-    <input type="password" name="pass" /><br />
-
-    <input type="submit" name="submit" value="Connexion" />
+<input type='submit' name='submit' value='Connexion'/>
 </form>
+
+<a href="<?= esc($data['signin']) ?>">S'incrire</a>
