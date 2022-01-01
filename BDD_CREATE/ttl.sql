@@ -143,3 +143,19 @@ VALUES
 INSERT INTO `T_message` (`M_dateheure_message`, `M_texte_message`, `U_mail`, `A_idannonce`) VALUES (current_timestamp(), 'Test d\'un message entre chonchon et suzy sur l\'annonce d\'identifiant 3', 'chonchon@gmail.com', '3') ;
 
 
+delimiter $$
+CREATE TRIGGER trigger_insert_mdp BEFORE INSERT ON T_utilisateur FOR EACH ROW
+        IF UPPER(NEW.U_mdp) = 'FALSE' THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Cannot insert into T_mdp : hash_password (PHP) failed';
+        END IF $$
+delimiter ;
+
+delimiter $$
+CREATE TRIGGER trigger_update_mdp BEFORE UPDATE ON T_utilisateur FOR EACH ROW
+
+        IF UPPER(NEW.U_mdp) = 'FALSE' THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Cannot update T_mdp : hash_password (PHP) failed';
+        END IF $$
+delimiter ;
