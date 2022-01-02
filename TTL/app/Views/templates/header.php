@@ -62,9 +62,3 @@ echo '</ul>';
 
 echo '</div> </div> </nav> <section class="bg-white">';
 
-
-if (!empty($iduser)) {
-    echo 'session en cours : ' . ($iduser['umail']);
-} else {
-    echo 'aucune session';
-}
