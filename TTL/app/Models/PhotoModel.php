@@ -10,7 +10,7 @@ class PhotoModel extends Model
     protected $primaryKey = 'P_idphoto';
     protected $useAutoIncrement = true;
 
-    protected $allowedFields = ['P_titre', 'P_data', 'A_idannonce'];
+    protected $allowedFields = ['P_titre', 'P_data', 'P_vitrine','A_idannonce'];
 
     /**
      * récupère les informations d'une ou plusieurs photo dans la base de données
@@ -44,14 +44,10 @@ class PhotoModel extends Model
     {
         if ($vitrine === false) {
             // Toutes les photos d'une annonce (max 5)
-            return $this
-                ->where(['A_idannonce' => $idAnnonce])
-                ->findAll($lim);
+            return $this->where(['A_idannonce' => $idAnnonce])->findAll($lim);
         }
 
         // La photo principale
-        return $this
-            ->where(['A_idannonce' => $idAnnonce, 'P_vitrine' => 1])
-            ->first();
+        return $this->where(['A_idannonce' => $idAnnonce, 'P_vitrine' => 1])->first();
     }
 }

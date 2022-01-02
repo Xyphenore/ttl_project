@@ -11,20 +11,22 @@ class AdsController extends BaseController
      * récupération de la session
      *
      * @return idUser L'identifiant de l'utilisateur
-     * ou redirige vers la page de connexion par défaut
+     * ou redirige vers une page en paramètre (false par défaut = pas de redirection)
      */
-    public function getSession($redirect = 'forms/loggin')
+    public function getSession($redirect = false)
     {
         // On récupère la session actuelle
         $session = session();
 
         // Si l'utilisateur n'est pas connecté
         if (empty($session->isLoogedIn)) {
-            return redirect()->to($redirect);
+            if (!($redirect === false))
+                return redirect()->to($redirect);
         }
 
         // Récupération du  mail de l'utilisateur
         $idUser = $session->Umail;
+
 
         return $idUser;
     }
@@ -45,7 +47,16 @@ class AdsController extends BaseController
         ];
 
         // récupération des photos rattachées à chaque annonce
-        $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
+        //$data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce'],true);
+
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si une session existe
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $this->getSession();
+        }
 
         echo view('templates/header', $data);
         echo view('ads/allAds', $data);
@@ -73,7 +84,7 @@ class AdsController extends BaseController
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
     }
-    
+
 
     public function privateView($idUser)
     {
@@ -89,7 +100,7 @@ class AdsController extends BaseController
         echo view('templates/footer', $data);
     }
 
-   
+
 
     /**
      * Création d'une annonce
@@ -175,7 +186,6 @@ class AdsController extends BaseController
                 default:
                     $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
                     break;
-                    
             }
         }
         // Actualisation de la page
