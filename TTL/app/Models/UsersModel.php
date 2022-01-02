@@ -28,4 +28,15 @@ class UsersModel extends Model
         return $this->where(['U_pseudo' => $pseudo])->first();
     }
 
+    /**
+     * récupère les informations du propriétaire d'une annonce
+     *
+     * @param  $mail
+     * @return array
+     */
+    public function getAdsOwner($mail)
+    {
+        return $this->where(['U_mail' => $mail])->first();
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AdsModel;
 use App\Models\PhotoModel;
+use App\Models\UsersModel;
 
 class AdsController extends BaseController
 {
@@ -18,15 +19,19 @@ class AdsController extends BaseController
     {
         $adsModel = model(AdsModel::class);
         $photoModel = model(PhotoModel::class);
+        $usersModel = model(UsersModel::class);
 
         $data = [
             'ads'  => $adsModel->getAds(null, 6),
             'title' => 'Les dernières annonces publiées',
         ];
 
-        foreach ($data['ads'] as $ads_item)
+        foreach ($data['ads'] as $ads_item){
             // récupération des photos rattachées à chaque annonce
             $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+            // récupération du propriétaire de l'annonce
+            $data = ['owner'  => $usersModel->getAdsOwner($ads_item['U_mail'])];
+        }
 
         // On récupère la session actuelle
         $session = session();
@@ -35,9 +40,12 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         }
 
-        echo view('templates/header', $data);
+        
+
+        echo view('templates/header', ['title' => 'Accueil']);
         echo view('templates/debugsession',$data);
         echo view('ads/index', $data);
         echo view('templates/footer', $data);
@@ -48,14 +56,19 @@ class AdsController extends BaseController
         $adsModel = model(AdsModel::class);
         $photoModel = model(PhotoModel::class);
 
+        $usersModel = model(UsersModel::class);
+
         $data = [
             'ads'  => $adsModel->getAds(null),
             'title' => 'Toutes les annonces publiées',
         ];
 
-        foreach ($data['ads'] as $ads_item)
+        foreach ($data['ads'] as $ads_item){
             // récupération des photos rattachées à chaque annonce
             $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+            // récupération du propriétaire de l'annonce
+            $data = ['owner'  => $usersModel->getAdsOwner($ads_item['U_mail'])];
+        }
 
         // On récupère la session actuelle
         $session = session();
@@ -64,10 +77,11 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         }
 
 
-        echo view('templates/header', $data);
+        echo view('templates/header', ['title' => 'Annonces en ligne']);
         echo view('templates/debugsession',$data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
@@ -78,6 +92,7 @@ class AdsController extends BaseController
     {
         $adsModel = model(AdsModel::class);
         $photoModel = model(PhotoModel::class);
+        $usersModel = model(UsersModel::class);
 
         $data['ads'] = $adsModel->getAds($idAnnonce);
 
@@ -91,6 +106,9 @@ class AdsController extends BaseController
         // récupération des photos rattachées à l'annonce
         $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
 
+        // récupération du propriétaire de l'annonce
+        $data = ['owner'  => $usersModel->getAdsOwner($data['ads']['U_mail'])];
+
         // On récupère la session actuelle
         $session = session();
 
@@ -98,10 +116,11 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         }
 
 
-        echo view('templates/header', $data);
+        echo view('templates/header', ['title' => 'Détail de l\'annonce']);
         echo view('templates/debugsession',$data);
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
@@ -124,12 +143,13 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         } else {
             return redirect()->to('forms/loggin');
         }
 
 
-        echo view('templates/header', $data);
+        echo view('templates/header', ['title' => 'Vos annonces']);
         echo view('templates/debugsession',$data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
@@ -153,6 +173,7 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         } else {
             return redirect()->to('forms/loggin');
         }
@@ -200,7 +221,7 @@ class AdsController extends BaseController
             //  redirige vers
             $this->privateView($data['iduser']);
         } else {
-            echo view('templates/header', ['title' => 'création d\'une annonce'], $data);
+            echo view('templates/header', ['title' => 'création d\'une annonce']);
             echo view('templates/debugsession',$data);
             echo view('ads/createAds', $data);
             echo view('templates/footer', $data);
@@ -222,6 +243,7 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         } else {
             return redirect()->to('forms/loggin');
         }
@@ -276,6 +298,7 @@ class AdsController extends BaseController
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
         } else {
             return redirect()->to('forms/loggin');
         }
@@ -319,7 +342,7 @@ class AdsController extends BaseController
 
             $this->detailView($idAnnonce);
         } else {
-            echo view('templates/header', ['title' => 'création d\'une annonce'], $data);
+            echo view('templates/header', ['title' => 'Edition d\'une annonce']);
             echo view('templates/debugsession',$data);
             echo view('ads/updateAds',$data);
             echo view('templates/footer',$data);

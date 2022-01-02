@@ -11,12 +11,13 @@ Doit etre visible par tout utilisateurs connectés ou non -->
 
             <!-- Div d'une annonce -->
             <div style="border: thin solid blue">
+
+                <!-- Titre et Lien vers le détail de l'annonce -->
+                <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"><strong><?= esc($ads_item['A_titre']) ?></strong></a>
                 <!-- Icone Si l'utilisateur est le propriétaire de l'annonce -->
-                <?php if ($ads_item['A_idannonce'] === $iduser) : ?>
+                <?php if ($ads_item['U_mail'] === $iduser) : ?>
                     <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue"/>' ?><br />
                 <?php endif ?>
-                <!-- Titre et Lien vers le détail de l'annonce -->
-                <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"><strong><?= esc($ads_item['A_titre']) ?></strong></a><br />
 
                 <!-- Div de gauche -->
                 <div>
@@ -44,7 +45,8 @@ Doit etre visible par tout utilisateurs connectés ou non -->
 
                 </div><!-- fin div de droite -->
 
-                Créée le : <?= esc($ads_item['A_date_creation']) ?><br />
+                Créée le : <?= esc($ads_item['A_date_creation']) ?> par  <?php if (!empty($owner)) : ?><?= esc($owner['U_pseudo']) ?><?php endif ?><br />
+               
                 Editée le : <?= esc($ads_item['A_date_creation']) ?>
             </div><!-- fin div de l'annonce -->
         <?php endforeach; ?>

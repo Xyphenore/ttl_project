@@ -20,10 +20,10 @@ Seul un utilisateur connecté peut y acceder -->
         <p>Chauffage :</p>
 
         <div>
-            <label for="collectif">collectif</label>
+            <label for="collectif">Collectif</label>
             <input type="radio" name="chauffage" value="Collectif" <?php if ($ads['chauffage'] == 'Collectif') : ?> checked<?php endif ?>>
 
-            <label for="individuel">individuel</label>
+            <label for="individuel">Individuel</label>
             <input type="radio" name="chauffage" value="Individuel" <?php if ($ads['chauffage'] == 'Individuel') : ?> checked<?php endif ?>>
         </div>
         <div>
@@ -91,7 +91,7 @@ Seul un utilisateur connecté peut y acceder -->
         <input type="text" name="ville" maxlength="128" value="<?= esc($ads['ville']) ?>" /><br />
 
         <label for="cp">Code postal :</label>
-        <input type="number" name="cp" min="01000" max="99999" value="<?= esc($ads['cp']) ?>" /><br />
+        <input type="text" name="cp" min="01000" max="99999" value="<?= esc($ads['cp']) ?>" /><br />
 
     <?php else : ?>
 
@@ -178,7 +178,7 @@ Seul un utilisateur connecté peut y acceder -->
         <input type="text" name="ville" maxlength="128" /><br />
 
         <label for="cp">Code postal :</label>
-        <input type="number" name="cp" min="01000" max="99999" /><br />
+        <input type="text" name="cp" min="01000" max="99999" /><br />
 
     <?php endif ?>
 
