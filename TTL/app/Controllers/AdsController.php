@@ -64,7 +64,36 @@ class AdsController extends BaseController
         echo view('templates/footer', $data);
     }
 
-    public function view($idAnnonce = null)
+    public function globalView()
+    {
+        $adsModel = model(AdsModel::class);
+        $photoModel = model(PhotoModel::class);
+
+        $data = [
+            'ads'  => $adsModel->getAds(null),
+            'title' => 'Toutes les annonces publiées',
+        ];
+
+        foreach ($data['ads'] as $ads_item)
+            // récupération des photos rattachées à chaque annonce
+            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'],true);
+  
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si une session existe
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $this->getSession();
+        }
+
+        echo view('templates/header', $data);
+        echo view('ads/allAds', $data);
+        echo view('templates/footer', $data);
+    }
+
+
+    public function detailView($idAnnonce = null)
     {
         $adsModel = model(AdsModel::class);
         $photoModel = model(PhotoModel::class);
@@ -190,7 +219,7 @@ class AdsController extends BaseController
             }
         }
         // Actualisation de la page
-        $this->view($idAnnonce);
+        $this->detailView($idAnnonce);
     }
 
     /**
@@ -235,7 +264,7 @@ class AdsController extends BaseController
                 'A_idannonce'        => $idAnnonce,
             ]);
 
-            $this->view($idAnnonce);
+            $this->detailView($idAnnonce);
         } else {
             echo view('templates/header', ['title' => 'création d\'une annonce']);
             echo view('ads/updateAds');
