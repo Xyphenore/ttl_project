@@ -25,32 +25,35 @@
 
         echo '<a class="navbar-brand" href="/">TrouveTonLogement</a>';
 
-        echo '<button class=\'navbar-toggler\' type=\'button\' data-bs-toggle=\'collapse\' data-bs-target=\'#navbarSupportedContent\'
-                aria-controls=\'navbarSupportedContent\' aria-expanded=\'false\' aria-label=\'Toggle navigation\'>
-            <span class=\'navbar-toggler-icon\'></span>
+        echo '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerNavBar"
+                aria-controls="headerNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>';
 
-        echo '<div class=\'collapse navbar-collapse\' id=\'navbarSupportedContent\'>';
-            echo '<ul class=\'navbar-nav me-auto mb-2 mb-lg-0\'>
-                    <li class=\'nav-item\'>
+        echo '<div class="collapse navbar-collapse" id="headerNavBar">';
+            echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
                         <button class="btn btn-sm btn-outline-secondary">
-                            <a class=\'nav-link\' href=\'ads/create\'>+ Ajouter une annonce</a>
+                            <a class="nav-link" href="ads/create">+ Ajouter une annonce</a>
                         </button>
                     </li>
                  </ul>';
-            echo '<ul class=\'navbar-nav me-auto mb-2 mb-lg-0  d-flex\'>
-                    <li class=\'nav-item\'>
-                        <a class=\'nav-link\' href=\'forms/loggin\'>Se connecter</a>
+
+            // TODO : Condition en fonction de la session
+            echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="forms/loggin">Se connecter</a>
                     </li>
-                    <li class=\'nav-item\'>
-                        <a class=\'nav-link\' href=\'forms/logout\'>Déconnexion</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="forms/logout">Déconnexion</a>
                     </li>
-                    <li class=\'nav-item\'>
-                        <a class=\'nav-link\' href=\'users/dashboard\'>Mon compte</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="users/dashboard">Mon compte</a>
                     </li>
                 </ul>';
         echo '</div> </div> </nav>';
 
+$iduser = session();
 if (!empty($iduser)) {
 
     echo 'session en cours : ' . ($iduser);

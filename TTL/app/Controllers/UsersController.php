@@ -240,10 +240,10 @@ class UsersController extends BaseController
                 'errors' => 'Le prenom est nécessaire',
             ],
             'pseudo' => [
-                'rules' => 'required|isUniquePseudo[T_utilisateur.U_pseudo]',
+                'rules' => 'required|is_unique[T_utilisateur.U_pseudo,email,{email}]',
                 'errors' => [
                     'required' => 'Le pseudo est nécessaire',
-                    'isUniquePseudo[T_utilisateur.U_pseudo]' => 'Ce pseudo est déjà pris',
+                    'is_unique[T_utilisateur.U_pseudo,email,{email}]' => 'Ce pseudo est déjà pris',
                 ]
             ],
 
@@ -270,8 +270,6 @@ class UsersController extends BaseController
         echo view('templates/header', ['title' => 'Paramètre du compte']);
         echo view('users/setting_user', ['data' => $user_array]);
         echo view('templates/footer');
-
-        // TODO : Faire la validation du pseudo isUnique
 
         if (($this->request->getMethod() === 'post') && ($this->validate($formRule))) {
             // Pour tous les paramètres différents du compte actuel, update dans la base de données
