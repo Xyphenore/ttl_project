@@ -19,25 +19,26 @@ class AdsModel extends Model
     /**
      * Récupère une ou plusieurs annonces dans la base de données
      *
-     * @param boolean|integer $idAnnonce
+     * @param integer $idAnnonce
      * @param integer $lim le nombre max d'annonces à récupérer, 0 = pas de limite
-     * @param boolean|string $etat Brouillon, Publiée, Archivée ou Bloquée
+     * @param integer $pffset le décalage 0 = pas de décalage
+     * @param string $etat Brouillon, Publiée, Archivée ou Bloquée
      * @return response le résultat de la requete
      */
-    public function getAds($idAnnonce = false, $lim = 0, $etat = false)
+    public function getAds($idAnnonce = null, $lim = 0, $offset = 0, $etat = null)
     {
-        if ($idAnnonce === false) {
-            if ($etat === false) {
+        if ($idAnnonce === null) {
+            if ($etat === null) {
                 // Toutes les annonces quelque soit leur état de la plus récente à la plus ancienne
                 return $this
                     ->orderBy('A_date_creation', 'DESC')
-                    ->findAll($lim);
+                    ->findAll($lim,$offset);
             } else {
                 // Seulement les annonces dans un état en particulier
                 return $this
                     ->where(['A_idannonce' => $etat])
                     ->orderBy('A_date_creation', 'DESC')
-                    ->findAll($lim);
+                    ->findAll($lim,$offset);
             }
         }
 
@@ -52,22 +53,23 @@ class AdsModel extends Model
      *
      * @param [type] $idUser
      * @param integer $lim le nombre max d'annonces à récupérer, 0 = pas de limite
-     * @param boolean|string $etat Brouillon, Publiée, Archivée ou Bloquée
+     * @param integer $pffset le décalage 0 = pas de décalage
+     * @param string $etat Brouillon, Publiée, Archivée ou Bloquée
      * @return response le résultat de la requete
      */
-    public function getUserAds($idUser, $lim = 0, $etat = false)
+    public function getUserAds($idUser, $lim = 0, $offset = 0, $etat = null)
     {
-        if (($etat === false)) {
+        if (($etat === null)) {
             // toutes les annonces de l'utilisateur quelque soit leur état
             return $this
                 ->where(['U_mail' => $idUser])
                 ->orderBy('A_date_creation', 'DESC')
-                ->findAll($lim);
+                ->findAll($lim,$offset);
         }
         // Uniquement les annonces dans un état précis
         return $this
             ->where(['U_mail' => $idUser, 'A_etat' => $etat])
             ->orderBy('A_date_creation', 'DESC')
-            ->findAll($lim);
+            ->findAll($lim,$offset);
     }
 }

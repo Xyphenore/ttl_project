@@ -13,19 +13,19 @@ class AdsController extends BaseController
      * @return idUser L'identifiant de l'utilisateur
      * ou redirige vers une page en paramètre (false par défaut = pas de redirection)
      */
-    public function getSession($redirect = false)
+    public function getSession($redirect = null)
     {
         // On récupère la session actuelle
         $session = session();
 
         // Si l'utilisateur n'est pas connecté
         if (empty($session->isLoogedIn)) {
-            if (!($redirect === false))
+            if (!($redirect === null))
                 return redirect()->to($redirect);
         }
 
         // Récupération du  mail de l'utilisateur
-        $idUser = $session->Umail;
+        $idUser = $session->umail;
 
 
         return $idUser;
@@ -42,12 +42,15 @@ class AdsController extends BaseController
         $photoModel = model(PhotoModel::class);
 
         $data = [
-            'ads'  => $adsModel->getAds(6),
+            'ads'  => $adsModel->getAds(null,6),
             'title' => 'Les dernières annonces publiées',
         ];
 
-        // récupération des photos rattachées à chaque annonce
-        //$data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce'],true);
+        foreach ($data['ads'] as $ads_item)
+            // récupération des photos rattachées à chaque annonce
+            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'],true);
+
+        
 
         // On récupère la session actuelle
         $session = session();
