@@ -5,9 +5,9 @@ echo '<footer class="bd-footer py-5 mt-5 bg-light"><div class="container py-5"><
 // Affichage de la barre de navigation du footer
 echo '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
                 <div class="container-xl">
-                    <a href="/"
+                    <a href="' . esc(base_url()) . '"
                        class="navbar-brand">
-                        <img src="favicon.ico" alt="Logo du site TTL">
+                        <img src="' . esc(base_url('favicon.ico')) . '" alt="Logo du site TTL">
                         <span class="fs-5">TrouveTonLogement</span>
                     </a>
 
@@ -20,13 +20,13 @@ echo '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
                     <div class="navbar-collapse collapse" id="footerNavBar">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="pages/cgu">CGU</a>
+                                <a class="nav-link" href="' . esc(base_url('cgu')) . '">CGU</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="pages/regle_diffusion">Règle de diffusion</a>
+                                <a class="nav-link" href="' . esc(base_url('regles_diffusion')) . '">Règle de diffusion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="pages/cookies">Cookies</a>
+                                <a class="nav-link" href="' . esc(base_url('cookies')) . '">Cookies</a>
                             </li>
                         </ul>
                     </div>
