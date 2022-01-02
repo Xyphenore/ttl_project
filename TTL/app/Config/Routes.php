@@ -75,6 +75,13 @@ $routes->get('privates', 'PrivateController::index');
 $routes->get('pages/(:segment)', 'PagesController::view/$1');
 $routes->get('pages', 'PagesController::index');
 
+// Redirections pour les pages annexes (CGU, COOKIES, REGLES_DIFFUSION)
+$routes->get('CGU', 'PagesController::view/cgu');
+$routes->get('COOKIES', 'PagesController::view/cookies');
+$routes->get('REGLES_DIFFUSION', 'PagesController::view/regles_diffusion');
+$routes->get('regle_diffusion', 'PagesController::view/regles_diffusion');
+$routes->get('REGLE_DIFFUSION', 'PagesController::view/regles_diffusion');
+
 // Here, the second rule in the $routes object matches any request
 // using the wildcard string (:any). and passes the parameter to
 // the view() method of the Pages class.
