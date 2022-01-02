@@ -53,17 +53,3 @@
                 </ul>';
         echo '</div> </div> </nav>';
 
-<<<<<<< HEAD
-       
-        ?>
-=======
-
-if (!empty($iduser)) {
-    echo 'session en cours : ' . ($iduser['umail']);
-} else {
-    echo 'aucune session';
-}
->>>>>>> 633a2e7b53ef6d539234cc54d5a7131b2291c1fd
-        
-
-
