@@ -47,7 +47,7 @@ Doit etre visible par tout utilisateurs connectés ou non -->
 
                 Créée le : <?= esc($ads_item['A_date_creation']) ?> par
                 
-                    <a title="Détail du profil" href="/users/' <?= esc($ads_item['owner']['U_pseudo'], 'url') ?>"><strong><?= esc($ads_item['owner']['U_pseudo']) ?></strong></a>      
+                    <a title="Détail du profil" href="/users/' <?= esc($owner['U_pseudo'], 'url') ?>"><strong><?= esc($owner['U_pseudo']) ?></strong></a>      
                 
 
                 Editée le : <?= esc($ads_item['A_date_creation']) ?>

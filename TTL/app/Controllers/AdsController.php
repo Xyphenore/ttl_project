@@ -26,11 +26,11 @@ class AdsController extends BaseController
             'title' => 'Les dernières annonces publiées',
         ];
 
-        foreach ($data['ads'] as $ads_item => $val){
+        foreach ($data['ads'] as $ads_item){
             // récupération des photos rattachées à chaque annonce
-            $val['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
             // récupération du propriétaire de l'annonce
-            $val['owner'] = $usersModel->getAdsOwner($ads_item['U_mail']);
+            $data['owner'] = $usersModel->getAdsOwner($ads_item['U_mail']);
         }
 
         // On récupère la session actuelle
