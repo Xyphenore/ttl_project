@@ -20,7 +20,7 @@ class UsersController extends BaseController
      * @version 1.0
      * @see /Views/forms/logout
      */
-    public function logout(): RedirectResponse|null
+    public function logout()//: RedirectResponse|null
     {
         // Identification de l'utilisateur
         $session = session();

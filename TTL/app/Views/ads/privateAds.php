@@ -1,5 +1,5 @@
-<!-- Affichage de toutes les annonces publiées sur le site
-Doit etre visible par tout utilisateurs connectés ou non -->
+<!-- Affichage de toutes les annonces publiées ou non sur le site
+n'est visible que par l'utilisateur les ayant créées -->
 
 <h2><?= esc($title) ?></h2>
 <div>
@@ -7,7 +7,7 @@ Doit etre visible par tout utilisateurs connectés ou non -->
 
         <?php foreach ($ads as $ads_item) : ?>
             <p><a title="Voir le détail" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"> <?= esc($ads_item['A_idannonce']) ?> </a>
-            <?= esc($ads_item['A_titre']) ?> - <?= esc($ads_item['A_etat']) ?></p>
+            <?= esc($ads_item['A_titre']) ?></p>
 
         <?php endforeach; ?>
 

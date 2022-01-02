@@ -1,3 +1,6 @@
+<!-- Formulaire de création d'une nouvelle annonce
+Seul un utilisateur connecté peut y acceder -->
+
 <h2><?= esc($title) ?></h2>
 
 <?= service('validation')->listErrors() ?>

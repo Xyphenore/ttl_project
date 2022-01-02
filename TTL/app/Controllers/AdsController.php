@@ -7,28 +7,45 @@ use App\Models\PhotoModel;
 
 class AdsController extends BaseController
 {
+    /**
+     * récupération de la session
+     *
+     * @return idUser L'identifiant de l'utilisateur
+     * ou redirige vers la page de connexion par défaut
+     */
+    public function getSession($redirect = 'forms/loggin')
+    {
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur n'est pas connecté
+        if (empty($session->isLoogedIn)) {
+            return redirect()->to($redirect);
+        }
+
+        // Récupération du  mail de l'utilisateur
+        $idUser = $session->Umail;
+
+        return $idUser;
+    }
+
+    /**
+     * vue par défaut de la page d'accueil
+     *
+     * @return void
+     */
     public function index()
     {
         $adsModel = model(AdsModel::class);
+        $photoModel = model(PhotoModel::class);
 
         $data = [
-            'ads'  => $adsModel->getAds(),
-            'title' => 'Annonce publiées',
+            'ads'  => $adsModel->getAds(6),
+            'title' => 'Les dernières annonces publiées',
         ];
 
-        echo view('templates/header', $data);
-        echo view('ads/allAds', $data);
-        echo view('templates/footer', $data);
-    }
-
-    public function privateView($idUser)
-    {
-        $adsModel = model(AdsModel::class);
-
-        $data = [
-            'ads'  => $adsModel->getUserAds($idUser),
-            'title' => 'Toutes vos annonces',
-        ];
+        // récupération des photos rattachées à chaque annonce
+        $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
 
         echo view('templates/header', $data);
         echo view('ads/allAds', $data);
@@ -53,12 +70,37 @@ class AdsController extends BaseController
         $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
 
         echo view('templates/header', $data);
-        echo view('ads/view', $data);
+        echo view('ads/detailAds', $data);
+        echo view('templates/footer', $data);
+    }
+    
+
+    public function privateView($idUser)
+    {
+        $adsModel = model(AdsModel::class);
+
+        $data = [
+            'ads'  => $adsModel->getUserAds($idUser),
+            'title' => 'Toutes vos annonces',
+        ];
+
+        echo view('templates/header', $data);
+        echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
 
-    public function create()
+   
+
+    /**
+     * Création d'une annonce
+     *
+     * @return void
+     */
+    public function createAds()
     {
+        // Récupère l'id de l'utilisateur ou redirige vers la page de connection
+        $idUser = $this->getSession();
+
         $adsModel = model(AdsModel::class);
 
         if ($this->request->getMethod() === 'post' && $this->validate([
@@ -83,16 +125,14 @@ class AdsController extends BaseController
                 'A_CP'               => $this->request->getPost('cp'),
                 'E_idenergie'        => $this->request->getPost('energie'),
                 'T_type'             => $this->request->getPost('type'),
-                'U_mail'             => "goi.suzy@gmail.com", // TODO à récupérer depuis la session
+                'U_mail'             => $idUser,
             ]);
 
-            $iduser = "goi.suzy@gmail.com";
-
-
-            $this->privateView($iduser);
+            //  redirige vers
+            $this->privateView($idUser);
         } else {
             echo view('templates/header', ['title' => 'création d\'une annonce']);
-            echo view('ads/create');
+            echo view('ads/createAds');
             echo view('templates/footer');
         }
     }
@@ -101,7 +141,7 @@ class AdsController extends BaseController
      * Fonction d'action sur une annonce
      * Change l'état de l'annonce
      */
-    public function actionAd()
+    public function actionAds()
     {
         $adsModel = model(AdsModel::class);
 
@@ -126,15 +166,16 @@ class AdsController extends BaseController
                     $adsModel->update($idAnnonce, ['A_etat' => "Archivée"]);
                     break;
                 case 'Brouillon';
-                    $adsModel->update($idAnnonce, ['A_etat' => "En cours de rédaction"]);
+                    $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
                     break;
                 case 'Modifier';
                     echo view('templates/header', ['title' => 'Mise à jour d\'une annonce']);
-                    echo view('ads/updateAd', $data);
+                    echo view('ads/updateAds', $data);
                     break;
                 default:
-                    $adsModel->update($idAnnonce, ['A_etat' => "En cours de rédaction"]);
+                    $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
                     break;
+                    
             }
         }
         // Actualisation de la page
@@ -146,7 +187,7 @@ class AdsController extends BaseController
      *
      * @return void
      */
-    public function updateAd()
+    public function updateAds()
     {
         $adsModel = model(AdsModel::class);
         $idAnnonce = $this->request->getPost('id');
@@ -186,7 +227,7 @@ class AdsController extends BaseController
             $this->view($idAnnonce);
         } else {
             echo view('templates/header', ['title' => 'création d\'une annonce']);
-            echo view('ads/update');
+            echo view('ads/updateAds');
             echo view('templates/footer');
         }
     }

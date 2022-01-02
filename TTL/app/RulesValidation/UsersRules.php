@@ -18,8 +18,7 @@ class UsersRules
     public function isValidLoggin($str, $field, $userData)
     {
         $userModel = model(UsersModel::class);
-        $user = $userModel->where($userModel->primaryKey, $userData['email'])
-            ->first();
+        $user = $userModel->where($userModel->primaryKey, $userData['email'])->first();
 
         if (!$user)
             return false;

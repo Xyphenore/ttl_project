@@ -1,7 +1,8 @@
 <h2><?= esc($data['title']) ?></h2>
 
 <?= service('validation')->listErrors() ?>
-<?php echo form_open('forms/loggin'); ?>
+<?php echo form_open('forms/loggin'); ?> 
+        <?= csrf_field() ?>
 <label for='email'>Adresse mail</label>
 <input type='email' name='email'/><br/>
 

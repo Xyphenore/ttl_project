@@ -49,9 +49,9 @@ $routes->get('users', 'UsersController::index');
 /**
  * Routes pour les annonces
  */
-$routes->match(['get', 'post'], 'ads/create', 'AdsController::create');
-$routes->match(['get', 'post'], 'ads/action', 'AdsController::actionAd');
-$routes->match(['get', 'post'], 'ads/update', 'AdsController::updateAd');
+$routes->match(['get', 'post'], 'ads/createAds', 'AdsController::createAds');
+$routes->match(['get', 'post'], 'ads/actionAds', 'AdsController::actionAds');
+$routes->match(['get', 'post'], 'ads/updateAds', 'AdsController::updateAds');
 
 $routes->get('ads/userAds', 'AdsController::privateView/$1');
 $routes->get('ads/(:segment)', 'AdsController::view/$1');
