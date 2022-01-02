@@ -49,9 +49,7 @@ class AdsController extends BaseController
         foreach ($data['ads'] as $ads_item)
             // récupération des photos rattachées à chaque annonce
             $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'],true);
-
-        
-
+  
         // On récupère la session actuelle
         $session = session();
 
@@ -62,7 +60,7 @@ class AdsController extends BaseController
         }
 
         echo view('templates/header', $data);
-        echo view('ads/allAds', $data);
+        echo view('ads/index', $data);
         echo view('templates/footer', $data);
     }
 

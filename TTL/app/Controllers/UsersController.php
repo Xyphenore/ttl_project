@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\UsersModel;
 use App\Models\AdsModel;
-use App\Models\SessionsModel;
 
 
 

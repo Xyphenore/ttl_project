@@ -7,11 +7,6 @@ use App\Models\PhotoModel;
 
 class PhotoController extends BaseController
 {
-    public function getDafaultPicture()
-    {
-        $defaultPic = new \CodeIgniter\Files\File(PUBLICPATH . 'default_pic.txt' );
-        return $defaultPic->get();
-    }
     
     // public function index()
     // {
