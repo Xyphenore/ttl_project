@@ -2,7 +2,7 @@
 echo '</section>';
 
 // Affichage du footer
-echo '<footer class="bd-footer py-5 mt-5 bg-light fixed-bottom"> <div class="container py-5"> <div class="mb-3">';
+echo '<footer class="bd-footer bg-light mt-auto"> <div class="container py-3"> <div class="mb-3">';
 
 // Affichage de la barre de navigation du footer
 echo '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
@@ -46,8 +46,8 @@ echo '<div class="mb-3">
                             <li>GOI Suzy(Muriel)</li>
                         </ul>
                     </li>
-                    <li class=\'mb-2\'>&copy; Tous droits réservés - DAVID Axel, GOI Suzy(Muriel) 2021</li>
-                    <li class=\'mb-2\'>Version actuelle 1.0</li>
+                    <li class="mb-2">&copy; Tous droits réservés - DAVID Axel, GOI Suzy(Muriel) 2021</li>
+                    <li class="mb-2">Version actuelle 1.0</li>
                 </ul>
             </div>';
 
