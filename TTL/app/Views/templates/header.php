@@ -55,7 +55,7 @@ else {
         </li>
         <li class="nav-item">';
     echo service('validation')->listErrors() .
-        '<form action="' . esc(base_url('deconnexion')) . '" method="post"';
+        '<form action="' . esc(base_url('deconnexion')) . '" method="post">';
     echo csrf_field();
     echo '<input type="submit" name="submit" value="Déconnexion" class="btn btn-secondary"/>
         </form>
