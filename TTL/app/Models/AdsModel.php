@@ -22,7 +22,7 @@ class AdsModel extends Model
      * @param integer $idAnnonce
      * @param integer $lim le nombre max d'annonces à récupérer, 0 = pas de limite
      * @param integer $pffset le décalage 0 = pas de décalage
-     * @param string $etat Brouillon, Publiée, Archivée ou Bloquée
+     * @param string $etat Brouillon, Public, Archive ou Bloque
      * @return response le résultat de la requete
      */
     public function getAds($idAnnonce = null, $lim = 0, $offset = 0, $etat = null)
@@ -36,7 +36,7 @@ class AdsModel extends Model
             } else {
                 // Seulement les annonces dans un état en particulier
                 return $this
-                    ->where(['A_idannonce' => $etat])
+                    ->where(['A_etat' => $etat])
                     ->orderBy('A_date_creation', 'DESC')
                     ->findAll($lim,$offset);
             }

@@ -56,7 +56,7 @@ $routes->match(['get', 'post'], 'ads/update', 'AdsController::updateAds');
 $routes->get('ads/userAds', 'AdsController::privateView/$1');
 $routes->get('ads/allAds', 'AdsController::globalView');
 $routes->get('ads/privateAds', 'AdsController::privateView/$1');
-$routes->get('ads/(:segment)', 'AdsController::view/$1');
+$routes->get('ads/(:segment)', 'AdsController::detailView/$1');
 $routes->get('ads', 'AdsController::index');
 
 

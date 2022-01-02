@@ -21,17 +21,28 @@ class AdsController extends BaseController
         $photoModel = model(PhotoModel::class);
         $usersModel = model(UsersModel::class);
 
-        $data = [
-            'ads'  => $adsModel->getAds(null, 0, 0),
+        $tmp = [
+            'ads'   => $adsModel->getAds(null, 6, 0, 'Public'),
             'title' => 'Les dernières annonces publiées',
         ];
 
-        foreach ($data['ads'] as $ads_item){
-            // récupération des photos rattachées à chaque annonce
-            $data[$ads_item]['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true,0,0);
-            // récupération du propriétaire de l'annonce
-            $data[$ads_item]['owner'] = $usersModel->getAdsOwner($ads_item['U_mail'],0,0);
+        
+        foreach ($tmp['ads'] as $k => $v){   
+            // récupération des Propiétaire et photo rattachées à chaque annonce
+            $owner = $usersModel->getAdsOwner($v['U_mail'],true);
+            
+            if(!empty($photoModel->getAdsPhoto($v['A_idannonce'],true))){
+                $photo = $photoModel->getAdsPhoto($v['A_idannonce'],true);
+                $tmp2[]= array_merge($v,$owner,$photo);
+            }
+            else{
+                $tmp2[]= array_merge($v,$owner);
+            }
         }
+        $data = [
+            'ads'   => $tmp2,
+            'title' => 'Les dernières annonces publiées',
+        ];
 
         // On récupère la session actuelle
         $session = session();
@@ -59,7 +70,7 @@ class AdsController extends BaseController
         $usersModel = model(UsersModel::class);
 
         $data = [
-            'ads'  => $adsModel->getAds(null,0,0, "Publiée"),
+            'ads'  => $adsModel->getAds(null,0,0,'Public'),
             'title' => 'Toutes les annonces publiées',
         ];
 
@@ -258,14 +269,14 @@ class AdsController extends BaseController
 
             switch ($action) {
                 case 'Publier';
-                    $adsModel->update($idAnnonce, ['A_etat' => "Publiée"]);
+                    $adsModel->update($idAnnonce, ['A_etat' => "Public"]);
                     break;
                 case 'Supprimer';
                     $adsModel->delete($idAnnonce);
                     $this->index();
                     break;
                 case 'Archiver';
-                    $adsModel->update($idAnnonce, ['A_etat' => "Archivée"]);
+                    $adsModel->update($idAnnonce, ['A_etat' => "Archive"]);
                     break;
                 case 'Brouillon';
                     $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);

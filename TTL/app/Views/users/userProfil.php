@@ -17,8 +17,8 @@
                 <!-- Div de gauche -->
                 <div>
                     <!-- Photo principale de l'annonce -->
-                    <?php if (!empty($photo) && is_array($photo)) : ?>
-                        <?php echo '<img src = "data:image/png;base64,' . base64_encode($photo['P_data']) . '" alt="' . ($photo['P_titre']) . '"width ="100px" height ="80px"/>' ?><br />
+                    <?php if (!empty($ads_item['photo']) && is_array($ads_item['photo'])) : ?>
+                        <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['photo']['P_data']) . '" alt="' . ($ads_item['photo']['P_titre']) . '"width ="100px" height ="80px"/>' ?><br />
                     <?php else : ?>
                         <?php echo '<img src="' . base_url('no_pic.jpg') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?><br />
                     <?php endif ?>
