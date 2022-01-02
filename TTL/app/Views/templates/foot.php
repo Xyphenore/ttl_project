@@ -1,6 +1,8 @@
 <?php
+echo '</section>';
+
 // Affichage du footer
-echo '<footer class="bd-footer py-5 mt-5 bg-light"><div class="container py-5"><div class="mb-3">';
+echo '<footer class="bd-footer py-5 mt-5 bg-light fixed-bottom"> <div class="container py-5"> <div class="mb-3">';
 
 // Affichage de la barre de navigation du footer
 echo '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
