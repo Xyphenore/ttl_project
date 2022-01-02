@@ -7,29 +7,7 @@ use App\Models\PhotoModel;
 
 class AdsController extends BaseController
 {
-    /**
-     * récupération de la session
-     *
-     * @return idUser L'identifiant de l'utilisateur
-     * ou redirige vers une page en paramètre (false par défaut = pas de redirection)
-     */
-    public function getSession($redirect = null)
-    {
-        // On récupère la session actuelle
-        $session = session();
 
-        // Si l'utilisateur n'est pas connecté
-        if (empty($session->isLoogedIn)) {
-            if (!($redirect === null))
-                return redirect()->to($redirect);
-        }
-
-        // Récupération du  mail de l'utilisateur
-        $idUser = $session->umail;
-
-
-        return $idUser;
-    }
 
     /**
      * vue par défaut de la page d'accueil
@@ -53,13 +31,14 @@ class AdsController extends BaseController
         // On récupère la session actuelle
         $session = session();
 
-        // Si une session existe
+        // Si l'utilisateur est connecté
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $this->getSession();
+            $data['iduser'] = $session->umail;
         }
 
         echo view('templates/header', $data);
+        echo view('templates/debugsession',$data);
         echo view('ads/index', $data);
         echo view('templates/footer', $data);
     }
@@ -81,13 +60,15 @@ class AdsController extends BaseController
         // On récupère la session actuelle
         $session = session();
 
-        // Si une session existe
+        // Si l'utilisateur est connecté
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $this->getSession();
+            $data['iduser'] = $session->umail;
         }
 
+
         echo view('templates/header', $data);
+        echo view('templates/debugsession',$data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
@@ -110,7 +91,18 @@ class AdsController extends BaseController
         // récupération des photos rattachées à l'annonce
         $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
 
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+        }
+
+
         echo view('templates/header', $data);
+        echo view('templates/debugsession',$data);
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
     }
@@ -128,13 +120,17 @@ class AdsController extends BaseController
         // On récupère la session actuelle
         $session = session();
 
-        // Si une session existe
+        // Si l'utilisateur est connecté
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $this->getSession();
+            $data['iduser'] = $session->umail;
+        } else {
+            return redirect()->to('forms/loggin');
         }
 
+
         echo view('templates/header', $data);
+        echo view('templates/debugsession',$data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
@@ -153,10 +149,12 @@ class AdsController extends BaseController
         // On récupère la session actuelle
         $session = session();
 
-        // Si une session existe
+        // Si l'utilisateur est connecté
         if (!empty($session->isLoogedIn)) {
             // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $this->getSession('forms/loggin');
+            $data['iduser'] = $session->umail;
+        } else {
+            return redirect()->to('forms/loggin');
         }
 
         // Sauvegarde des champs saisis
@@ -203,6 +201,7 @@ class AdsController extends BaseController
             $this->privateView($data['iduser']);
         } else {
             echo view('templates/header', ['title' => 'création d\'une annonce'], $data);
+            echo view('templates/debugsession',$data);
             echo view('ads/createAds', $data);
             echo view('templates/footer', $data);
         }
@@ -216,6 +215,16 @@ class AdsController extends BaseController
     {
         $adsModel = model(AdsModel::class);
 
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+        } else {
+            return redirect()->to('forms/loggin');
+        }
 
         // Récupération de l'id depuis le formulaire
         $idAnnonce = $this->request->getPost('id');
@@ -240,7 +249,8 @@ class AdsController extends BaseController
                     $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
                     break;
                 case 'Modifier';
-                    echo view('templates/header', ['title' => 'Mise à jour d\'une annonce']);
+                    echo view('templates/header', ['title' => 'Mise à jour d\'une annonce'], $data);
+                    echo view('templates/debugsession',$data);
                     echo view('ads/updateAds', $data);
                     break;
                 default:
@@ -259,10 +269,23 @@ class AdsController extends BaseController
      */
     public function updateAds()
     {
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+        } else {
+            return redirect()->to('forms/loggin');
+        }
+
         $adsModel = model(AdsModel::class);
         $idAnnonce = $this->request->getPost('id');
 
         $photoModel = model(PhotoModel::class);
+
+        
 
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title'      => 'required|min_length[3]|max_length[128]',
@@ -296,9 +319,10 @@ class AdsController extends BaseController
 
             $this->detailView($idAnnonce);
         } else {
-            echo view('templates/header', ['title' => 'création d\'une annonce']);
-            echo view('ads/updateAds');
-            echo view('templates/footer');
+            echo view('templates/header', ['title' => 'création d\'une annonce'], $data);
+            echo view('templates/debugsession',$data);
+            echo view('ads/updateAds',$data);
+            echo view('templates/footer',$data);
         }
     }
 }
