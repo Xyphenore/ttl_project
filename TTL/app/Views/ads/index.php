@@ -46,9 +46,9 @@ Doit etre visible par tout utilisateurs connectés ou non -->
                 </div><!-- fin div de droite -->
 
                 Créée le : <?= esc($ads_item['A_date_creation']) ?> par
-                <?php if (!empty($ads_item['owner'])) : ?>
-                    <a title="Détail du profil" href="/users/' <?= esc($ads_item['owner']['U_pseudo'], 'url') ?>"><strong><?= esc($ads_item['owner']['U_pseudo']) ?></strong></a>      
-                    <?php endif ?><br />
+               
+                    <a title="Détail du profil" href="/users/' <?= esc($owner['U_pseudo'], 'url') ?>"><strong><?= esc($owner['U_pseudo']) ?></strong></a>      
+                  
 
                 Editée le : <?= esc($ads_item['A_date_creation']) ?>
             </div><!-- fin div de l'annonce -->
