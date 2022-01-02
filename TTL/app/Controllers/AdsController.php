@@ -28,9 +28,9 @@ class AdsController extends BaseController
 
         foreach ($data['ads'] as $ads_item){
             // récupération des photos rattachées à chaque annonce
-            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+            $data['photo'][] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
             // récupération du propriétaire de l'annonce
-            $data['owner'] = $usersModel->getAdsOwner($ads_item['U_mail']);
+            $data['owner'][] = $usersModel->getAdsOwner($ads_item['U_mail']);
         }
 
         // On récupère la session actuelle

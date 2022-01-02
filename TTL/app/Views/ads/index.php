@@ -22,8 +22,8 @@ Doit etre visible par tout utilisateurs connectés ou non -->
                 <!-- Div de gauche -->
                 <div>
                     <!-- Photo principale de l'annonce -->
-                    <?php if (!empty($photo)) : ?>
-                        <?php echo '<img src = "data:image/png;base64,' . base64_encode($photo['P_data']) . '" alt="' . ($photo['P_titre']) . '"width ="100px" height ="80px"/>' ?><br />
+                    <?php if (!empty($ads_item['photo'])) : ?>
+                        <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['photo']['P_data']) . '" alt="' . ($ads_item['photo']['P_titre']) . '"width ="100px" height ="80px"/>' ?><br />
                     <?php else : ?>
                         <?php echo '<img src="' . base_url('no_pic.jpg') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?><br />
                     <?php endif ?>
@@ -46,9 +46,9 @@ Doit etre visible par tout utilisateurs connectés ou non -->
                 </div><!-- fin div de droite -->
 
                 Créée le : <?= esc($ads_item['A_date_creation']) ?> par
-                
-                    <a title="Détail du profil" href="/users/' <?= esc($owner['U_pseudo'], 'url') ?>"><strong><?= esc($owner['U_pseudo']) ?></strong></a>      
-                
+                <?php if (!empty($ads_item['owner'])) : ?>
+                    <a title="Détail du profil" href="/users/' <?= esc($ads_item['owner']['U_pseudo'], 'url') ?>"><strong><?= esc($ads_item['owner']['U_pseudo']) ?></strong></a>      
+                    <?php endif ?><br />
 
                 Editée le : <?= esc($ads_item['A_date_creation']) ?>
             </div><!-- fin div de l'annonce -->
