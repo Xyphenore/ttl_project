@@ -23,7 +23,7 @@
     echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container-xl">';
 
-        echo '<a class="navbar-brand" href="/">TrouveTonLogement</a>';
+        echo '<a class="navbar-brand" href="' .esc(base_url()) .'">TrouveTonLogement</a>';
 
         echo '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerNavBar"
                 aria-controls="headerNavBar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
             echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <button class="btn btn-sm btn-outline-secondary">
-                            <a class="nav-link" href="ads/create">+ Ajouter une annonce</a>
+                            <a class="nav-link" href="' . esc(base_url('ads/create')) . '">+ Ajouter une annonce</a>
                         </button>
                     </li>
                  </ul>';
@@ -42,19 +42,28 @@
             // TODO : Condition en fonction de la session
             echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                     <li class="nav-item">
-                        <a class="nav-link" href="forms/loggin">Se connecter</a>
+                        <a class="nav-link" href="' . esc(base_url('forms/loggin')) . '">Se connecter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="forms/logout">Déconnexion</a>
+                        <a class="nav-link" href="' . esc(base_url('forms/logout')) . '">Déconnexion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="users/dashboard">Mon compte</a>
+                        <a class="nav-link" href="' . esc(base_url('users/dashboard')) . '">Mon compte</a>
                     </li>
                 </ul>';
         echo '</div> </div> </nav>';
 
+<<<<<<< HEAD
        
         ?>
+=======
+
+if (!empty($iduser)) {
+    echo 'session en cours : ' . ($iduser['umail']);
+} else {
+    echo 'aucune session';
+}
+>>>>>>> 633a2e7b53ef6d539234cc54d5a7131b2291c1fd
         
 
 
