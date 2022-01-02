@@ -14,7 +14,7 @@ CREATE TABLE T_annonce (
     A_adresse VARCHAR(128) NOT NULL,
     A_ville VARCHAR(128) NOT NULL,
     A_CP DECIMAL(5, 0) NOT NULL,
-    A_etat ENUM('En cours de rédaction', 'Publiée', 'Archivée') NOT NULL DEFAULT 'En cours de rédaction' ,
+    A_etat ENUM('Brouillon', 'Publiée', 'Archivée', 'Bloquée') NOT NULL DEFAULT 'Brouillon' ,
 
     E_idenergie ENUM('Electrique', 'Solaire', 'Fuel', 'Gaz', 'Bois', 'Autre'),
     T_type ENUM('T1', 'T2', 'T3', 'T4', 'T5', 'T6') NOT NULL,
@@ -28,6 +28,7 @@ CREATE TABLE T_photo(
     P_idphoto INT UNSIGNED NOT NULL AUTO_INCREMENT,
     P_titre VARCHAR(128) NOT NULL,
     P_data MEDIUMBLOB,
+    P_vitrine BOOLEAN NOT NULL DEFAULT false, 
 
     A_idannonce INT UNSIGNED NOT NULL,
 
@@ -130,14 +131,14 @@ INSERT INTO `T_utilisateur` (`U_mail`, `U_mdp`, `U_pseudo`, `U_nom`, `U_prenom`,
 
 INSERT INTO `T_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_adresse`, `A_ville`, `A_CP`, `A_etat`, `E_idenergie`, `T_type`, `U_mail`) 
 VALUES 
-(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '01000', 'En cours de rédaction', NULL, 'T4', 'admin@domaine.com'), 
-(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '02900', 'En cours de rédaction', 'Fuel', 'T3', 'admin@domaine.com'),
-(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', 'En cours de rédaction', 'Bois', 'T2', 'goi.suzy@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'En cours de rédaction', NULL, 'T1', 'chonchon@gmail.com')    ; 
+(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '01000', default, NULL, 'T4', 'admin@domaine.com'), 
+(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '02900', default, 'Fuel', 'T3', 'admin@domaine.com'),
+(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', default, 'Bois', 'T2', 'goi.suzy@gmail.com'),
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com'),
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')    ; 
 
 
 INSERT INTO `T_message` (`M_dateheure_message`, `M_texte_message`, `U_mail`, `A_idannonce`) VALUES (current_timestamp(), 'Test d\'un message entre chonchon et suzy sur l\'annonce d\'identifiant 3', 'chonchon@gmail.com', '3') ;
