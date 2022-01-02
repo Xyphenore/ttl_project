@@ -51,14 +51,18 @@ if ( empty(session()->isLoogedIn) ) {
 }
 else {
     echo '<li class="nav-item">
-            <a class="nav-link" href="' . esc(base_url('forms/logout')) . '">Déconnexion</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="' . esc(base_url('users/dashboard')) . '">Mon compte</a>
-        </li>';
+        </li>
+        <li class="nav-item">';
+    echo service('validation')->listErrors() .
+        '<form action="' . esc(base_url('deconnexion')) . '" method="post"';
+    echo csrf_field();
+    echo '<input type="submit" name="submit" value="Déconnexion" class="btn btn-secondary"/>
+        </form>
+    </li>';
 }
+//<a class='nav-link' href="' . esc(base_url('forms/logout')) . '">Déconnexion</a>
 
 echo '</ul>';
 
 echo '</div> </div> </nav> <section class="bg-white">';
-

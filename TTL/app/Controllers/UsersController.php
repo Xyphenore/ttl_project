@@ -19,31 +19,22 @@ class UsersController extends BaseController
      * @version 1.0
      * @see /Views/forms/logout
      */
-    public function logout()//: RedirectResponse|null
+    public function logout()
     {
         // Identification de l'utilisateur
         $session = session();
-
-        if (!isset($session)) {
-            return redirect()->to('index');
-        }
 
         // Dans le cas :
         //  - l'attribut isLoogedIn à disparu ou est à faux
         //  - si l'utilisateur à cliquer sur déconnecter
         if ((empty($session->isLoogedIn)) || ($this->request->getMethod() === 'post')) {
             $session->destroy();
-            return redirect()->to('index');
+            return redirect()->to('/');
         }
 
-        // Affichage de la page
-        echo view('templates/header', ['title' => 'Bouton de déconnexion']);
-        echo view('forms/logout');
-        echo view('templates/footer');
+        echo view('forms/logout', ['title' => 'logout']);
 
-        // Nécessaire pour PHP 8.0
-        // Si on arrive là, on a juste affiché la page et on attend que l'utilisateur clique sur le bouton 'Déconnexion'
-        return null;
+        //
     }
 
     /**

@@ -77,6 +77,11 @@ $routes->get('privates', 'PrivateController::index');
 $routes->get('pages/(:segment)', 'PagesController::view/$1');
 $routes->get('pages', 'PagesController::index');
 
+// Redirections deconnexion
+$routes->match(['get', 'post'], 'deconnexion', 'UsersController::logout');
+$routes->match(['get', 'post'], 'DECONNEXION', 'UsersController::logout');
+
+
 // Redirections pour les pages annexes (CGU, COOKIES, REGLES_DIFFUSION)
 $routes->get('CGU', 'PagesController::view/cgu');
 $routes->get('COOKIES', 'PagesController::view/cookies');
