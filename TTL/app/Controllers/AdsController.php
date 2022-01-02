@@ -42,14 +42,14 @@ class AdsController extends BaseController
         $photoModel = model(PhotoModel::class);
 
         $data = [
-            'ads'  => $adsModel->getAds(null,6),
+            'ads'  => $adsModel->getAds(null, 6),
             'title' => 'Les dernières annonces publiées',
         ];
 
         foreach ($data['ads'] as $ads_item)
             // récupération des photos rattachées à chaque annonce
-            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'],true);
-  
+            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+
         // On récupère la session actuelle
         $session = session();
 
@@ -76,8 +76,8 @@ class AdsController extends BaseController
 
         foreach ($data['ads'] as $ads_item)
             // récupération des photos rattachées à chaque annonce
-            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'],true);
-  
+            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+
         // On récupère la session actuelle
         $session = session();
 
@@ -125,6 +125,15 @@ class AdsController extends BaseController
             'title' => 'Toutes vos annonces',
         ];
 
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si une session existe
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $this->getSession();
+        }
+
         echo view('templates/header', $data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
@@ -139,10 +148,31 @@ class AdsController extends BaseController
      */
     public function createAds()
     {
-        // Récupère l'id de l'utilisateur ou redirige vers la page de connection
-        $idUser = $this->getSession();
-
         $adsModel = model(AdsModel::class);
+
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si une session existe
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $this->getSession('forms/loggin');
+        }
+
+        // Sauvegarde des champs saisis
+        $data['ads'] = [
+            'title'         => $this->request->getPost('title'),
+            'loyer'         => $this->request->getPost('loyer'),
+            'charge'        => $this->request->getPost('charges'),
+            'chauffage'     => $this->request->getPost('chauffage'),
+            'superficie'    => $this->request->getPost('superficie'),
+            'description'   => $this->request->getPost('description'),
+            'adresse'       => $this->request->getPost('adresse'),
+            'ville'         => $this->request->getPost('ville'),
+            'cp'            => $this->request->getPost('cp'),
+            'energie'       => $this->request->getPost('energie'),
+            'type'          => $this->request->getPost('type'),
+        ];
 
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title'      => 'required|min_length[3]|max_length[128]',
@@ -155,26 +185,26 @@ class AdsController extends BaseController
             'cp'         => 'required|min_length[5]|max_length[5]',
         ])) {
             $adsModel->save([
-                'A_titre'            => $this->request->getPost('title'),
-                'A_cout_loyer'       => $this->request->getPost('loyer'),
-                'A_cout_charges'     => $this->request->getPost('charges'),
-                'A_type_chauffage'   => $this->request->getPost('chauffage'),
-                'A_superficie'       => $this->request->getPost('superficie'),
-                'A_description'      => $this->request->getPost('description'),
-                'A_adresse'          => $this->request->getPost('adresse'),
-                'A_ville'            => $this->request->getPost('ville'),
-                'A_CP'               => $this->request->getPost('cp'),
-                'E_idenergie'        => $this->request->getPost('energie'),
-                'T_type'             => $this->request->getPost('type'),
-                'U_mail'             => $idUser,
+                'A_titre'            => 'title',
+                'A_cout_loyer'       => 'loyer',
+                'A_cout_charges'     => 'charges',
+                'A_type_chauffage'   => 'chauffage',
+                'A_superficie'       => 'superficie',
+                'A_description'      => 'description',
+                'A_adresse'          => 'adresse',
+                'A_ville'            => 'ville',
+                'A_CP'               => 'cp',
+                'E_idenergie'        => 'energie',
+                'T_type'             => 'type',
+                'U_mail'             => $data['iduser'],
             ]);
 
             //  redirige vers
-            $this->privateView($idUser);
+            $this->privateView($data['iduser']);
         } else {
-            echo view('templates/header', ['title' => 'création d\'une annonce']);
-            echo view('ads/createAds');
-            echo view('templates/footer');
+            echo view('templates/header', ['title' => 'création d\'une annonce'], $data);
+            echo view('ads/createAds', $data);
+            echo view('templates/footer', $data);
         }
     }
 
