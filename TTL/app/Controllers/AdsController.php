@@ -22,15 +22,15 @@ class AdsController extends BaseController
         $usersModel = model(UsersModel::class);
 
         $data = [
-            'ads'  => $adsModel->getAds(null, 6),
+            'ads'  => $adsModel->getAds(null, 0, 0),
             'title' => 'Les dernières annonces publiées',
         ];
 
         foreach ($data['ads'] as $ads_item){
             // récupération des photos rattachées à chaque annonce
-            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
+            $ads_item['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
             // récupération du propriétaire de l'annonce
-            $data = ['owner'  => $usersModel->getAdsOwner($ads_item['U_mail'])];
+            $ads_item['owner'] = $usersModel->getAdsOwner($ads_item['U_mail']);
         }
 
         // On récupère la session actuelle
@@ -59,7 +59,7 @@ class AdsController extends BaseController
         $usersModel = model(UsersModel::class);
 
         $data = [
-            'ads'  => $adsModel->getAds(null),
+            'ads'  => $adsModel->getAds(null,0,0, "Publiée"),
             'title' => 'Toutes les annonces publiées',
         ];
 
@@ -67,7 +67,7 @@ class AdsController extends BaseController
             // récupération des photos rattachées à chaque annonce
             $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
             // récupération du propriétaire de l'annonce
-            $data = ['owner'  => $usersModel->getAdsOwner($ads_item['U_mail'])];
+            $data['owner'] = $usersModel->getAdsOwner($ads_item['U_mail']);
         }
 
         // On récupère la session actuelle
@@ -107,7 +107,7 @@ class AdsController extends BaseController
         $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
 
         // récupération du propriétaire de l'annonce
-        $data = ['owner'  => $usersModel->getAdsOwner($data['ads']['U_mail'])];
+        $data['owner']  = $usersModel->getAdsOwner($data['ads']['U_mail']);
 
         // On récupère la session actuelle
         $session = session();

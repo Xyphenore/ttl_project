@@ -143,7 +143,7 @@ class UsersController extends BaseController
         $data['title'] = $data['user']['U_pseudo'];
 
         // Les annonces de cet utilisateur (état publié ou non)
-        $data['ads'] = $adsModel->getUserAds($data['user']['U_mail']);
+        $data['ads'] = $adsModel->getUserAds($data['user']['U_mail'],0,0,"Publiée");
 
         echo view('templates/header', $data);
         echo view('users/userProfil', $data);
@@ -337,7 +337,7 @@ class UsersController extends BaseController
 
         $data = [
             'prenom' => $user['U_prenom'],
-            'annonces' => site_url('ads/userAds'),
+            'annonces' => site_url('ads/privateAds'),
             'discussion' => site_url('users/messages'),
             'parametre' => site_url('users/setting_user'),
             'supprimer' => site_url('users/delete_account'),
