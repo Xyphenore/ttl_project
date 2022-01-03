@@ -1,7 +1,7 @@
 <!-- Formulaire de création d'une nouvelle annonce
 Seul un utilisateur connecté peut y acceder -->
 
-<h2><?= esc($title) ?></h2>
+<h2><?= esc($tete) ?></h2>
 <?= service('validation')->listErrors() ?>
 <form action="/ads/create" method="post">
     <?= csrf_field() ?>
@@ -15,7 +15,7 @@ Seul un utilisateur connecté peut y acceder -->
         <input type="number" name="loyer" min="0" value="<?= esc($ads['loyer']) ?>" /><br />
 
         <label for="charges">Charges : </label>
-        <input type="number" name="charges" min="0" value="<?= esc($ads['charge']) ?>" /><br />
+        <input type="number" name="charges" min="0" value="<?= esc($ads['charges']) ?>" /><br />
 
         <p>Chauffage :</p>
 

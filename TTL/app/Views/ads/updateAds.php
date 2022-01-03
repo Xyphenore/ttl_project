@@ -2,7 +2,7 @@
 Seul un utilisateur connecté peut y acceder 
 seul le proriétaire d'une annonce peut la modifier-->
 
-<h2><?= esc($title) ?></h2>
+<h2><?= esc($tete) ?></h2>
 TODO : Les boutons d'action de modification ne doivent apparaitre que pour le propriétaire de l'annonce<br/>
 Le bouton pour contacter le propriétaire ne doit pas apparaitre pour le propriétaire de l'annonce
 <hr/>

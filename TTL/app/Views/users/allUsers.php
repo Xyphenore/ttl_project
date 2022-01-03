@@ -1,4 +1,4 @@
-<h2><?= esc($title) ?></h2>
+<h2><?= esc($tete) ?></h2>
 <div>
     <?php if (!empty($user) && is_array($user)) : ?>
 

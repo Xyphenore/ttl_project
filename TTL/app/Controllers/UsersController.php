@@ -61,12 +61,12 @@ class UsersController extends BaseController
 
         // L'utilisateur n'est pas connecté
         if ($this->request->getMethod() === 'post' && $this->validate(
-                [
-                    'email' => 'required|valid_email',
-                    'pass' => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
-                ],
-                ['pass' => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
-            )) {
+            [
+                'email' => 'required|valid_email',
+                'pass' => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+            ],
+            ['pass' => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
+        )) {
             $usersModel = model(UsersModel::class);
 
             // Récupération des informations de l'utilisateur de la base de donnée
@@ -89,13 +89,16 @@ class UsersController extends BaseController
             return redirect()->to('users/dashboard');
         }
 
-        echo($this->request->getMethod());
+        echo ($this->request->getMethod());
 
         // Affichage de la page
         $data = [
             'title' => 'Connexion',
             'signin' => site_url('forms/register'),
         ];
+
+        $data['tete'] = 'Formulaire de connexion';
+
 
         echo view('templates/header', ['title' => 'Formulaire de connexion']);
         echo view('forms/loggin', ['data' => $data]);
@@ -110,24 +113,26 @@ class UsersController extends BaseController
     {
         $usersModel = model(UsersModel::class);
         $adsModel = model(AdsModel::class);
-        
+
 
         $tmp = [
             'user'  => $usersModel->getUser(),
             'title' => 'Utilisateurs inscrits',
         ];
 
+        $tmp2 = [];
         // Récupération du nombre d'annonces publiées par l'utilisateur
         foreach ($tmp['user'] as $k => $v) {
-           
-                $count['count'] = $adsModel->getNumberads($v['U_mail']);
-                $tmp2[] = array_merge($v, $count);
-            }
-        
-        $data = [
-            'user'   => $tmp2,
-            'title' => $tmp['title'],
-        ];
+
+            $count['count'] = $adsModel->getNumberads($v['U_mail']);
+            $tmp2[] = array_merge($v, $count);
+        }
+
+
+
+        $data['user'] = $tmp2;
+        $data['title'] = 'Utilisateurs';
+        $data['tete'] = 'Utilisateurs inscrits';
 
         echo view('templates/header', $data);
         echo view('users/allUsers', $data);
@@ -146,28 +151,26 @@ class UsersController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the user item: ' . $pseudo);
         }
 
-        $tmp['title'] = $tmp['user']['U_pseudo'];
+
 
         // Les annonces de cet utilisateur (état public)
-        $tmp['ads'] = $adsModel->getUserAds($tmp['user']['U_mail'],0,0,"public");
-        
-        
-        // Bidouillage pour fusionner en une seule ligne les 2 requetes
-        // Les jointures sous codeigniter c'est douloureux !
+        $tmp['ads'] = $adsModel->getUserAds($tmp['user']['U_mail'], 0, 0, "public");
+
+
+        // TODO faire plutôt des jointures en BDD
         foreach ($tmp['ads'] as $k => $v) {
             if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
                 $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
                 $tmp2[] = array_merge($v, $photo);
-            }
-            else{
+            } else {
                 $tmp2[] = $v;
             }
         }
-        $data = [
-            'user'  => $tmp['user'],
-            'ads'   => $tmp2,
-            'title' => $tmp['title'],
-        ];
+
+        $data['title'] = $tmp['user']['U_pseudo'];
+        $data['tete'] = $tmp['user']['U_pseudo'];
+        $data['user'] = $tmp['user'];
+        $data['ads'] = $tmp2;
 
         echo view('templates/header', $data);
         echo view('users/userProfil', $data);
@@ -181,13 +184,13 @@ class UsersController extends BaseController
         $usersModel = model(UsersModel::class);
 
         if ($this->request->getMethod() === 'post' && $this->validate([
-                'email' => 'required|valid_email|is_unique[T_utilisateur.U_mail]',
-                'pass' => 'required',
-                'confirm' => 'required|matches[pass]',
-                'pseudo' => 'required|is_unique[T_utilisateur.U_pseudo]',
-                'nom' => 'required',
-                'prenom' => 'required',
-            ])) {
+            'email' => 'required|valid_email|is_unique[T_utilisateur.U_mail]',
+            'pass' => 'required',
+            'confirm' => 'required|matches[pass]',
+            'pseudo' => 'required|is_unique[T_utilisateur.U_pseudo]',
+            'nom' => 'required',
+            'prenom' => 'required',
+        ])) {
             $usersModel->save([
                 'U_mail' => $this->request->getPost('email'),
                 'U_mdp' => password_hash($this->request->getPost('pass'), PASSWORD_BCRYPT),
@@ -200,9 +203,9 @@ class UsersController extends BaseController
             // $userSession->set_flashdata('success', 'Inscription validée');
 
             // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
-//            echo view('templates/header', ['title' => 'Formulaire de connexion']);
-//            echo view('forms/loggin');
-//            echo view('templates/footer');
+            //            echo view('templates/header', ['title' => 'Formulaire de connexion']);
+            //            echo view('forms/loggin');
+            //            echo view('templates/footer');
             //return redirect()->route('named_route');
 
             return redirect()->to('forms/loggin');
@@ -234,7 +237,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( !isset($session->isLoogedIn) ) {
+        if (!isset($session->isLoogedIn)) {
             return redirect()->to('index');
         }
 
@@ -339,14 +342,15 @@ class UsersController extends BaseController
         }
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         // Chargement des assistances pour le formulaire et les redirections
         helper(['form', 'url']);
 
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( !isset($session->isLoogedIn) ) {
+        if (!isset($session->isLoogedIn)) {
             return redirect()->to('index');
         }
 
@@ -359,17 +363,82 @@ class UsersController extends BaseController
         $user = $usersModel->where('U_mail', $email)->first();
         var_dump($user);
 
-        $data = [
-            'prenom' => $user['U_prenom'],
-            'annonces' => site_url('ads/privateAds'),
-            'discussion' => site_url('users/messages'),
-            'parametre' => site_url('users/setting_user'),
-            'supprimer' => site_url('users/delete_account'),
-        ];
+        // $data = [
+        //     'user' => $session->umail,
+        //     'pseudo' => $session->upseudo,
+        //     'prenom' => $user['U_prenom'],
+        //     'annonces' => site_url('ads/privateAds'),
+        //     'discussion' => site_url('users/messages'),
+        //     'parametre' => site_url('users/setting_user'),
+        //     'supprimer' => site_url('users/delete_account'),
+        // ];
+        $data['tete'] = 'Votre tableau de bord';
+        $data['title'] = 'Tableau de bord';
+        $data['user'] = $session->umail;
+        $data['pseudo'] = $session->upseudo;
+        $data['prenom'] = $user['U_prenom'];
 
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
-        echo view('templates/header', ['title' => 'Tableau de bord']);
-        echo view('users/dashboard', ['data' => $data]);
-        echo view('templates/footer');
+        echo view('templates/header', $data);
+        echo view('users/dashboard', $data);
+        echo view('templates/footer', $data);
+    }
+
+    public function actionDashboard()
+    {
+        $userModel = model(UsersModel::class);
+
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
+        } else {
+            return redirect()->to('forms/loggin');
+        }
+
+        // // Récupération de l'id depuis le formulaire
+        // $idUser = $this->request->getPost('id');
+        $data['user'] = $userModel->getUser($session->upseudo);
+        $action = $this->request->getPost('act');
+
+        // Mise à jour de l'état de l'annonce en BDD
+        if ($this->request->getMethod() === 'post') {
+
+            switch ($action) {
+                case 'Annonces';
+                    $data['tete'] = 'Vos annonces';
+                    $data['title'] = 'Vos annonces';
+                    echo view('templates/header', $data);
+                    echo view('ads/privateAds', $data);
+                    break;
+                case 'Messages';
+                    $data['tete'] = 'Vos messages';
+                    $data['title'] = 'Vos messages';
+                    echo view('templates/header', $data);
+                    echo view('messages/userMessages', $data);
+                    break;
+                case 'Paramètre';
+                    $data['tete'] = 'Votre profil';
+                    $data['title'] = 'Votre profil';
+                    echo view('templates/header', $data);
+                    echo view('users/setting_user', $data);
+                    break;
+                case 'Supprimer';
+                    $data['tete'] = 'Votre tableau de bord';
+                    $data['title'] = 'Tableau de bord';
+                    $userModel->delete($data['iduser']);
+                    $this->dashboard();
+                    break;
+                default:
+                    $this->dashboard();
+                    break;
+            }
+        }
+        // // Actualisation de la page
+        // $this->dashboard();
     }
 }

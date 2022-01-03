@@ -28,6 +28,17 @@ class UsersModel extends Model
         return $this->where(['U_pseudo' => $pseudo])->first();
     }
 
+        /**
+     * récupère les informations d'un ou plusieurs utilisateur dans la base de données
+     *
+     * @param  $pseudo
+     * @return string
+     */
+    public function getPseudo($userId)
+    {
+        return $this->where(['U_mail' => $userId])->findColumn('U_pseudo');
+    }
+
     /**
      * récupère les informations du propriétaire d'une annonce
      *

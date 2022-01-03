@@ -1,7 +1,7 @@
 <!-- Affichage de toutes les annonces publiées sur le site
 Doit etre visible par tout utilisateurs connectés ou non -->
 <!-- TODO retirer les border des div et mettre en forme dans le css -->
-<h2><?= esc($title) ?></h2>
+<h2><?= esc($tete) ?></h2>
 
 <!-- Div principal -->
 <div style="border: thin solid black">

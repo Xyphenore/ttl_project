@@ -2,9 +2,12 @@
 helper('html');
 
 echo doctype();
-
+if (!empty($data['title'])) {
+    $title = $title;
+ } 
+ 
 // Entête HTML
-echo '<html lang="fr"><head><title>' . esc($title) . '</title>';
+echo '<html lang="fr"><head><title>'. $title. '</title>';
 
 // Chargement de la feuille de style BootStrap
 echo '<link rel="stylesheet" type="text/css"
@@ -24,7 +27,7 @@ echo '<body class="d-flex flex-column min-vh-100">';
 echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container-xl">';
 
-echo '<a class="navbar-brand" href="' .esc(base_url()) .'">TrouveTonLogement</a>';
+echo '<a class="navbar-brand" href="' . esc(base_url()) . '">TrouveTonLogement</a>';
 
 echo '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerNavBar"
                 aria-controls="headerNavBar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,12 +47,11 @@ echo '<ul class="navbar-nav mb-2 mb-lg-0 d-flex">';
 
 // La partie suivante dépend si on est connecté ou non
 // TODO : Déplacer la récupération de la session dans le controller de la page
-if ( empty(session()->isLoogedIn) ) {
+if (empty(session()->isLoogedIn)) {
     echo '<li class="nav-item">
             <a class="nav-link" href="' . esc(base_url('forms/loggin')) . '">Se connecter</a>
         </li>';
-}
-else {
+} else {
     echo '<li class="nav-item">
             <a class="nav-link" href="' . esc(base_url('users/dashboard')) . '">Mon compte</a>
         </li>
@@ -66,3 +68,6 @@ else {
 echo '</ul>';
 
 echo '</div> </div> </nav> <section class="bg-white">';
+
+
+
