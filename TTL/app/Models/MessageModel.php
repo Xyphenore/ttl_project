@@ -10,48 +10,51 @@ class MessageModel extends Model
     protected $primaryKey = 'P_idphoto';
     protected $useAutoIncrement = true;
 
-    protected $allowedFields = ['P_titre', 'P_data', 'P_vitrine', 'A_idannonce'];
+    protected $allowedFields = ['M_dateheure_message', 'M_texte_message', 'U_mail', 'A_idannonce'];
 
     /**
-     * récupère les informations d'une ou plusieurs photo dans la base de données
+     * Récup_re un message en Base de donnée
      *
-     * @param boolean $idPhoto
-     * @param integer $lim le nombre max de photo à récupérer, 0 = pas de limite
-     * @return response le résultat de la requete
+     * @param [type] $idUser
+     * @param [type] $idAnnonce
+     * @return response
      */
-    public function getPhoto($idPhoto = false, $lim = 0)
+    public function getMessage($idUser = null, $idAnnonce = null)
     {
-        if ($idPhoto === false) {
-            // Toutes les photo à hauteur de la limite indiquée
-            return $this
-                ->findAll($lim);
+        if ($idUser === null) {
+            if ($idAnnonce === null) {
+                return $this->findAll();
+            }
+            else{
+                return $this
+            ->where(['A_idannonce' => $idAnnonce])
+            ->orderBy('M_dateheure_message', 'DESC')
+            ->findAll();
+            }
         }
 
-        // Une photo en particuler d'après son id
         return $this
-            ->where(['P_idphoto' => $idPhoto])
-            ->first();
+            ->where(['U_mail' => $idUser, 'A_idannonce' => $idAnnonce])
+            ->orderBy('M_dateheure_message', 'DESC')
+            ->findAll();
     }
 
     /**
-     * récupère les photos d'une annonce
+     * Calcul le nombre de messages pour une annonce
      *
      * @param [type] $idAnnonce
-     * @param boolean $vitrine Si c'est la photo de couverture ou non
-     * @return response le résultat de la requete
+     * @return void
      */
-    public function getAdsPhoto($idAnnonce, $vitrine = false, $lim = 4, $offset = 0)
+    public function getNumberMessage($idAnnonce = null)
     {
-        if ($vitrine === false) {
-            // Toutes les photos d'une annonce (max 5)
-            return $this
-                ->where(['A_idannonce' => $idAnnonce])
-                ->findAll($lim,$offset);
+        // Retourne le nombre total de message
+        if (($idAnnonce === null)) {
+            return $this->countAllResults();
         }
 
-        // La photo principale
+        // le nombre de message pour une annonce en particulier
         return $this
-            ->where(['A_idannonce' => $idAnnonce, 'P_vitrine' => 1])
-            ->first();
+            ->where(['A_idannonce' => $idAnnonce])
+            ->countAllResults();
     }
 }

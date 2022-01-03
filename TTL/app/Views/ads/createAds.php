@@ -8,8 +8,8 @@ Seul un utilisateur connecté peut y acceder -->
 
     <?php if (!empty($ads) && is_array($ads)) : ?>
 
-        <label for="title">Titre :</label>
-        <input type="text" name="title" minlength="3" maxlength="128" value="<?= esc($ads['title']) ?>" /><br />
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" minlength="3" maxlength="128" value="<?= esc($ads['titre']) ?>" /><br />
 
         <label for="loyer">Loyer :</label>
         <input type="number" name="loyer" min="0" value="<?= esc($ads['loyer']) ?>" /><br />
@@ -95,8 +95,8 @@ Seul un utilisateur connecté peut y acceder -->
 
     <?php else : ?>
 
-        <label for="title">Titre :</label>
-        <input type="text" name="title" minlength="3" maxlength="128" /><br />
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" minlength="3" maxlength="128" /><br />
 
         <label for="loyer">Loyer :</label>
         <input type="number" name="loyer" min="0" /><br />

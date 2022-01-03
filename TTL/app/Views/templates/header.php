@@ -2,12 +2,12 @@
 helper('html');
 
 echo doctype();
-if (!empty($data['title'])) {
-    $title = $title;
- } 
- 
+if (empty($title)) {
+    $title = "sans titre";
+}
+
 // Entête HTML
-echo '<html lang="fr"><head><title>'. $title. '</title>';
+echo '<html lang="fr"><head><title>' . esc($title) . '</title>';
 
 // Chargement de la feuille de style BootStrap
 echo '<link rel="stylesheet" type="text/css"
@@ -68,6 +68,5 @@ if (empty(session()->isLoogedIn)) {
 echo '</ul>';
 
 echo '</div> </div> </nav> <section class="bg-white">';
-
 
 

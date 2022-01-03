@@ -43,13 +43,13 @@ Photo : <br />
     <br />
 
     <br />
-    <form action="/ads/action" method="post">
+    <form action="contact" method="post">
         <?= csrf_field() ?>
-        <input type="hidden" name="id" value=<?= esc($ads['A_idannonce']) ?> /><br />
+        <input type="hidden" name="idAnnonce" value=<?= esc($ads['A_idannonce']) ?> /><br />
+        <input type="hidden" name="idUser" value=<?= esc($idUser) ?> /><br />
 
-        <input type="submit" name="act" value="Archiver" />
-        <input type="submit" name="act" value="Publier" />
-        <input type="submit" name="act" value="Brouillon" />
-        <input type="submit" name="act" value="Modifier" />
-        <input type="submit" name="act" value="Supprimer" />
+        <label for="contact">Contacter l'annonceur :</label>
+        <textarea name="message" cols="45" rows="4">Bonjour de me donner plus d'information sur le bien proposé</textarea><br />
+
+        <input type="submit" name="act" value="Contacter" />
     </form>

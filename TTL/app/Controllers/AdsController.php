@@ -24,7 +24,7 @@ class AdsController extends BaseController
             'ads'   => $adsModel->getAds(null, 6, 0, 'Public'),
             'tete' => 'Les dernières annonces publiées',
         ];
-
+        $tmp2 = [];
         // Bidouillage pour fusionner en une seule ligne les 3 requetes
         // Les jointures sous codeigniter c'est douloureux !
         foreach ($tmp['ads'] as $k => $v) {
@@ -55,6 +55,7 @@ class AdsController extends BaseController
         }
 
         echo view('templates/header', $data);
+        echo view('templates/debugsession', $data);
         echo view('ads/index', $data);
         echo view('templates/footer', $data);
     }
@@ -101,6 +102,7 @@ class AdsController extends BaseController
         }
 
         echo view('templates/header', $data);
+        echo view('templates/debugsession', $data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
@@ -139,16 +141,18 @@ class AdsController extends BaseController
 
 
         echo view('templates/header',  $data);
+        echo view('templates/debugsession', $data);
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
     }
 
 
-    public function privateView($idUser)
+    public function privateView()
     {
         $adsModel = model(AdsModel::class);
         $photoModel = model(PhotoModel::class);
-        $userModel = model(UsersModel::class);
+        $messageModel = model(MessageModel::class);
+
 
         // On récupère la session actuelle
         $session = session();
@@ -160,43 +164,33 @@ class AdsController extends BaseController
             $data['pseudo'] = $session->upseudo;
         }
 
-            // Si l'utilisateur connecté est le propriétaire
-            if ($session->umail === $idUser) {
-                // Toutes les annonces quel que soit leur état
-                $tmp = ['ads'  => $adsModel->getUserAds($idUser)];
+        // Toutes les annonces quel que soit leur état
+        $tmp = ['ads'  => $adsModel->getUserAds($session->umail)];
 
-            }else {
-                return redirect()->to('forms/loggin');
+        $tmp2 = [];
+        $count=[];
+        // fusion des requetes
+        // TODO faire cette manip en requete dans la base de données
+        foreach ($tmp['ads'] as $k => $v) {
+
+            $count['count'] = $messageModel->getNumberMessage($v['A_idannonce']);
+            if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
+                $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
+                $tmp2[] = array_merge($v, $photo, $count);
+            } else {
+                $tmp2[] = array_merge($v, $count);
             }
-
-            $tmp2 = [];
-            // fusion des requetes
-            // TODO faire cette manip en requete dans la base de données
-            foreach ($tmp['ads'] as $k => $v) {
-                if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
-                    $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
-                    $tmp2[] = array_merge($v, $photo);
-                } else {
-                    $tmp2[] = $v;
-                }
-            }
-
-            $data['ads'] =  $tmp2;
-                
-            // Si l'utilisateur connecté est le propriétaire
-        if ($session->umail === $idUser) {
-            $data['tete']='Toutes vos annonces';
-            $data['title'] = $userModel->getPseudo($idUser);
-
-            echo view('templates/header', $data);
-            echo view('ads/privateAds', $data);
-            echo view('templates/footer', $data);
-        } else {
-            return redirect()->to('forms/loggin');
         }
+
+        $data['ads'] =  $tmp2;
+        $data['tete'] = 'Vos annonces';
+        $data['title'] = $session->upseudo;
+
+        echo view('templates/header', $data);
+        echo view('templates/debugsession', $data);
+        echo view('ads/privateAds', $data);
+        echo view('templates/footer', $data);
     }
-
-
 
     /**
      * Création d'une annonce
@@ -206,8 +200,8 @@ class AdsController extends BaseController
     public function createAds()
     {
         $adsModel = model(AdsModel::class);
-        $data['tete']= 'création d\'une annonce';
-        $data['title']= 'Nouvelle annonce';
+        $data['tete'] = 'création d\'une annonce';
+        $data['title'] = 'Nouvelle annonce';
 
         // On récupère la session actuelle
         $session = session();
@@ -223,7 +217,7 @@ class AdsController extends BaseController
 
         // Sauvegarde des champs saisis
         $data['ads'] = [
-            'title'         => $this->request->getPost('title'),
+            'titre'         => $this->request->getPost('titre'),
             'loyer'         => $this->request->getPost('loyer'),
             'charges'        => $this->request->getPost('charges'),
             'chauffage'     => $this->request->getPost('chauffage'),
@@ -235,10 +229,10 @@ class AdsController extends BaseController
             'energie'       => $this->request->getPost('energie'),
             'type'          => $this->request->getPost('type'),
         ];
-        
+
 
         if ($this->request->getMethod() === 'post' && $this->validate([
-            'title'      => 'required|min_length[3]|max_length[128]',
+            'titre'      => 'required|min_length[3]|max_length[128]',
             'loyer'      => 'required',
             'chauffage'  => 'required',
             'superficie' => 'required',
@@ -247,9 +241,9 @@ class AdsController extends BaseController
             'ville'      => 'required|max_length[128]',
             'cp'         => 'required|min_length[5]|max_length[5]',
         ])) {
-            
+
             $adsModel->save([
-                'A_titre'            => $data['ads']['title'],
+                'A_titre'            => $data['ads']['titre'],
                 'A_cout_loyer'       => $data['ads']['loyer'],
                 'A_cout_charges'     => $data['ads']['charges'],
                 'A_type_chauffage'   => $data['ads']['chauffage'],
@@ -267,6 +261,7 @@ class AdsController extends BaseController
             $this->privateView($data['iduser']);
         } else {
             echo view('templates/header', $data);
+            echo view('templates/debugsession', $data);
             echo view('ads/createAds', $data);
             echo view('templates/footer', $data);
         }
@@ -306,6 +301,9 @@ class AdsController extends BaseController
                 case 'Publier';
                     $adsModel->update($idAnnonce, ['A_etat' => "Public"]);
                     break;
+                    case 'Voir';
+                    $this->detailView($idAnnonce);
+                    break;
                 case 'Supprimer';
                     $adsModel->delete($idAnnonce);
                     $this->index();
@@ -320,6 +318,7 @@ class AdsController extends BaseController
                     $data['tete'] = 'Modification de l\'annonce';
                     $data['title'] = 'Edition annnonce';
                     echo view('templates/header', $data);
+                    echo view('templates/debugsession', $data);
                     echo view('ads/updateAds', $data);
                     break;
                 default:
@@ -393,8 +392,10 @@ class AdsController extends BaseController
             $this->detailView($idAnnonce);
         } else {
             echo view('templates/header',  $data);
+            echo view('templates/debugsession', $data);
             echo view('ads/updateAds', $data);
             echo view('templates/footer', $data);
         }
     }
+
 }

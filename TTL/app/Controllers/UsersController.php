@@ -129,12 +129,12 @@ class UsersController extends BaseController
         }
 
 
-
         $data['user'] = $tmp2;
         $data['title'] = 'Utilisateurs';
         $data['tete'] = 'Utilisateurs inscrits';
 
         echo view('templates/header', $data);
+        echo view('templates/debugsession', $data);
         echo view('users/allUsers', $data);
         echo view('templates/footer', $data);
     }
@@ -157,6 +157,7 @@ class UsersController extends BaseController
         $tmp['ads'] = $adsModel->getUserAds($tmp['user']['U_mail'], 0, 0, "public");
 
 
+        $tmp2 = [];
         // TODO faire plutôt des jointures en BDD
         foreach ($tmp['ads'] as $k => $v) {
             if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
@@ -173,6 +174,7 @@ class UsersController extends BaseController
         $data['ads'] = $tmp2;
 
         echo view('templates/header', $data);
+        echo view('templates/debugsession', $data);
         echo view('users/userProfil', $data);
         echo view('templates/footer', $data);
     }
@@ -182,6 +184,7 @@ class UsersController extends BaseController
         helper(['form', 'url']);
 
         $usersModel = model(UsersModel::class);
+        $data['title'] = 'Formulaire d\'inscription';
 
         if ($this->request->getMethod() === 'post' && $this->validate([
             'email' => 'required|valid_email|is_unique[T_utilisateur.U_mail]',
@@ -218,7 +221,8 @@ class UsersController extends BaseController
             // echo view('templates/footer');
         } else {
 
-            echo view('templates/header', ['title' => 'Formulaire d\'inscription']);
+            echo view('templates/header', $data);
+            echo view('templates/debugsession', $data);
             echo view('forms/register');
             echo view('templates/footer');
         }
@@ -380,65 +384,49 @@ class UsersController extends BaseController
 
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
         echo view('templates/header', $data);
+        echo view('templates/debugsession', $data);
         echo view('users/dashboard', $data);
         echo view('templates/footer', $data);
     }
 
+    /**
+     * Switch la valeur du bouton cliqué et redirige l'utilisateur de manière adequate
+     *
+     * @return void
+     */
     public function actionDashboard()
     {
-        $userModel = model(UsersModel::class);
-
         // On récupère la session actuelle
         $session = session();
 
-        // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
-            // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $session->umail;
-            $data['pseudo'] = $session->upseudo;
-        } else {
+        // Si l'utilisateur n'est pas connecté
+        if (empty($session->isLoogedIn))
             return redirect()->to('forms/loggin');
-        }
-
-        // // Récupération de l'id depuis le formulaire
-        // $idUser = $this->request->getPost('id');
-        $data['user'] = $userModel->getUser($session->upseudo);
+        
+        // Récupération de la valeur du bouton qui a été cliqué
         $action = $this->request->getPost('act');
 
-        // Mise à jour de l'état de l'annonce en BDD
         if ($this->request->getMethod() === 'post') {
-
             switch ($action) {
                 case 'Annonces';
-                    $data['tete'] = 'Vos annonces';
-                    $data['title'] = 'Vos annonces';
-                    echo view('templates/header', $data);
-                    echo view('ads/privateAds', $data);
-                    break;
+                    return redirect()->to('privateAds');
+
                 case 'Messages';
-                    $data['tete'] = 'Vos messages';
-                    $data['title'] = 'Vos messages';
-                    echo view('templates/header', $data);
-                    echo view('messages/userMessages', $data);
-                    break;
+                    return redirect()->to('allMessages');
+
                 case 'Paramètre';
-                    $data['tete'] = 'Votre profil';
-                    $data['title'] = 'Votre profil';
-                    echo view('templates/header', $data);
-                    echo view('users/setting_user', $data);
-                    break;
+                    return redirect()->to('setting_user');
+
                 case 'Supprimer';
-                    $data['tete'] = 'Votre tableau de bord';
-                    $data['title'] = 'Tableau de bord';
-                    $userModel->delete($data['iduser']);
-                    $this->dashboard();
-                    break;
+                    $userModel = model(UsersModel::class);
+                    $session->destroy();
+                    $userModel->delete($session->umail);
+                    return redirect()->to('allAds');
+
                 default:
                     $this->dashboard();
                     break;
             }
         }
-        // // Actualisation de la page
-        // $this->dashboard();
     }
 }

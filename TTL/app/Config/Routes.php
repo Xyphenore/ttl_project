@@ -42,10 +42,13 @@ $routes->match(['get', 'post'], 'forms/register', 'UsersController::register');
 $routes->match(['get', 'post'], 'forms/loggin', 'UsersController::loggin');
 $routes->match(['get', 'post'], 'forms/logout', 'UsersController::logout');
 
+// lorsqu'un bouton est cliqué sur le dashboard
 $routes->match(['get', 'post'], 'dashboard/action', 'UsersController::actionDashboard');
 
-$routes->match(['get', 'post'], 'users/setting_user', 'UsersController::setting_user');
+$routes->match(['get', 'post'], 'setting_user', 'UsersController::setting_user');
 $routes->match(['get', 'post'], 'users/dashboard', 'UsersController::dashboard');
+
+$routes->get('dashboard', 'UsersController::dashboard');
 $routes->get('users/(:segment)', 'UsersController::view/$1');
 $routes->get('users', 'UsersController::index');
 
@@ -56,9 +59,20 @@ $routes->match(['get', 'post'], 'ads/create', 'AdsController::createAds');
 $routes->match(['get', 'post'], 'ads/action', 'AdsController::actionAds');
 $routes->match(['get', 'post'], 'ads/update', 'AdsController::updateAds');
 
+// route pour contacter un propriétaire
+$routes->match(['get', 'post'], 'contact', 'MessageController::contact');
+$routes->get('allMessages', 'MessageController::viewAdsMessages');
+
+
 $routes->get('ads/userAds', 'AdsController::privateView/$1');
-$routes->get('ads/allAds', 'AdsController::globalView');
-$routes->get('ads/privateAds', 'AdsController::privateView/$1');
+$routes->get('allAds', 'AdsController::globalView');
+
+$routes->get('userAds', 'AdsController::privateView/$1');
+$routes->get('allAds', 'AdsController::globalView');
+$routes->get('privateAds', 'AdsController::privateView');
+$routes->get('detail', 'AdsController::detailView/$1');
+
+
 $routes->get('ads/(:segment)', 'AdsController::detailView/$1');
 $routes->get('ads', 'AdsController::index');
 
