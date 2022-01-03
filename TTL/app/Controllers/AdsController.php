@@ -9,7 +9,6 @@ use App\Models\UsersModel;
 class AdsController extends BaseController
 {
 
-
     /**
      * vue par défaut de la page d'accueil
      *
@@ -26,17 +25,17 @@ class AdsController extends BaseController
             'title' => 'Les dernières annonces publiées',
         ];
 
-        
-        foreach ($tmp['ads'] as $k => $v){   
+        // Bidouillage pour fusionner en une seule ligne les 3 requetes
+        // Les jointures sous codeigniter c'est douloureux !
+        foreach ($tmp['ads'] as $k => $v) {
             // récupération des Propiétaire et photo rattachées à chaque annonce
-            $owner = $usersModel->getAdsOwner($v['U_mail'],true);
-            
-            if(!empty($photoModel->getAdsPhoto($v['A_idannonce'],true))){
-                $photo = $photoModel->getAdsPhoto($v['A_idannonce'],true);
-                $tmp2[]= array_merge($v,$owner,$photo);
-            }
-            else{
-                $tmp2[]= array_merge($v,$owner);
+            $owner = $usersModel->getAdsOwner($v['U_mail'], true);
+
+            if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
+                $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
+                $tmp2[] = array_merge($v, $owner, $photo);
+            } else {
+                $tmp2[] = array_merge($v, $owner);
             }
         }
         $data = [
@@ -54,10 +53,8 @@ class AdsController extends BaseController
             $data['pseudo'] = $session->upseudo;
         }
 
-        
-
         echo view('templates/header', ['title' => 'Accueil']);
-        echo view('templates/debugsession',$data);
+        echo view('templates/debugsession', $data);
         echo view('ads/index', $data);
         echo view('templates/footer', $data);
     }
@@ -69,17 +66,28 @@ class AdsController extends BaseController
 
         $usersModel = model(UsersModel::class);
 
-        $data = [
-            'ads'  => $adsModel->getAds(null,0,0,'Public'),
-            'title' => 'Toutes les annonces publiées',
+        $tmp = [
+            'ads'   => $adsModel->getAds(null, 0, 0, 'Public'),
+            'title' => 'Les dernières annonces publiées',
         ];
 
-        foreach ($data['ads'] as $ads_item){
-            // récupération des photos rattachées à chaque annonce
-            $data['photo'] = $photoModel->getAdsPhoto($ads_item['A_idannonce'], true);
-            // récupération du propriétaire de l'annonce
-            $data['owner'] = $usersModel->getAdsOwner($ads_item['U_mail']);
+        // Bidouillage pour fusionner en une seule ligne les 3 requetes
+        // Les jointures sous codeigniter c'est douloureux !
+        foreach ($tmp['ads'] as $k => $v) {
+            // récupération des Propiétaire et photo rattachées à chaque annonce
+            $owner = $usersModel->getAdsOwner($v['U_mail'], true);
+
+            if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
+                $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
+                $tmp2[] = array_merge($v, $owner, $photo);
+            } else {
+                $tmp2[] = array_merge($v, $owner);
+            }
         }
+        $data = [
+            'ads'   => $tmp2,
+            'title' => 'Toutes les annonce actuellement publiées',
+        ];
 
         // On récupère la session actuelle
         $session = session();
@@ -91,9 +99,8 @@ class AdsController extends BaseController
             $data['pseudo'] = $session->upseudo;
         }
 
-
         echo view('templates/header', ['title' => 'Annonces en ligne']);
-        echo view('templates/debugsession',$data);
+        echo view('templates/debugsession', $data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
@@ -112,13 +119,18 @@ class AdsController extends BaseController
         }
 
         $data['title'] = $data['ads']['A_titre'];
-
-
-        // récupération des photos rattachées à l'annonce
-        $data['photo'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce']);
-
+        // récupération de la photo vitrine rattachées à l'annonce
+        $data['vitrine'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce'], true);
+        // récupération des 4 autres photos éventuelles rattachées à l'annonce
+        $data['photos'] = $photoModel->getAdsPhoto($data['ads']['A_idannonce'], false);
         // récupération du propriétaire de l'annonce
         $data['owner']  = $usersModel->getAdsOwner($data['ads']['U_mail']);
+
+        $tmp = [
+            'ads'   => $adsModel->getAds(null, 6, 0, 'Public'),
+            'title' => 'Les dernières annonces publiées',
+        ];
+
 
         // On récupère la session actuelle
         $session = session();
@@ -132,7 +144,7 @@ class AdsController extends BaseController
 
 
         echo view('templates/header', ['title' => 'Détail de l\'annonce']);
-        echo view('templates/debugsession',$data);
+        echo view('templates/debugsession', $data);
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
     }
@@ -161,7 +173,7 @@ class AdsController extends BaseController
 
 
         echo view('templates/header', ['title' => 'Vos annonces']);
-        echo view('templates/debugsession',$data);
+        echo view('templates/debugsession', $data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
@@ -233,7 +245,7 @@ class AdsController extends BaseController
             $this->privateView($data['iduser']);
         } else {
             echo view('templates/header', ['title' => 'création d\'une annonce']);
-            echo view('templates/debugsession',$data);
+            echo view('templates/debugsession', $data);
             echo view('ads/createAds', $data);
             echo view('templates/footer', $data);
         }
@@ -283,7 +295,7 @@ class AdsController extends BaseController
                     break;
                 case 'Modifier';
                     echo view('templates/header', ['title' => 'Mise à jour d\'une annonce'], $data);
-                    echo view('templates/debugsession',$data);
+                    echo view('templates/debugsession', $data);
                     echo view('ads/updateAds', $data);
                     break;
                 default:
@@ -319,7 +331,7 @@ class AdsController extends BaseController
 
         $photoModel = model(PhotoModel::class);
 
-        
+
 
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title'      => 'required|min_length[3]|max_length[128]',
@@ -354,9 +366,9 @@ class AdsController extends BaseController
             $this->detailView($idAnnonce);
         } else {
             echo view('templates/header', ['title' => 'Edition d\'une annonce']);
-            echo view('templates/debugsession',$data);
-            echo view('ads/updateAds',$data);
-            echo view('templates/footer',$data);
+            echo view('templates/debugsession', $data);
+            echo view('ads/updateAds', $data);
+            echo view('templates/footer', $data);
         }
     }
 }

@@ -17,8 +17,8 @@
                 <!-- Div de gauche -->
                 <div>
                     <!-- Photo principale de l'annonce -->
-                    <?php if (!empty($ads_item['photo']) && is_array($ads_item['photo'])) : ?>
-                        <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['photo']['P_data']) . '" alt="' . ($ads_item['photo']['P_titre']) . '"width ="100px" height ="80px"/>' ?><br />
+                    <?php if (!empty($ads_item['P_idphoto'])) : ?>
+                        <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['P_data']) . '" alt="' . ($ads_item['P_titre']) . '"width ="100px" height ="80px"/>' ?><br />
                     <?php else : ?>
                         <?php echo '<img src="' . base_url('no_pic.jpg') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?><br />
                     <?php endif ?>
@@ -44,6 +44,8 @@
                 Editée le : <?= esc($ads_item['A_date_creation']) ?><br/>
 
                 <p>TODO lien pour contacter l'annonceur</p>
+                <!-- TODO virer debug -->
+                <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?><br/></sup>
 
 
             </div><!-- fin div de l'annonce -->

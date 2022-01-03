@@ -109,10 +109,24 @@ class UsersController extends BaseController
     public function index()
     {
         $usersModel = model(UsersModel::class);
+        $adsModel = model(AdsModel::class);
+        
 
-        $data = [
+        $tmp = [
             'user'  => $usersModel->getUser(),
             'title' => 'Utilisateurs inscrits',
+        ];
+
+        // Récupération du nombre d'annonces publiées par l'utilisateur
+        foreach ($tmp['user'] as $k => $v) {
+           
+                $count['count'] = $adsModel->getNumberads($v['U_mail']);
+                $tmp2[] = array_merge($v, $count);
+            }
+        
+        $data = [
+            'user'   => $tmp2,
+            'title' => $tmp['title'],
         ];
 
         echo view('templates/header', $data);
@@ -124,17 +138,36 @@ class UsersController extends BaseController
     {
         $usersModel = model(UsersModel::class);
         $adsModel = model(AdsModel::class);
+        $photoModel = model(PhotoModel::class);
 
-        $data['user'] = $usersModel->getUser($pseudo);
+        $tmp['user'] = $usersModel->getUser($pseudo);
 
-        if (empty($data['user'])) {
+        if (empty($tmp['user'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the user item: ' . $pseudo);
         }
 
-        $data['title'] = $data['user']['U_pseudo'];
+        $tmp['title'] = $tmp['user']['U_pseudo'];
 
-        // Les annonces de cet utilisateur (état publié ou non)
-        $data['ads'] = $adsModel->getUserAds($data['user']['U_mail'],0,0,"Publiée");
+        // Les annonces de cet utilisateur (état public)
+        $tmp['ads'] = $adsModel->getUserAds($tmp['user']['U_mail'],0,0,"public");
+        
+        
+        // Bidouillage pour fusionner en une seule ligne les 2 requetes
+        // Les jointures sous codeigniter c'est douloureux !
+        foreach ($tmp['ads'] as $k => $v) {
+            if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
+                $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
+                $tmp2[] = array_merge($v, $photo);
+            }
+            else{
+                $tmp2[] = $v;
+            }
+        }
+        $data = [
+            'user'  => $tmp['user'],
+            'ads'   => $tmp2,
+            'title' => $tmp['title'],
+        ];
 
         echo view('templates/header', $data);
         echo view('users/userProfil', $data);

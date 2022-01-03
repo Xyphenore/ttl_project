@@ -72,4 +72,25 @@ class AdsModel extends Model
             ->orderBy('A_date_creation', 'DESC')
             ->findAll($lim,$offset);
     }
+
+    /**
+     * Calcule le nombre d'annonce selon ses paramètres
+     *
+     * @param [type] $idUser
+     * @param  $etat
+     * @return integer 
+     */
+    public function getNumberAds($idUser = null,$etat = 'Public')
+    { 
+        if (($idUser === null)) {
+            // le nombre d'annonce total publiée
+            return $this
+                ->where([ 'A_etat' => $etat])
+                ->countAllResults();
+        }
+
+        // Le nombre d'annonce publiée par un utilisateur
+        return $this->where(['U_mail' => $idUser, 'A_etat' => $etat])
+        ->countAllResults();
+    }
 }

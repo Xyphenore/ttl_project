@@ -40,7 +40,7 @@ class PhotoModel extends Model
      * @param boolean $vitrine Si c'est la photo de couverture ou non
      * @return response le résultat de la requete
      */
-    public function getAdsPhoto($idAnnonce, $vitrine = false, $lim = 5, $offset = 0)
+    public function getAdsPhoto($idAnnonce, $vitrine = false, $lim = 4, $offset = 0)
     {
         if ($vitrine === false) {
             // Toutes les photos d'une annonce (max 5)

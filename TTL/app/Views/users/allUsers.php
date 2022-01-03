@@ -3,8 +3,8 @@
     <?php if (!empty($user) && is_array($user)) : ?>
 
         <?php foreach ($user as $user_item) : ?>
-            <p><a title="Voir le profil" href="/users/<?= esc($user_item['U_pseudo'], 'url') ?>"> <?= esc($user_item['U_pseudo']) ?> </a>
-             - X annonces publiées (en cours de développement)</p>
+            <p><a title="Voir le profil" href="/users/<?= esc($user_item['U_pseudo'], 'url') ?>"> <?= esc($user_item['U_pseudo']) ?> </a><br/>
+           <sup> <?= esc($user_item['count']) ?> annonce(s) publiées</sup></p>
 
         <?php endforeach; ?>
 
