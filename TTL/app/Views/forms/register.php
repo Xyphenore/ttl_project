@@ -1,7 +1,7 @@
 <h2><?= esc($title) ?></h2>
 
 <?= service('validation')->listErrors() ?>
-<form action="/forms/register" method="post">
+<form action="register" method="post">
     <?= csrf_field() ?>
 
     <label for="email">email</label>

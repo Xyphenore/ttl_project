@@ -56,7 +56,6 @@ class MessageController extends BaseController
         var_dump($data['messages']);
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('messages/allMessages', $data);
         echo view('templates/footer', $data);
     }
@@ -93,7 +92,6 @@ class MessageController extends BaseController
         }
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
     }

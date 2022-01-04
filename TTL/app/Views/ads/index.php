@@ -14,9 +14,11 @@ Doit etre visible par tout utilisateurs connectés ou non -->
 
                 <!-- Titre et Lien vers le détail de l'annonce -->
                 <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"><strong><?= esc($ads_item['A_titre']) ?></strong></a>
-                <!-- Icone Si l'utilisateur est le propriétaire de l'annonce -->
-                <?php if ($ads_item['U_mail'] === $iduser) : ?>
-                    <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue"/>' ?><br />
+                <?php if (!empty($session->isLoogedIn)) : ?>
+                    <!-- Icone Si l'utilisateur est le propriétaire de l'annonce -->
+                    <?php if ($ads_item['A_idannonce'] === $iduser) : ?>
+                        <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue"/>' ?><br />
+                    <?php endif ?>
                 <?php endif ?>
 
                 <!-- Div de gauche -->

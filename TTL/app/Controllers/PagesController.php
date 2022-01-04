@@ -52,10 +52,6 @@ class PagesController extends BaseController
 
         // Affichage de la page
         echo view('templates/header', $data);
-
-        //echo '->'.APPPATH . 'Views/pages/' . $page . '.php<br/>';
-
-        echo view('templates/debugsession', $data);
         echo view('pages/' . $page, $data);
         echo view('templates/footer', $data);
     }

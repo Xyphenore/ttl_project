@@ -29,7 +29,7 @@ class UsersController extends BaseController
         //  - si l'utilisateur à cliquer sur déconnecter
         if ((empty($session->isLoogedIn)) || ($this->request->getMethod() === 'post')) {
             $session->destroy();
-            return redirect()->to('/');
+            return redirect()->to('index');
         }
 
         echo view('forms/logout', ['title' => 'logout']);
@@ -56,7 +56,7 @@ class UsersController extends BaseController
 
         // Si déjà connecté alors on accède l'espace
         if (!empty($session->isLoogedIn)) {
-            return redirect()->to('users/dashboard');
+            return redirect()->to('dashboard');
         }
 
         // L'utilisateur n'est pas connecté
@@ -86,7 +86,7 @@ class UsersController extends BaseController
 
             $session->set('isLoogedIn', true);
 
-            return redirect()->to('users/dashboard');
+            return redirect()->to('dashboard');
         }
 
         echo ($this->request->getMethod());
@@ -94,7 +94,7 @@ class UsersController extends BaseController
         // Affichage de la page
         $data = [
             'title' => 'Connexion',
-            'signin' => site_url('forms/register'),
+            'signin' => site_url('register'),
         ];
 
         $data['tete'] = 'Formulaire de connexion';
@@ -134,7 +134,6 @@ class UsersController extends BaseController
         $data['tete'] = 'Utilisateurs inscrits';
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('users/allUsers', $data);
         echo view('templates/footer', $data);
     }
@@ -174,7 +173,6 @@ class UsersController extends BaseController
         $data['ads'] = $tmp2;
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('users/userProfil', $data);
         echo view('templates/footer', $data);
     }
@@ -222,7 +220,6 @@ class UsersController extends BaseController
         } else {
 
             echo view('templates/header', $data);
-            echo view('templates/debugsession', $data);
             echo view('forms/register');
             echo view('templates/footer');
         }
@@ -384,7 +381,6 @@ class UsersController extends BaseController
 
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('users/dashboard', $data);
         echo view('templates/footer', $data);
     }

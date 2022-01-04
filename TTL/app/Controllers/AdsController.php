@@ -55,7 +55,6 @@ class AdsController extends BaseController
         }
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('ads/index', $data);
         echo view('templates/footer', $data);
     }
@@ -102,7 +101,6 @@ class AdsController extends BaseController
         }
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('ads/allAds', $data);
         echo view('templates/footer', $data);
     }
@@ -141,7 +139,6 @@ class AdsController extends BaseController
 
 
         echo view('templates/header',  $data);
-        echo view('templates/debugsession', $data);
         echo view('ads/detailAds', $data);
         echo view('templates/footer', $data);
     }
@@ -187,7 +184,6 @@ class AdsController extends BaseController
         $data['title'] = $session->upseudo;
 
         echo view('templates/header', $data);
-        echo view('templates/debugsession', $data);
         echo view('ads/privateAds', $data);
         echo view('templates/footer', $data);
     }
@@ -261,7 +257,6 @@ class AdsController extends BaseController
             $this->privateView($data['iduser']);
         } else {
             echo view('templates/header', $data);
-            echo view('templates/debugsession', $data);
             echo view('ads/createAds', $data);
             echo view('templates/footer', $data);
         }
@@ -318,7 +313,6 @@ class AdsController extends BaseController
                     $data['tete'] = 'Modification de l\'annonce';
                     $data['title'] = 'Edition annnonce';
                     echo view('templates/header', $data);
-                    echo view('templates/debugsession', $data);
                     echo view('ads/updateAds', $data);
                     break;
                 default:
@@ -392,7 +386,6 @@ class AdsController extends BaseController
             $this->detailView($idAnnonce);
         } else {
             echo view('templates/header',  $data);
-            echo view('templates/debugsession', $data);
             echo view('ads/updateAds', $data);
             echo view('templates/footer', $data);
         }

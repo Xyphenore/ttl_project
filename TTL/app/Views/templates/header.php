@@ -45,17 +45,30 @@ echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 echo '<ul class="navbar-nav mb-2 mb-lg-0 d-flex">';
 
+echo '<li class="nav-item">
+<a class="nav-link" href="' . esc(base_url('allAds')) . '">Toutes les annonces</a>
+</li>';
+
 // La partie suivante dépend si on est connecté ou non
 // TODO : Déplacer la récupération de la session dans le controller de la page
 if (empty(session()->isLoogedIn)) {
     echo '<li class="nav-item">
-            <a class="nav-link" href="' . esc(base_url('forms/loggin')) . '">Se connecter</a>
+            <a class="nav-link" href="' . esc(base_url('loggin')) . '">Se connecter</a>
         </li>';
 } else {
     echo '<li class="nav-item">
-            <a class="nav-link" href="' . esc(base_url('users/dashboard')) . '">Mon compte</a>
-        </li>
-        <li class="nav-item">';
+            <a class="nav-link" href="' . esc(base_url('dashboard')) . '">Mon compte</a>
+        </li>';
+        
+        echo '<li class="nav-item">
+        <a class="nav-link" href="' . esc(base_url('allMessages')) . '">Messages</a>
+        </li>';
+
+        echo '<li class="nav-item">
+        <a class="nav-link" href="' . esc(base_url('allAds')) . '">Mes annonces</a>
+        </li>';
+
+        echo '<li class="nav-item">';
     echo service('validation')->listErrors() .
         '<form action="' . esc(base_url('deconnexion')) . '" method="post">';
     echo csrf_field();

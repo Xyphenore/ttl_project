@@ -38,15 +38,15 @@ $routes->setAutoRoute(false);
 /**
  * Routes pour les utilisateurs
  */
-$routes->match(['get', 'post'], 'forms/register', 'UsersController::register');
-$routes->match(['get', 'post'], 'forms/loggin', 'UsersController::loggin');
-$routes->match(['get', 'post'], 'forms/logout', 'UsersController::logout');
+$routes->match(['get', 'post'], 'register', 'UsersController::register');
+$routes->match(['get', 'post'], 'loggin', 'UsersController::loggin');
+$routes->match(['get', 'post'], 'logout', 'UsersController::logout');
 
 // lorsqu'un bouton est cliqué sur le dashboard
 $routes->match(['get', 'post'], 'dashboard/action', 'UsersController::actionDashboard');
 
 $routes->match(['get', 'post'], 'setting_user', 'UsersController::setting_user');
-$routes->match(['get', 'post'], 'users/dashboard', 'UsersController::dashboard');
+$routes->match(['get', 'post'], 'dashboard', 'UsersController::dashboard');
 
 $routes->get('dashboard', 'UsersController::dashboard');
 $routes->get('users/(:segment)', 'UsersController::view/$1');
@@ -68,6 +68,7 @@ $routes->get('ads/userAds', 'AdsController::privateView/$1');
 $routes->get('allAds', 'AdsController::globalView');
 
 $routes->get('userAds', 'AdsController::privateView/$1');
+$routes->get('index', 'AdsController::index');
 $routes->get('allAds', 'AdsController::globalView');
 $routes->get('privateAds', 'AdsController::privateView');
 $routes->get('detail', 'AdsController::detailView/$1');
