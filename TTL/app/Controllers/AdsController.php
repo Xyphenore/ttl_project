@@ -227,6 +227,12 @@ class AdsController extends BaseController
             return redirect()->to('login');
         }
 
+        if ($this->request->getPost('submit') === "Publier")
+            $etat = "Public";
+        else
+            $etat = "Brouillon";
+
+
         // Sauvegarde des champs saisis
         $data['ads'] = [
             'titre'         => $this->request->getPost('titre'),
@@ -267,6 +273,7 @@ class AdsController extends BaseController
                 'E_idenergie'        => $data['ads']['energie'],
                 'T_type'             => $data['ads']['type'],
                 'U_mail'             => $data['iduser'],
+                'A_etat'             => $etat,
             ]);
 
             //  redirige vers
