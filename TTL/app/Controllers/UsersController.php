@@ -27,7 +27,7 @@ class UsersController extends BaseController
         // Dans le cas :
         //  - l'attribut isloggedIn à disparu ou est à faux
         //  - si l'utilisateur à cliquer sur déconnecter
-        if ((empty($session->isLoggedIn)) || ($this->request->getMethod() === 'post')) {
+        if ((empty($session->isloggedIn)) || ($this->request->getMethod() === 'post')) {
             $session->destroy();
         }
 
@@ -81,7 +81,7 @@ class UsersController extends BaseController
             $user = $usersModel->where('U_mail', $this->request->getVar('email'))->first();
 
             // S'il manque l'attribut isloggedIn, alors on écrase la session
-            if (!$session->has('isLoggedIn')) {
+            if (!$session->has('isloggedIn')) {
                 // Création de la session
                 $userData = [
                     'umail' => $user['U_mail'],
@@ -259,7 +259,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( empty($session->isLoggedIn) ) {
+        if ( empty($session->isloggedIn) ) {
             return redirect()->to('/');
         }
 
@@ -381,6 +381,7 @@ class UsersController extends BaseController
                         $usersModel->update($email,$update_data);
 
                         $session->setFlashdata('success_modify_identity', 'Votre identité a été mise à jour');
+                        return redirect()->to('UserSetting');
                     }
                 }
 
@@ -422,6 +423,7 @@ class UsersController extends BaseController
                         $usersModel->update($this->request->getPost('email'), ['U_mdp' => password_hash($new_password, PASSWORD_BCRYPT)]);
 
                         $session->setFlashdata('success_modify_pw', 'Mot de passe modifié');
+                        return redirect()->to('UserSetting');
                     }
                 }
 
@@ -429,7 +431,6 @@ class UsersController extends BaseController
             }
 
             $session->setFlashdata('id-form', $this->request->getPost('id-form'));
-            return redirect()->to('parametres');
         }
 
 
@@ -442,7 +443,7 @@ class UsersController extends BaseController
 
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
         echo view('templates/header', ['title' => 'Paramètre du compte']);
-        echo view('users/setting_user', ['data' => $user_array]);
+        echo view('users/userSetting', ['data' => $user_array]);
         echo view('templates/footer');
     }
 
@@ -500,7 +501,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Si l'utilisateur n'est pas connecté
-        if (empty($session->isLoggedIn)) {
+        if (empty($session->isloggedIn)) {
             return redirect()->to('login');
         }
 
