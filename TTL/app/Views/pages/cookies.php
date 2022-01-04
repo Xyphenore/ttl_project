@@ -1,2 +1,3 @@
-<!-- TODO debug à virer -->
-pages/cookies.php<br />
+<?php
+echo '<h2>Cookies</h2>';
+echo '<div>En construction<br></div>';
