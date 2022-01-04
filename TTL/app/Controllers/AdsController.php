@@ -165,7 +165,7 @@ class AdsController extends BaseController
         $tmp = ['ads'  => $adsModel->getUserAds($session->umail)];
 
         $tmp2 = [];
-        $count=[];
+        $count = [];
         // fusion des requetes
         // TODO faire cette manip en requete dans la base de données
         foreach ($tmp['ads'] as $k => $v) {
@@ -296,13 +296,14 @@ class AdsController extends BaseController
                 case 'Publier';
                     $adsModel->update($idAnnonce, ['A_etat' => "Public"]);
                     return redirect()->to('privateAds');
-                    case 'Voir';
-                    $this->detailView($idAnnonce);
-                    break;
+                case 'Voir';
+                    return redirect()->to('ads/'.$idAnnonce);
+                    // $this->detailView($idAnnonce);
+                    // break;
                 case 'Supprimer';
                     $adsModel->delete($idAnnonce);
                     return redirect()->to('privateAds');
-        
+
                 case 'Archiver';
                     $adsModel->update($idAnnonce, ['A_etat' => "Archive"]);
                     return redirect()->to('privateAds');
@@ -312,9 +313,6 @@ class AdsController extends BaseController
                     return redirect()->to('privateAds');
 
                 case 'Modifier';
-                // var_dump($this->request->getPost('id'));
-                // return redirect()->to('updateAds',$this->request->getPost('id'));
-                // return $this->updateAds($this->request->getPost('id'));
                     $data['tete'] = 'Modification de l\'annonce';
                     $data['title'] = 'Edition annnonce';
                     $data['idAnnonce'] = $this->request->getPost('id');
@@ -326,7 +324,6 @@ class AdsController extends BaseController
                     break;
             }
         }
-        
     }
 
     /**
@@ -336,65 +333,62 @@ class AdsController extends BaseController
      */
     public function updateAds()
     {
-        
         $data['tete'] = 'Modification d\'une annonce';
         $data['title'] = 'Edition annonce';
         $data['idAnnonce'] = $this->request->getPost('id');
         // On récupère la session actuelle
         $session = session();
 
-        // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
-            // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $session->umail;
-            $data['pseudo'] = $session->upseudo;
-        } else {
-            return redirect()->to('forms/loggin');
-        }
+        $action = $this->request->getPost('act');
 
-        $adsModel = model(AdsModel::class);
-        
+        switch ($action) {
+            case 'Annuler';
+                return redirect()->to('privateAds');
+            case 'Valider';
+                $adsModel = model(AdsModel::class);
+                $photoModel = model(PhotoModel::class);
+                if ($this->request->getMethod() === 'post' && $this->validate([
+                    'title'      => 'required|min_length[3]|max_length[128]',
+                    'loyer'      => 'required',
+                    'chauffage'  => 'required',
+                    'superficie' => 'required',
+                    'type'       => 'required',
+                    'adresse'    => 'required|max_length[128]',
+                    'ville'      => 'required|max_length[128]',
+                    'cp'         => 'required|min_length[5]|max_length[5]',
+                ])) {
+                    $adsModel->update($data['idAnnonce'], [
+                        'A_titre'            => $this->request->getPost('title'),
+                        'A_cout_loyer'       => $this->request->getPost('loyer'),
+                        'A_cout_charges'     => $this->request->getPost('charges'),
+                        'A_type_chauffage'   => $this->request->getPost('chauffage'),
+                        'A_superficie'       => $this->request->getPost('superficie'),
+                        'A_description'      => $this->request->getPost('description'),
+                        'A_adresse'          => $this->request->getPost('adresse'),
+                        'A_ville'            => $this->request->getPost('ville'),
+                        'A_CP'               => $this->request->getPost('cp'),
+                        'E_idenergie'        => $this->request->getPost('energie'),
+                        'T_type'             => $this->request->getPost('type'),
+                    ]);
 
-        $photoModel = model(PhotoModel::class);
+                    $photoModel->save([
+                        'P_titre'            => $this->request->getPost('titrePhoto'),
+                        'P_data'             => $this->request->getPost('photo'),
+                        'A_idannonce'        => $data['idAnnonce'],
+                    ]);
 
-
-
-        if ($this->request->getMethod() === 'post' && $this->validate([
-            'title'      => 'required|min_length[3]|max_length[128]',
-            'loyer'      => 'required',
-            'chauffage'  => 'required',
-            'superficie' => 'required',
-            'type'       => 'required',
-            'adresse'    => 'required|max_length[128]',
-            'ville'      => 'required|max_length[128]',
-            'cp'         => 'required|min_length[5]|max_length[5]',
-        ])) {
-            $adsModel->update($data['idAnnonce'], [
-                'A_titre'            => $this->request->getPost('title'),
-                'A_cout_loyer'       => $this->request->getPost('loyer'),
-                'A_cout_charges'     => $this->request->getPost('charges'),
-                'A_type_chauffage'   => $this->request->getPost('chauffage'),
-                'A_superficie'       => $this->request->getPost('superficie'),
-                'A_description'      => $this->request->getPost('description'),
-                'A_adresse'          => $this->request->getPost('adresse'),
-                'A_ville'            => $this->request->getPost('ville'),
-                'A_CP'               => $this->request->getPost('cp'),
-                'E_idenergie'        => $this->request->getPost('energie'),
-                'T_type'             => $this->request->getPost('type'),
-            ]);
-
-            $photoModel->save([
-                'P_titre'            => $this->request->getPost('titrePhoto'),
-                'P_data'             => $this->request->getPost('photo'),
-                'A_idannonce'        => $data['idAnnonce'],
-            ]);
-
-            return redirect()->to('privateAds');
-        } else {
-            echo view('templates/header',  $data);
-            echo view('ads/updateAds', $data);
-            echo view('templates/footer', $data);
+                    return redirect()->to('privateAds');
+                } else {
+                    // Si l'utilisateur est connecté
+                    if (!empty($session->isLoogedIn)) {
+                        // Récupération du  mail de l'utilisateur
+                        $data['iduser'] = $session->umail;
+                        $data['pseudo'] = $session->upseudo;
+                    }
+                    echo view('templates/header',  $data);
+                    echo view('ads/updateAds', $data);
+                    echo view('templates/footer', $data);
+                }
         }
     }
-
 }

@@ -59,8 +59,8 @@ $routes->match(['get', 'post'], 'createAds', 'AdsController::createAds');
 $routes->match(['get', 'post'], 'actionAds', 'AdsController::actionAds');
 $routes->match(['get', 'post'], 'updateAds', 'AdsController::updateAds');
 
-// route pour contacter un propriétaire
-$routes->match(['get', 'post'], 'contact', 'MessageController::contact');
+// route pour les messages
+$routes->match(['get', 'post'], 'ads/contact', 'MessageController::contact');
 $routes->get('allMessages', 'MessageController::viewAdsMessages');
 
 

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class MessageModel extends Model
 {
     protected $table = 'T_message';
-    protected $primaryKey = 'P_idphoto';
+    protected $primaryKey = 'M_idmessage';
     protected $useAutoIncrement = true;
 
     protected $allowedFields = ['M_dateheure_message', 'M_texte_message', 'U_mail', 'A_idannonce'];

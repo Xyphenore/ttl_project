@@ -115,7 +115,7 @@ Le bouton pour contacter le propri√©taire ne doit pas apparaitre pour le propri√
     <input type="file" name="photo" accept="image/png, image/jpeg">
 
     <input type="hidden" name="id" value="<?= esc($ads['A_idannonce']) ?>" /><br />
-    <input type="submit" name="submit" value="Valider les modifications" />
+    <input type="submit" name="act" value="Annuler" /><input type="submit" name="act" value="Valider" />
 </form>
 
 

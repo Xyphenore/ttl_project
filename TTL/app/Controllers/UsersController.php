@@ -248,7 +248,7 @@ class UsersController extends BaseController
 
         // Récupération de l'utilisateur
         $user = $usersModel->where('U_mail', $email)->first();
-        var_dump($user);
+        
 
         $user_array = [
             'nom' => $user['U_nom'],
@@ -362,7 +362,7 @@ class UsersController extends BaseController
 
         // Récupération de l'utilisateur
         $user = $usersModel->where('U_mail', $email)->first();
-        var_dump($user);
+        
 
         // $data = [
         //     'user' => $session->umail,

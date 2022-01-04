@@ -46,10 +46,9 @@ Photo : <br />
     <form action="contact" method="post">
         <?= csrf_field() ?>
         <input type="hidden" name="idAnnonce" value=<?= esc($ads['A_idannonce']) ?> /><br />
-        <input type="hidden" name="idUser" value=<?= esc($idUser) ?> /><br />
 
         <label for="contact">Contacter l'annonceur :</label>
-        <textarea name="message" cols="45" rows="4">Bonjour de me donner plus d'information sur le bien proposé</textarea><br />
+        <textarea name="message" cols="45" rows="4">Bonjour , merci de me donner plus d'information sur le bien proposé</textarea><br />
 
         <input type="submit" name="act" value="Contacter" />
     </form>

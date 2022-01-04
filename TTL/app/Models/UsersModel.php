@@ -28,6 +28,8 @@ class UsersModel extends Model
         return $this->where(['U_pseudo' => $pseudo])->first();
     }
 
+
+
         /**
      * récupère les informations d'un ou plusieurs utilisateur dans la base de données
      *
