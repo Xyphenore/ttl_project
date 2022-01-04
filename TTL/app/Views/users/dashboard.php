@@ -12,6 +12,15 @@ nombre d'annonces archivée<br/>
     <h2>Bienvenue sur votre tableau de bord, <?= esc($prenom) ?> </h2>
     <hr/>
 
+    <?php
+    $warning_admin = session()->getFlashdata('error_delete_admin');
+    if ( !empty($warning_admin) ) {
+        echo '<div class="bg-warning border border-success rounded-3 pt-2 d-flex mb-2">
+                            <p class="text-white mx-auto">Impossible de supprimer un compte admin</p>
+                    </div>';
+    }
+    ?>
+
     <form action="<?= esc(base_url('dashboard/action')) ?>" method='post' id="dashboard-action">
         <?= csrf_field() ?>
         <input type='hidden' name='pseudo' value=<?= esc($pseudo) ?>/>
