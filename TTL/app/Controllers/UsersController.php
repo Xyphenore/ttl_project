@@ -65,10 +65,10 @@ class UsersController extends BaseController
                 ],
             ],
             'pass' => [
-                'rules' => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+                'rules' => 'required|isValidLogin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
                 'errors' => [
                     'required' => 'Le mot de passe est nécessaire',
-                    'isValidLoggin' => 'Adresse email ou mot de passe incorrect',
+                    'isValidLogin' => 'Adresse email ou mot de passe incorrect',
                 ]
             ]
         ];
@@ -98,7 +98,7 @@ class UsersController extends BaseController
         }
 
         echo view('templates/header', ['title' => 'Formulaire de connexion']);
-        echo view('forms/loggin');
+        echo view('forms/login');
         echo view('templates/footer');
     }
 
@@ -339,10 +339,10 @@ class UsersController extends BaseController
                     ],
 
                     'pass' => [
-                        'rules' => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+                        'rules' => 'required|isValidLogin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
                         'errors' => [
                             'required' => 'Le mot de passe actuel est nécessaire pour valider les modifications',
-                            'isValidLoggin' => 'Mot de passe incorrect',
+                            'isValidLogin' => 'Mot de passe incorrect',
                         ],
                     ],
                 ];
@@ -390,10 +390,10 @@ class UsersController extends BaseController
                 $formRule = [
                     'email' => [],
                     'pass' => [
-                        'rules' => 'required|isValidLoggin[email,pass]',
+                        'rules' => 'required|isValidLogin[email,pass]',
                         'errors' => [
                             'required' => 'Le mot de passe actuel est nécessaire pour valider les modifications',
-                            'isValidLoggin' => 'Mot de passe incorrect',
+                            'isValidLogin' => 'Mot de passe incorrect',
                         ],
                     ],
 
