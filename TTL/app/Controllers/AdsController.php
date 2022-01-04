@@ -231,7 +231,7 @@ class AdsController extends BaseController
         $data['ads'] = [
             'titre'         => $this->request->getPost('titre'),
             'loyer'         => $this->request->getPost('loyer'),
-            'charges'        => $this->request->getPost('charges'),
+            'charges'       => $this->request->getPost('charges'),
             'chauffage'     => $this->request->getPost('chauffage'),
             'superficie'    => $this->request->getPost('superficie'),
             'description'   => $this->request->getPost('description'),
