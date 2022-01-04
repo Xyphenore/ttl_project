@@ -22,7 +22,7 @@ Chauffage <?= esc($ads['A_type_chauffage']) ?>
     <br />
 <?php endif ?>
 
-<?= esc($ads['T_type']) ?> de <?= esc($ads['A_superficie']) ?>m <sup>2</sup><br />
+<?= esc($ads['T_type']) ?> de <?= esc($ads['A_superficie']) ?>m <sub>2</sub><br />
 Description :<br>
 <div>
     <?= esc($ads['A_description']) ?>
