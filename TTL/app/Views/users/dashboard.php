@@ -21,7 +21,7 @@ nombre d'annonces archivée<br/>
     }
     ?>
 
-    <form action=<?= esc(base_url('dashboard/action')) ?> method="post" id="dashboard-action">
+    <form action="<?= esc(base_url('dashboard/action')) ?>" method="post" id="dashboard-action">
         <?= csrf_field() ?>
         <input type='hidden' name='pseudo' value=<?= esc($pseudo) ?>/>
     </form>
