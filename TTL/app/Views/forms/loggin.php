@@ -1,8 +1,8 @@
 <h2><?= esc($data['title']) ?></h2>
 <!-- TODO debug à virer -->
-forms/loggin.php<br/>
+forms/login.php<br/>
 <?= service('validation')->listErrors() ?>
-<?php echo form_open('loggin'); ?> 
+<?php echo form_open('login'); ?> 
         <?= csrf_field() ?>
 <label for='email'>Adresse mail</label>
 <input type='email' name='email'/><br/>

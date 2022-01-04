@@ -6,8 +6,6 @@ Le bouton pour contacter le propriétaire ne doit pas apparaitre pour le propri�
 ads/detailAds.php<br/>
 <hr />
 <h2><?= esc($ads['A_titre']) ?></h2><br/>
-TODO : Les boutons d'action de modification ne doivent apparaitre que pour le propriétaire de l'annonce<br/>
-Le bouton pour contacter le propriétaire ne doit pas apparaitre pour le propriétaire de l'annonce
 <hr />
 id : <?= esc($ads['A_idannonce']) ?><br />
 Loyer : <?= esc($ads['A_cout_loyer']) ?> €<br />

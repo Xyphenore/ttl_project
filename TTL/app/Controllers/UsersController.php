@@ -25,9 +25,9 @@ class UsersController extends BaseController
         $session = session();
 
         // Dans le cas :
-        //  - l'attribut isLoogedIn à disparu ou est à faux
+        //  - l'attribut islogedIn à disparu ou est à faux
         //  - si l'utilisateur à cliquer sur déconnecter
-        if ((empty($session->isLoogedIn)) || ($this->request->getMethod() === 'post')) {
+        if ((empty($session->islogedIn)) || ($this->request->getMethod() === 'post')) {
             $session->destroy();
             return redirect()->to('index');
         }
@@ -39,22 +39,22 @@ class UsersController extends BaseController
     }
 
     /**
-     * Fonction pour la vue /Views/forms/loggin
+     * Fonction pour la vue /Views/forms/login
      * Permet à l'utilisateur de se connecter à son espace
      * Crée une nouvelle session
      * Redirige vers l'espace du membre si la connexion est valide
      * @return RedirectResponse
      * @version 1.0
-     * @see /Views/forms/loggin
+     * @see /Views/forms/login
      */
-    public function loggin()
+    public function login()
     {
         helper(['form', 'url']);
         // On récupère la session actuelle
         $session = session();
 
         // Si déjà connecté alors on accède l'espace
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             return redirect()->to('dashboard');
         }
 
@@ -62,17 +62,17 @@ class UsersController extends BaseController
         if ($this->request->getMethod() === 'post' && $this->validate(
             [
                 'email' => 'required|valid_email',
-                'pass' => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+                'pass' => 'required|isValidlogin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
             ],
-            ['pass' => ['isValidLoggin' => 'L\'email et le mot de passe ne correspondent pas']]
+            ['pass' => ['isValidlogin' => 'L\'email et le mot de passe ne correspondent pas']]
         )) {
             $usersModel = model(UsersModel::class);
 
             // Récupération des informations de l'utilisateur de la base de donnée
             $user = $usersModel->where('U_mail', $this->request->getVar('email'))->first();
 
-            // S'il manque l'attribut isLoogedIn, alors on écrase la session
-            if (!$session->has('isLoogedIn')) {
+            // S'il manque l'attribut islogedIn, alors on écrase la session
+            if (!$session->has('islogedIn')) {
                 // Création de la session
                 $userData = [
                     'umail' => $user['U_mail'],
@@ -83,7 +83,7 @@ class UsersController extends BaseController
                 $session->set($userData);
             }
 
-            $session->set('isLoogedIn', true);
+            $session->set('islogedIn', true);
 
             return redirect()->to('dashboard');
         }
@@ -100,7 +100,7 @@ class UsersController extends BaseController
 
 
         echo view('templates/header', ['title' => 'Formulaire de connexion']);
-        echo view('forms/loggin', ['data' => $data]);
+        echo view('forms/login', ['data' => $data]);
         echo view('templates/footer');
 
         // Nécessaire pour PHP 8.0, si on arrive là on affiche juste la page
@@ -204,11 +204,11 @@ class UsersController extends BaseController
 
             // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
             //            echo view('templates/header', ['title' => 'Formulaire de connexion']);
-            //            echo view('forms/loggin');
+            //            echo view('forms/login');
             //            echo view('templates/footer');
             //return redirect()->route('named_route');
 
-            return redirect()->to('loggin');
+            return redirect()->to('login');
 
             // Récupérer le message flash sur la nouvelle vue
             // $this->userSession->flashdata('success');
@@ -237,7 +237,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if (!isset($session->isLoogedIn)) {
+        if (!isset($session->islogedIn)) {
             return redirect()->to('index');
         }
 
@@ -286,7 +286,7 @@ class UsersController extends BaseController
             ],
 
             'pass_now' => [
-                'rules' => 'required|isValidLoggin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
+                'rules' => 'required|isValidlogin[T_utilisateur.U_mail,T_utilisateur.U_mdp]',
                 'errors' => [
                     'Le mot de passe actuel est nécessaire pour valider les modifications',
                 ],
@@ -350,7 +350,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if (!isset($session->isLoogedIn)) {
+        if (!isset($session->islogedIn)) {
             return redirect()->to('index');
         }
 
@@ -395,8 +395,8 @@ class UsersController extends BaseController
         $session = session();
 
         // Si l'utilisateur n'est pas connecté
-        if (empty($session->isLoogedIn))
-            return redirect()->to('loggin');
+        if (empty($session->islogedIn))
+            return redirect()->to('login');
         
         // Récupération de la valeur du bouton qui a été cliqué
         $action = $this->request->getPost('act');

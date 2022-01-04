@@ -38,7 +38,7 @@ $routes->setAutoRoute(false);
  * gestion par UserSController
  */
 $routes->match(['get', 'post'], 'register',         'UsersController::register');
-$routes->match(['get', 'post'], 'loggin',           'UsersController::loggin');
+$routes->match(['get', 'post'], 'login',           'UsersController::login');
 $routes->match(['get', 'post'], 'logout',           'UsersController::logout');
 $routes->match(['get', 'post'], 'deconnexion',      'UsersController::logout');
 $routes->match(['get', 'post'], 'DECONNEXION',      'UsersController::logout');
