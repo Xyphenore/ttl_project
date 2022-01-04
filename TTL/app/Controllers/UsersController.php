@@ -25,7 +25,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Dans le cas :
-        //  - l'attribut isLoogedIn à disparu ou est à faux
+        //  - l'attribut isloggedIn à disparu ou est à faux
         //  - si l'utilisateur à cliquer sur déconnecter
         if ((empty($session->isLoggedIn)) || ($this->request->getMethod() === 'post')) {
             $session->destroy();
@@ -52,7 +52,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Si déjà connecté alors on accède l'espace
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->isloggedIn)) {
             return redirect()->to('dashboard');
         }
 
@@ -80,7 +80,7 @@ class UsersController extends BaseController
             // Récupération des informations de l'utilisateur de la base de donnée
             $user = $usersModel->where('U_mail', $this->request->getVar('email'))->first();
 
-            // S'il manque l'attribut isLoogedIn, alors on écrase la session
+            // S'il manque l'attribut isloggedIn, alors on écrase la session
             if (!$session->has('isLoggedIn')) {
                 // Création de la session
                 $userData = [
@@ -92,7 +92,7 @@ class UsersController extends BaseController
                 $session->set($userData);
             }
 
-            $session->set('isLoogedIn', true);
+            $session->set('isloggedIn', true);
 
             return redirect()->to('dashboard');
         }
@@ -302,7 +302,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( !isset($session->isLoogedIn) ) {
+        if ( !isset($session->isloggedIn) ) {
             return redirect()->to('/');
         }
 
@@ -453,7 +453,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( !isset($session->isLoogedIn) ) {
+        if ( !isset($session->isloggedIn) ) {
             return redirect()->to('/');
         }
 

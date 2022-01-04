@@ -50,7 +50,7 @@ class PagesController extends BaseController
     {
         // On récupère la session actuelle
         $session = session();
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -72,7 +72,7 @@ class PagesController extends BaseController
     {
         // On récupère la session actuelle
         $session = session();
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -94,7 +94,7 @@ class PagesController extends BaseController
     {
         // On récupère la session actuelle
         $session = session();
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;

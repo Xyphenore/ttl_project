@@ -48,7 +48,7 @@ Dernière modification le <?= esc($ads['A_date_modification']) ?><br />
     <br />
  
     <?php $session = session(); ?>
-    <?php if (!empty($session->islogedIn)) : ?>
+    <?php if (!empty($session->isloggedIn)) : ?>
         <form action="contact" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="idAnnonce" value=<?= esc($ads['A_idannonce']) ?> /><br />

@@ -19,7 +19,7 @@ class MessageController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -67,7 +67,7 @@ class MessageController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -109,7 +109,7 @@ class MessageController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -122,7 +122,7 @@ class MessageController extends BaseController
         if ($this->request->getMethod() === 'post' && $this->validate([
             'message'      => 'required',
         ])) {
-            if (!empty($session->islogedIn)){
+            if (!empty($session->isloggedIn)){
 
             $messageModel->save([
                 'M_texte_message'    => $this->request->getPost('message'),

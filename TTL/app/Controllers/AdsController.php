@@ -48,7 +48,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -98,7 +98,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -139,7 +139,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -167,7 +167,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -219,7 +219,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -292,7 +292,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isloggedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -396,7 +396,7 @@ class AdsController extends BaseController
                     return redirect()->to('privateAds');
                 } else {
                     // Si l'utilisateur est connecté
-                    if (!empty($session->islogedIn)) {
+                    if (!empty($session->isloggedIn)) {
                         // Récupération du  mail de l'utilisateur
                         $data['iduser'] = $session->umail;
                         $data['pseudo'] = $session->upseudo;
