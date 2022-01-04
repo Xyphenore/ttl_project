@@ -48,7 +48,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -98,7 +98,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -139,7 +139,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -167,7 +167,7 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
@@ -219,12 +219,12 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
         } else {
-            return redirect()->to('loggin');
+            return redirect()->to('login');
         }
 
         // Sauvegarde des champs saisis
@@ -292,12 +292,12 @@ class AdsController extends BaseController
         $session = session();
 
         // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
+        if (!empty($session->islogedIn)) {
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
         } else {
-            return redirect()->to('loggin');
+            return redirect()->to('login');
         }
 
         // Récupération de l'id depuis le formulaire
@@ -396,7 +396,7 @@ class AdsController extends BaseController
                     return redirect()->to('privateAds');
                 } else {
                     // Si l'utilisateur est connecté
-                    if (!empty($session->isLoogedIn)) {
+                    if (!empty($session->islogedIn)) {
                         // Récupération du  mail de l'utilisateur
                         $data['iduser'] = $session->umail;
                         $data['pseudo'] = $session->upseudo;

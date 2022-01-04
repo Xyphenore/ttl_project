@@ -26,7 +26,7 @@ class Exceptions extends BaseConfig
      * --------------------------------------------------------------------------
      * DO NOT LOG STATUS CODES
      * --------------------------------------------------------------------------
-     * Any status codes here will NOT be logged if logging is turned on.
+     * Any status codes here will NOT be logged if loging is turned on.
      * By default, only 404 (Page Not Found) exceptions are ignored.
      *
      * @var array

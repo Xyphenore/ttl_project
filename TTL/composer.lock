@@ -221,7 +221,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interface for logging libraries",
+            "description": "Common interface for loging libraries",
             "homepage": "https://github.com/php-fig/log",
             "keywords": [
                 "log",

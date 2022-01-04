@@ -8,23 +8,23 @@ class Logger extends BaseConfig
 {
     /**
      * --------------------------------------------------------------------------
-     * Error Logging Threshold
+     * Error loging Threshold
      * --------------------------------------------------------------------------
      *
-     * You can enable error logging by setting a threshold over zero. The
+     * You can enable error loging by setting a threshold over zero. The
      * threshold determines what gets logged. Any values below or equal to the
      * threshold will be logged.
      *
      * Threshold options are:
      *
-     * - 0 = Disables logging, Error logging TURNED OFF
+     * - 0 = Disables loging, Error loging TURNED OFF
      * - 1 = Emergency Messages - System is unusable
      * - 2 = Alert Messages - Action Must Be Taken Immediately
      * - 3 = Critical Messages - Application component unavailable, unexpected exception.
      * - 4 = Runtime Errors - Don't need immediate action, but should be monitored.
      * - 5 = Warnings - Exceptional occurrences that are not errors.
      * - 6 = Notices - Normal but significant events.
-     * - 7 = Info - Interesting events, like user logging in, etc.
+     * - 7 = Info - Interesting events, like user loging in, etc.
      * - 8 = Debug - Detailed debug information.
      * - 9 = All Messages
      *
@@ -56,7 +56,7 @@ class Logger extends BaseConfig
      * Log Handlers
      * --------------------------------------------------------------------------
      *
-     * The logging system supports multiple actions to be taken when something
+     * The loging system supports multiple actions to be taken when something
      * is logged. This is done by allowing for multiple Handlers, special classes
      * designed to write the log to their chosen destinations, whether that is
      * a file on the getServer, a cloud-based service, or even taking actions such
@@ -115,7 +115,7 @@ class Logger extends BaseConfig
             'filePermissions' => 0644,
 
             /*
-             * Logging Directory Path
+             * loging Directory Path
              *
              * By default, logs are written to WRITEPATH . 'logs/'
              * Specify a different destination here, if desired.

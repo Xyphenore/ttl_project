@@ -31,11 +31,11 @@
 			<directory>./tests</directory>
 		</testsuite>
 	</testsuites>
-	<logging>
+	<loging>
 		<testdoxHtml outputFile="build/logs/testdox.html"/>
 		<testdoxText outputFile="build/logs/testdox.txt"/>
 		<junit outputFile="build/logs/logfile.xml"/>
-	</logging>
+	</loging>
 	<php>
 		<server name="app.baseURL" value="http://example.com/"/>
 		<!-- Directory containing phpunit.xml -->

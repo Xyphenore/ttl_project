@@ -15,7 +15,7 @@ class UsersRules
      * @param [type] $userData
      * @return boolean
      */
-    public function isValidLoggin($str, $field, $userData)
+    public function isValidlogin($str, $field, $userData)
     {
         $userModel = model(UsersModel::class);
         $user = $userModel->where($userModel->primaryKey, $userData['email'])->first();

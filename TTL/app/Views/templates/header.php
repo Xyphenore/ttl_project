@@ -51,9 +51,9 @@ echo '<li class="nav-item">
 
 // La partie suivante dépend si on est connecté ou non
 // TODO : Déplacer la récupération de la session dans le controller de la page
-if (empty(session()->isLoogedIn)) {
+if (empty(session()->islogedIn)) {
     echo '<li class="nav-item">
-            <a class="nav-link" href="' . esc(base_url('loggin')) . '">Se connecter</a>
+            <a class="nav-link" href="' . esc(base_url('login')) . '">Se connecter</a>
         </li>';
 } else {
     echo '<li class="nav-item">
