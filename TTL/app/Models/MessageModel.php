@@ -39,6 +39,7 @@ class MessageModel extends Model
             ->findAll();
     }
 
+
     /**
      * Calcul le nombre de messages pour une annonce
      *
@@ -55,6 +56,20 @@ class MessageModel extends Model
         // le nombre de message pour une annonce en particulier
         return $this
             ->where(['A_idannonce' => $idAnnonce])
+            ->countAllResults();
+    }
+
+     /**
+     * Calcul le nombre de messages non lu pour une annonce
+     *
+     * @param [type] $idAnnonce
+     * @return void
+     */
+    public function numberUnreadMessage($idAnnonce)
+    {
+        // le nombre de message non lu
+        return $this
+            ->where(['A_idannonce' => $idAnnonce, 'M_lu' => false])
             ->countAllResults();
     }
 }

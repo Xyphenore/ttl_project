@@ -5,8 +5,7 @@ namespace App\Controllers;
 use App\Models\UsersModel;
 use App\Models\AdsModel;
 use App\Models\MessageModel;
-
-
+use phpDocumentor\Reflection\Types\Boolean;
 
 class MessageController extends BaseController
 {
@@ -136,5 +135,57 @@ class MessageController extends BaseController
         }
 
         return redirect()->to('ads/' . $this->request->getPost('idAnnonce'));
+    }
+
+    /**
+     * Notification si l'utilisateur à des messages non lus
+     *
+     */
+    public function hasUnreadMessage() //: Boolean
+    {
+        $messageModel = model(MessageModel::class);
+        $userModel = model(UsersModel::class);
+        $adsModel = model(AdsModel::class);
+
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isloggedIn)) {
+        
+
+        $data['ads'] = $adsModel->getUserAds($session->upseudo);
+        
+        foreach ($data['ads'] as $k => $v) {
+           var_dump($v);
+        }
+
+
+        }
+        else
+            echo "rien";
+        // $resultat = false;
+        // $data['tete'] = 'création d\'une annonce';
+        // $data['title'] = 'Nouvelle annonce';
+
+        // // On récupère la session actuelle
+        // $session = session();
+
+        // // Si l'utilisateur est connecté
+        // if (!empty($session->isloggedIn)) {
+        //     // Récupération du  mail de l'utilisateur
+        //     $data['iduser'] = $session->umail;
+        //     $data['pseudo'] = $session->upseudo;
+        // } else {
+
+        //     $data['iduser'] = null;
+        //     $data['pseudo'] = null;
+        // }
+        // $user['ads'];
+
+
+        // $res = $messageModel->numberUnreadMessage()
+
+        // return $resultat;
     }
 }
