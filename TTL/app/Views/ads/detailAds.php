@@ -22,9 +22,7 @@ Chauffage <?= esc($ads['A_type_chauffage']) ?>
     <br />
 <?php endif ?>
 
-
-
-<?= esc($ads['T_type']) ?> de <?= esc($ads['A_superficie']) ?>m<sup>2</sup><br />
+<?= esc($ads['T_type']) ?> de <?= esc($ads['A_superficie']) ?>m <sup>2</sup><br />
 Description :<br>
 <div>
     <?= esc($ads['A_description']) ?>
@@ -32,9 +30,8 @@ Description :<br>
 Logement situé : <br />
 <?= esc($ads['A_adresse']) ?><br />
 <?= esc($ads['A_CP']) ?> <?= esc($ads['A_ville']) ?><br />
-Date de création : <?= esc($ads['A_date_creation']) ?><br />
-Date modification : <?= esc($ads['A_date_modification']) ?><br />
-
+Créé le <?= esc($ads['A_date_creation']) ?><br />
+Dernière modification le <?= esc($ads['A_date_modification']) ?><br />
 <br />
 <div>
     <?php if (!empty($photo) && is_array($photo)) : ?>
