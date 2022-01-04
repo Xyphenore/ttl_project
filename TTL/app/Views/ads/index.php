@@ -1,12 +1,15 @@
-<!-- Affichage de toutes les annonces publiées sur le site
-Doit etre visible par tout utilisateurs connectés ou non -->
+<?php
+// Affichage de toutes les annonces publiées sur le site
+//Doit être visible par tous utilisateurs connectés ou non
+?>
 <!-- TODO retirer les border des div et mettre en forme dans le css -->
-<h2><?= esc($tete) ?></h2>
-<!-- TODO debug à virer -->
-ads/index.php<br />
+
+<h1 class="fs-2"><?= esc($tete) ?></h1>
+
 <!-- Div principal -->
 <div style="border: thin solid black">
-    <?php if (!empty($ads) && is_array($ads)) : ?>
+    <?php
+        if (!empty($ads) && is_array($ads)) : ?>
 
         <?php foreach ($ads as $ads_item) : ?>
 
