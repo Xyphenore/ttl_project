@@ -404,12 +404,6 @@ class UsersController extends BaseController
 
         if ($this->request->getMethod() === 'post') {
             switch ($action) {
-                case 'Annonces';
-                    return redirect()->to('privateAds');
-
-                case 'Messages';
-                    return redirect()->to('allMessages');
-
                 case 'Paramètre';
                     return redirect()->to('setting_user');
 

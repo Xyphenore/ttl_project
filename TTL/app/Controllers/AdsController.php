@@ -295,23 +295,29 @@ class AdsController extends BaseController
             switch ($action) {
                 case 'Publier';
                     $adsModel->update($idAnnonce, ['A_etat' => "Public"]);
-                    break;
+                    return redirect()->to('privateAds');
                     case 'Voir';
                     $this->detailView($idAnnonce);
                     break;
                 case 'Supprimer';
                     $adsModel->delete($idAnnonce);
-                    $this->index();
-                    break;
+                    return redirect()->to('privateAds');
+        
                 case 'Archiver';
                     $adsModel->update($idAnnonce, ['A_etat' => "Archive"]);
-                    break;
+                    return redirect()->to('privateAds');
+
                 case 'Brouillon';
                     $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
-                    break;
+                    return redirect()->to('privateAds');
+
                 case 'Modifier';
+                // var_dump($this->request->getPost('id'));
+                // return redirect()->to('updateAds',$this->request->getPost('id'));
+                // return $this->updateAds($this->request->getPost('id'));
                     $data['tete'] = 'Modification de l\'annonce';
                     $data['title'] = 'Edition annnonce';
+                    $data['idAnnonce'] = $this->request->getPost('id');
                     echo view('templates/header', $data);
                     echo view('ads/updateAds', $data);
                     break;
@@ -320,8 +326,7 @@ class AdsController extends BaseController
                     break;
             }
         }
-        // Actualisation de la page
-        $this->detailView($idAnnonce);
+        
     }
 
     /**
@@ -331,9 +336,10 @@ class AdsController extends BaseController
      */
     public function updateAds()
     {
+        
         $data['tete'] = 'Modification d\'une annonce';
         $data['title'] = 'Edition annonce';
-
+        $data['idAnnonce'] = $this->request->getPost('id');
         // On récupère la session actuelle
         $session = session();
 
@@ -347,7 +353,7 @@ class AdsController extends BaseController
         }
 
         $adsModel = model(AdsModel::class);
-        $idAnnonce = $this->request->getPost('id');
+        
 
         $photoModel = model(PhotoModel::class);
 
@@ -363,7 +369,7 @@ class AdsController extends BaseController
             'ville'      => 'required|max_length[128]',
             'cp'         => 'required|min_length[5]|max_length[5]',
         ])) {
-            $adsModel->update($idAnnonce, [
+            $adsModel->update($data['idAnnonce'], [
                 'A_titre'            => $this->request->getPost('title'),
                 'A_cout_loyer'       => $this->request->getPost('loyer'),
                 'A_cout_charges'     => $this->request->getPost('charges'),
@@ -380,10 +386,10 @@ class AdsController extends BaseController
             $photoModel->save([
                 'P_titre'            => $this->request->getPost('titrePhoto'),
                 'P_data'             => $this->request->getPost('photo'),
-                'A_idannonce'        => $idAnnonce,
+                'A_idannonce'        => $data['idAnnonce'],
             ]);
 
-            $this->detailView($idAnnonce);
+            return redirect()->to('privateAds');
         } else {
             echo view('templates/header',  $data);
             echo view('ads/updateAds', $data);

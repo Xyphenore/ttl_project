@@ -8,7 +8,7 @@ Le bouton pour contacter le propri√©taire ne doit pas apparaitre pour le propri√
 <hr/>
 
 <?= service('validation')->listErrors() ?>
-<form action="/ads/update" method="post">
+<form action="updateAds" method="post">
     <?= csrf_field() ?>
 
     <label for="title">Titre :</label>

@@ -3,7 +3,7 @@ Seul un utilisateur connecté peut y acceder -->
 
 <h2><?= esc($tete) ?></h2>
 <?= service('validation')->listErrors() ?>
-<form action="/ads/create" method="post">
+<form action="createAds" method="post">
     <?= csrf_field() ?>
 
     <?php if (!empty($ads) && is_array($ads)) : ?>

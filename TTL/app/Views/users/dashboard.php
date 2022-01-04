@@ -11,8 +11,6 @@ nombre d'annonces archivée<br/>
         <?= csrf_field() ?>
         <input type="hidden" name="pseudo" value=<?= esc($pseudo) ?> /><br />
 
-        <input type="submit" name="act" value="Annonces" /><br/>
-        <input type="submit" name="act" value="Messages" /><br/>
-        <input type="submit" name="act" value="Paramètre" /><br/>
-        <input type="submit" name="act" value="Supprimer" /><br/>
+        <input type="submit" name="act" value="Modifier mon compte" /><br/>
+        <input type="submit" name="act" value="Supprimer mon compte" /><br/>
     </form>

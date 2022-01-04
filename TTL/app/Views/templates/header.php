@@ -65,7 +65,7 @@ if (empty(session()->isLoogedIn)) {
         </li>';
 
         echo '<li class="nav-item">
-        <a class="nav-link" href="' . esc(base_url('allAds')) . '">Mes annonces</a>
+        <a class="nav-link" href="' . esc(base_url('privateAds')) . '">Mes annonces</a>
         </li>';
 
         echo '<li class="nav-item">';

@@ -55,9 +55,9 @@ $routes->get('users', 'UsersController::index');
 /**
  * Routes pour les annonces
  */
-$routes->match(['get', 'post'], 'ads/create', 'AdsController::createAds');
-$routes->match(['get', 'post'], 'ads/action', 'AdsController::actionAds');
-$routes->match(['get', 'post'], 'ads/update', 'AdsController::updateAds');
+$routes->match(['get', 'post'], 'createAds', 'AdsController::createAds');
+$routes->match(['get', 'post'], 'actionAds', 'AdsController::actionAds');
+$routes->match(['get', 'post'], 'updateAds', 'AdsController::updateAds');
 
 // route pour contacter un propriétaire
 $routes->match(['get', 'post'], 'contact', 'MessageController::contact');
@@ -66,6 +66,7 @@ $routes->get('allMessages', 'MessageController::viewAdsMessages');
 
 $routes->get('ads/userAds', 'AdsController::privateView/$1');
 $routes->get('allAds', 'AdsController::globalView');
+$routes->get('updateAds', 'AdsController::updateAds');
 
 $routes->get('userAds', 'AdsController::privateView/$1');
 $routes->get('index', 'AdsController::index');

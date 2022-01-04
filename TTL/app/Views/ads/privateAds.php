@@ -54,7 +54,7 @@ n'est visible que par l'utilisateur les ayant créées -->
                     <!-- TODO virer debug -->
                     <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?><br /></sup>
 
-                    <form action="/ads/action" method="post">
+                    <form action="actionAds" method="post">
                         <?= csrf_field() ?>
                         <input type="hidden" name="id" value=<?= esc($ads_item['A_idannonce']) ?> /><br />
                         <input type="submit" name="act" value="Voir" />
