@@ -182,6 +182,6 @@ ads/createAds.php<br/>
         <input type="text" name="cp" min="01000" max="99999" /><br />
 
     <?php endif ?>
-
-    <input type="submit" name="submit" value="Créer l'annonce" />
+    <input type="submit" name="submit" value="Enregistrer" />
+    <input type="submit" name="submit" value="Publier" />
 </form>
