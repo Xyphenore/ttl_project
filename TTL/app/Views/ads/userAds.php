@@ -1,6 +1,7 @@
 <!-- Affichage de toutes les annonces publiées par un utilisateur
 Doit etre visible par tout utilisateur connecté ou non -->
-
+<!-- TODO debug à virer -->
+ads/userAds.php<br/>
 <h2><?= esc($tete) ?></h2>
 <div>
     <?php if (!empty($ads) && is_array($ads)) : ?>

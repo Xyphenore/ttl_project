@@ -1,6 +1,7 @@
 <h2>Bienvenue sur votre tableau de bord, <?= esc($prenom) ?> </h2>
 <hr/>
-
+<!-- TODO debug à virer -->
+users/dashboard.php<br/>
 nombre d'annonce total<br/>
 nombre d'annonce en ligne<br/>
 nombre d'annonces archivée<br/>

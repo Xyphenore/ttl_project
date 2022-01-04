@@ -2,6 +2,8 @@
 n'est visible que par l'utilisateur les ayant créées -->
 
 <h2><?= esc($tete) ?></h2>
+<!-- TODO debug à virer -->
+message/allMessages.php<br/>
 <div style="border: thin solid black">
     <?php if (!empty($messages) && is_array($messages)) : ?>
         <?php foreach ($messages as $k => $v) : ?>

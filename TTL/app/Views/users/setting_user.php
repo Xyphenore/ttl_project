@@ -1,5 +1,6 @@
 <h2>Setting </h2>
-
+<!-- TODO debug à virer -->
+users/setting_user.php<br/>
 <?= service('validation')->listErrors() ?>
 <?php echo form_open('users/setting_user'); ?>
     <label for='nom'>Nom</label>

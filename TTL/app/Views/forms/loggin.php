@@ -1,5 +1,6 @@
 <h2><?= esc($data['title']) ?></h2>
-
+<!-- TODO debug à virer -->
+forms/loggin.php<br/>
 <?= service('validation')->listErrors() ?>
 <?php echo form_open('loggin'); ?> 
         <?= csrf_field() ?>

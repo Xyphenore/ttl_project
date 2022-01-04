@@ -1,4 +1,5 @@
-
+<!-- TODO debug à virer -->
+photo/photoView.php<br/>
 <hr/>
 <h2><?= esc($photo['P_titre']) ?></h2>
 <hr/>

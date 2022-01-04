@@ -2,6 +2,8 @@
 n'est visible que par l'utilisateur les ayant créées -->
 
 <h2><?= esc($tete) ?></h2>
+<!-- TODO debug à virer -->
+ads/privateAds.php<br/>
 <div>
     <div style="border: thin solid black">
         <?php if (!empty($ads) && is_array($ads)) : ?>

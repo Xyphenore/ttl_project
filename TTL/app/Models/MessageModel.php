@@ -34,7 +34,7 @@ class MessageModel extends Model
         }
 
         return $this
-            ->where(['U_mail' => $idUser, 'A_idannonce' => $idAnnonce])
+            ->where(['U_mail' => $idUser])
             ->orderBy('M_dateheure_message', 'DESC')
             ->findAll();
     }

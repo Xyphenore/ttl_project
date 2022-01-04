@@ -2,7 +2,8 @@
 Doit etre visible par tout utilisateurs connectés ou non 
 Les boutons d'action de modification n'apparaissent que pour le propriétaire de l'annonce 
 Le bouton pour contacter le propriétaire ne doit pas apparaitre pour le propriétaire de l'annonce -->
-
+<!-- TODO debug à virer -->
+ads/detailAds.php<br/>
 <hr />
 <h2><?= esc($ads['A_titre']) ?></h2><br/>
 TODO : Les boutons d'action de modification ne doivent apparaitre que pour le propriétaire de l'annonce<br/>

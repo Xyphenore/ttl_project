@@ -31,7 +31,7 @@ class PagesController extends BaseController
      * @return void
      *@version 1.0
      */
-    public function view(string $page = 'index'): void
+    public function view(string $page = 'index')
     {
         if (!is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
             // Whoops, we don't have a page for that!
@@ -51,8 +51,10 @@ class PagesController extends BaseController
         }
 
         // Affichage de la page
-        echo view('templates/header', $data);
-        echo view('pages/' . $page, $data);
-        echo view('templates/footer', $data);
+        return redirect()->to($page);
+
+        // echo view('templates/header', $data);
+        // echo view('ads/' . $page, $data);
+        // echo view('templates/footer', $data);
     }
 }

@@ -1,5 +1,6 @@
 <h2><?= esc($user['U_pseudo']) ?></h2>
-
+<!-- TODO debug à virer -->
+users/userProfil.php<br/>
 <h3>Les annonces publiées par <?= esc($user['U_pseudo']) ?> :</h3>
 <!-- Div principal -->
 <div style="border: thin solid black">

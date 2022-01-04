@@ -1,4 +1,6 @@
 <h2><?= esc($title) ?></h2>
+<!-- TODO debug à virer -->
+photo/adsPhoto.php<br/>
 <div>
     <?php if (!empty($photo) && is_array($photo)) : ?>
 

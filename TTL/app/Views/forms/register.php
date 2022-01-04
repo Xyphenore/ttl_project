@@ -1,3 +1,6 @@
+
+<!-- TODO debug à virer -->
+forms/register.php<br/>
 <h2><?= esc($title) ?></h2>
 
 <?= service('validation')->listErrors() ?>

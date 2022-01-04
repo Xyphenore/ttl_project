@@ -1,4 +1,6 @@
 <h2><?= esc($user['U_pseudo']) ?></h2>
+<!-- TODO debug à virer -->
+users/privateUser.php<br/>
 <?= esc($user['U_nom']) ?> <?= esc($user['U_prenom']) ?><br />
 Mail : <?= esc($user['U_mail']) ?><br />
 Mot de passe : <?= esc($user['U_mdp']) ?><br />

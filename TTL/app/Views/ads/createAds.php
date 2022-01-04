@@ -1,6 +1,7 @@
 <!-- Formulaire de création d'une nouvelle annonce
 Seul un utilisateur connecté peut y acceder -->
-
+<!-- TODO debug à virer -->
+ads/createAds.php<br/>
 <h2><?= esc($tete) ?></h2>
 <?= service('validation')->listErrors() ?>
 <form action="createAds" method="post">

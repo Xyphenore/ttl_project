@@ -53,6 +53,39 @@ class MessageController extends BaseController
         echo view('messages/allMessages', $data);
         echo view('templates/footer', $data);
     }
+    
+    public function viewMessages()
+    {
+        $usersModel = model(UsersModel::class);
+        $messageModel = model(MessageModel::class);
+        $adsModel = model(adsModel::class);
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
+        }
+
+        // récupération des messages de l'utilisateur
+        $tmp['msg'] = $messageModel->getMessage($session->umail, null);
+        $tmp2 = [];
+        foreach ($tmp['msg'] as $k => $v) {
+            if (!empty($usersModel->getUser($v['U_mail']))) {
+                $tmp2[] = array_merge($v, $usersModel->getUser($v['U_mail']));
+            }
+        }
+        
+        $data['title'] = 'Messages';
+        $data['tete'] = 'Vos messages';
+        $data['messages'] = $tmp2;
+   
+        echo view('templates/header', $data);
+        echo view('messages/sentMessages', $data);
+        echo view('templates/footer', $data);
+    }
 
     /**
      * Sauvegarde un message en base de donnée

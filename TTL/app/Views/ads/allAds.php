@@ -2,6 +2,8 @@
 Doit etre visible par tout utilisateurs connectés ou non -->
 <!-- TODO retirer les border des div et mettre en forme dans le css -->
 <h2><?= esc($tete) ?></h2>
+<!-- TODO debug à virer -->
+ads/allAds.php<br/>
 
 <!-- Div principal -->
 <div style="border: thin solid black">
