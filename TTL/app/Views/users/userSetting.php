@@ -115,7 +115,7 @@
         <?php
         if (session()->get('isAdmin') == false) {
             echo '<div class="row px-2">
-                        <a href="' . esc(base_url('suppression')) . '" class="btn btn-danger border border-dark btn-lg fw-bold">Supprimer le compte</a>
+                        <a href="' . esc(base_url('UserDelete')) . '" class="btn btn-danger border border-dark btn-lg fw-bold">Supprimer le compte</a>
                     </div>';
         }
         ?>

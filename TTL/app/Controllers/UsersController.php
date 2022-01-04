@@ -255,12 +255,17 @@ class UsersController extends BaseController
     }
 
 
-    public function delete() {
+    public function userdelete() {
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
         if ( empty($session->isLoggedIn) ) {
             return redirect()->to('/');
+        }
+
+        if ( $session->getVar('isAdmin') == true ) {
+            $session->setFlashdata('error_delete_admin', 'Impossible de supprimer le compte admin');
+            return redirect()->to('dashboard');
         }
 
         if ($this->request->getMethod() === 'post' ) {
