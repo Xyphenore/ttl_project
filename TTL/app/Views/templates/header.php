@@ -63,8 +63,8 @@ if ( empty(session()->isLoogedIn) ) {
         </li>';
 }
 else {
-    echo '<li class="nav-item">
-        <a class="nav-link" href="' . esc(base_url('allMessages')) . '">Messages</a>
+    echo '<li class="nav-item pb-2 pb-lg-0 me-2">
+            <a class="nav-link text-white" href="' . esc(base_url('allMessages')) . '">Messages</a>
         </li>';
 
     echo '<li class="nav-item pb-2 pb-lg-0 me-2">
