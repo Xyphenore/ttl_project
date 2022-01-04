@@ -1,11 +1,8 @@
 CREATE TABLE T_annonce (
     A_idannonce INT UNSIGNED NOT NULL AUTO_INCREMENT,
-
     A_titre VARCHAR(128) NOT NULL,
-
     A_cout_loyer INT UNSIGNED NOT NULL,
     A_cout_charges INT UNSIGNED NOT NULL,
-
     A_date_creation TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     A_date_modification TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     A_type_chauffage ENUM('Collectif', 'Individuel') NOT NULL,
@@ -14,9 +11,9 @@ CREATE TABLE T_annonce (
     A_adresse VARCHAR(128) NOT NULL,
     A_ville VARCHAR(128) NOT NULL,
     A_CP DECIMAL(5, 0) NOT NULL,
-    A_etat ENUM('Brouillon', 'Publiée', 'Archivée', 'Bloquée') NOT NULL DEFAULT 'Brouillon' ,
+    A_etat ENUM('Brouillon', 'Public', 'Archive', 'Bloc') NOT NULL DEFAULT 'Brouillon' ,
 
-    E_idenergie ENUM('Electrique', 'Solaire', 'Fuel', 'Gaz', 'Bois', 'Autre'),
+    E_idenergie ENUM('Electrique', 'Solaire', 'Fuel', 'Gaz', 'Bois', 'Autre') DEFAULT 'Autre',
     T_type ENUM('T1', 'T2', 'T3', 'T4', 'T5', 'T6') NOT NULL,
     U_mail VARCHAR(128) NOT NULL,
 
@@ -38,12 +35,15 @@ CREATE TABLE T_photo(
 
 
 CREATE TABLE T_message(
+    M_idmessage INT UNSIGNED NOT NULL AUTO_INCREMENT,
     M_dateheure_message TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     M_texte_message MEDIUMTEXT NOT NULL,
+    M_lu BOOLEAN NOT NULL DEFAULT false, 
     U_mail VARCHAR(128) NOT NULL,
     A_idannonce INT UNSIGNED NOT NULL,
 
-    PRIMARY KEY(U_mail,A_idannonce)
+    PRIMARY KEY(M_idmessage),
+    KEY idx_message(M_idmessage)
 
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -80,10 +80,6 @@ CREATE TABLE T_utilisateur(
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 
-
-
-ALTER TABLE T_message 
-    ADD CONSTRAINT FK_MESSAGE_UTILISATEUR FOREIGN KEY (U_mail) REFERENCES T_utilisateur(U_mail);
 
 ALTER TABLE T_message 
     ADD CONSTRAINT FK_MESSAGE_ANNONCE FOREIGN KEY (A_idannonce) REFERENCES T_annonce(A_idannonce)
@@ -123,26 +119,6 @@ INSERT INTO `T_energie` (`E_idenergie`, `E_description`) VALUES
     ('Bois', 'Cheminée, Poêle à bois'), 
     ('Autre', 'Autre source d energie');
 
-INSERT INTO `T_utilisateur` (`U_mail`, `U_mdp`, `U_pseudo`, `U_nom`, `U_prenom`, `U_admin`) VALUES 
-('admin@domaine.com', 'admin', 'admin', 'admin', 'admin', '1'),
-('goi.suzy@gmail.com', 'suzy', 'Suzy', 'Goi', 'Suzy', '0'),
-('chonchon@gmail.com', 'chonchon', 'Eleana', 'Coet', 'Eleana', '0') ;
-
-INSERT INTO `T_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_adresse`, `A_ville`, `A_CP`, `A_etat`, `E_idenergie`, `T_type`, `U_mail`) 
-VALUES 
-(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '01000', default, NULL, 'T4', 'admin@domaine.com'), 
-(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '02900', default, 'Fuel', 'T3', 'admin@domaine.com'),
-(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', default, 'Bois', 'T2', 'goi.suzy@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, NULL, 'T1', 'chonchon@gmail.com')    ; 
-
-
-INSERT INTO `T_message` (`M_dateheure_message`, `M_texte_message`, `U_mail`, `A_idannonce`) VALUES (current_timestamp(), 'Test d\'un message entre chonchon et suzy sur l\'annonce d\'identifiant 3', 'chonchon@gmail.com', '3') ;
-
-
 delimiter $$
 CREATE TRIGGER trigger_insert_mdp BEFORE INSERT ON T_utilisateur FOR EACH ROW
         IF UPPER(NEW.U_mdp) = 'FALSE' THEN
@@ -159,3 +135,35 @@ CREATE TRIGGER trigger_update_mdp BEFORE UPDATE ON T_utilisateur FOR EACH ROW
             SET MESSAGE_TEXT = 'Cannot update T_mdp : hash_password (PHP) failed';
         END IF $$
 delimiter ;
+
+
+
+
+INSERT INTO `T_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_adresse`, `A_ville`, `A_CP`, `A_etat`, `E_idenergie`, `T_type`, `U_mail`) 
+VALUES 
+(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '71000', default, default, 'T4', 'admin@domaine.com'), 
+(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '62900', 'Public', 'Fuel', 'T3', 'admin@domaine.com'),
+(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', default, 'Bois', 'T2', 'goi.suzy@gmail.com'),
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com'),
+(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'goi.suzy@gmail.com')  ,
+(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com') ,
+(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'toto@mail.com')  ,
+(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'toto@mail.com')  ,
+(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'suzy.test@test.fr')  ,
+(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'suzy.test@test.fr') ,
+(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '71000', default, default, 'T4', 'admin@domaine.com'), 
+(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '62900', 'Public', 'Fuel', 'T3', 'admin@domaine.com'),
+(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', default, 'Bois', 'T2', 'goi.suzy@gmail.com'),
+(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com'),
+(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com')  ,
+(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com')  ,
+(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'goi.suzy@gmail.com')  ,
+(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com') ,
+(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'goi.suzy@gmail.com')  ,
+(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'toto@mail.com')  ,
+(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'suzy.test@test.fr')  ,
+(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com')    ; 
+
+
