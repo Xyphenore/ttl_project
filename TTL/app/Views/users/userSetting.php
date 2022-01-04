@@ -19,7 +19,7 @@
 
             //  service('validation')->listErrors()
             ?>
-            <form method="post" action="<?= esc(base_url('parametres')) ?>" class="">
+            <form method="post" action="<?= esc(base_url('UserSetting')) ?>" class="">
                 <?= csrf_field() ?>
 
                 <input type="text" name="id-form" value="form-identity" hidden>
@@ -81,7 +81,7 @@
 
             //  service('validation')->listErrors()
             ?>
-            <form method='post' action="<?= esc(base_url('parametres')) ?>" class=''>
+            <form method='post' action="<?= esc(base_url('UserSetting')) ?>" class=''>
                 <?= csrf_field() ?>
 
                 <input type='text' name='id-form' value='form-password' hidden>
