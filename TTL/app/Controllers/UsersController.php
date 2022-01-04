@@ -25,9 +25,9 @@ class UsersController extends BaseController
         $session = session();
 
         // Dans le cas :
-        //  - l'attribut islogedIn à disparu ou est à faux
+        //  - l'attribut isLoggedIn à disparu ou est à faux
         //  - si l'utilisateur à cliquer sur déconnecter
-        if ((empty($session->islogedIn)) || ($this->request->getMethod() === 'post')) {
+        if ((empty($session->isLoggedIn)) || ($this->request->getMethod() === 'post')) {
             $session->destroy();
             return redirect()->to('index');
         }
@@ -54,7 +54,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Si déjà connecté alors on accède l'espace
-        if (!empty($session->islogedIn)) {
+        if (!empty($session->isLoggedIn)) {
             return redirect()->to('dashboard');
         }
 
@@ -71,8 +71,8 @@ class UsersController extends BaseController
             // Récupération des informations de l'utilisateur de la base de donnée
             $user = $usersModel->where('U_mail', $this->request->getVar('email'))->first();
 
-            // S'il manque l'attribut islogedIn, alors on écrase la session
-            if (!$session->has('islogedIn')) {
+            // S'il manque l'attribut isLoggedIn, alors on écrase la session
+            if (!$session->has('isLoggedIn')) {
                 // Création de la session
                 $userData = [
                     'umail' => $user['U_mail'],
@@ -83,7 +83,7 @@ class UsersController extends BaseController
                 $session->set($userData);
             }
 
-            $session->set('islogedIn', true);
+            $session->set('isLoggedIn', true);
 
             return redirect()->to('dashboard');
         }
@@ -237,7 +237,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if (!isset($session->islogedIn)) {
+        if (!isset($session->isLoggedIn)) {
             return redirect()->to('index');
         }
 
@@ -350,8 +350,8 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if (!isset($session->islogedIn)) {
-            return redirect()->to('index');
+        if (!isset($session->isLoggedIn)) {
+            return redirect()->to('/');
         }
 
 
@@ -395,7 +395,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Si l'utilisateur n'est pas connecté
-        if (empty($session->islogedIn))
+        if (empty($session->isLoggedIn))
             return redirect()->to('login');
         
         // Récupération de la valeur du bouton qui a été cliqué
