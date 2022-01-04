@@ -57,6 +57,8 @@ $routes->match(['get', 'post'], 'createAds',        'AdsController::createAds');
 $routes->match(['get', 'post'], 'actionAds',        'AdsController::actionAds');
 $routes->match(['get', 'post'], 'updateAds',        'AdsController::updateAds');
 
+
+// $routes->get('createAds',             'AdsController::createAds');
 $routes->get('ads/userAds',         'AdsController::privateView/$1');
 $routes->get('userAds',             'AdsController::privateView/$1');
 
@@ -88,11 +90,15 @@ $routes->get('photos',              'PhotoController::index');
 // $routes->get('pages',               'PagesController::index');
 
 // Redirections pour les pages annexes (CGU, COOKIES, REGLES_DIFFUSION)
-$routes->get('CGU',                 'PagesController::view/cgu');
-$routes->get('COOKIES',             'PagesController::view/cookies');
-$routes->get('REGLES_DIFFUSION',    'PagesController::view/regles_diffusion');
-$routes->get('regle_diffusion',     'PagesController::view/regles_diffusion');
-$routes->get('REGLE_DIFFUSION',     'PagesController::view/regles_diffusion');
+// $routes->get('CGU',                 'PagesController::view/cgu');
+// $routes->get('COOKIES',             'PagesController::view/cookies');
+// $routes->get('REGLES_DIFFUSION',    'PagesController::view/regles_diffusion');
+// $routes->get('regle_diffusion',     'PagesController::view/regles_diffusion');
+// $routes->get('REGLE_DIFFUSION',     'PagesController::view/regles_diffusion');
+
+$routes->get('cgu',                 'PagesController::cgu');
+$routes->get('reglesDiffusion',     'PagesController::reglesDiffusion');
+$routes->get('cookies',             'PagesController::cookies');
 
 
 $routes->get('/',                   'PagesController::view/index');

@@ -224,7 +224,7 @@ class AdsController extends BaseController
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
         } else {
-            return redirect()->to('forms/loggin');
+            return redirect()->to('loggin');
         }
 
         // Sauvegarde des champs saisis
@@ -297,7 +297,7 @@ class AdsController extends BaseController
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
         } else {
-            return redirect()->to('forms/loggin');
+            return redirect()->to('loggin');
         }
 
         // Récupération de l'id depuis le formulaire

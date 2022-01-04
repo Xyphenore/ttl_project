@@ -25,7 +25,7 @@ echo '<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
                                 <a class="nav-link" href="' . esc(base_url('cgu')) . '">CGU</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="' . esc(base_url('regles_diffusion')) . '">Règle de diffusion</a>
+                                <a class="nav-link" href="' . esc(base_url('reglesDiffusion')) . '">Règle de diffusion</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="' . esc(base_url('cookies')) . '">Cookies</a>

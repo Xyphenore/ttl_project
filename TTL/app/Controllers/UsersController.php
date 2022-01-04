@@ -208,7 +208,7 @@ class UsersController extends BaseController
             //            echo view('templates/footer');
             //return redirect()->route('named_route');
 
-            return redirect()->to('forms/loggin');
+            return redirect()->to('loggin');
 
             // Récupérer le message flash sur la nouvelle vue
             // $this->userSession->flashdata('success');
@@ -396,7 +396,7 @@ class UsersController extends BaseController
 
         // Si l'utilisateur n'est pas connecté
         if (empty($session->isLoogedIn))
-            return redirect()->to('forms/loggin');
+            return redirect()->to('loggin');
         
         // Récupération de la valeur du bouton qui a été cliqué
         $action = $this->request->getPost('act');

@@ -38,7 +38,7 @@ echo '<div class="collapse navbar-collapse" id="headerNavBar">';
 echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <button class="btn btn-sm btn-outline-secondary">
-                            <a class="nav-link" href="' . esc(base_url('ads/create')) . '">+ Ajouter une annonce</a>
+                            <a class="nav-link" href="' . esc(base_url('createAds')) . '">+ Ajouter une annonce</a>
                         </button>
                     </li>
                  </ul>';

@@ -44,4 +44,71 @@ class PagesController extends BaseController
         // redirection vers la route adéquate
         return redirect()->to($page);
     }
+
+
+    public function cgu()
+    {
+        // On récupère la session actuelle
+        $session = session();
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
+        }
+
+        $data['tete'] = 'cgu';
+        $data['title'] = 'cgu';
+
+        echo view('templates/header', $data);
+        echo view('pages/cgu' , $data);
+        echo view('templates/footer', $data);
+    }
+
+    public function reglesDiffusion()
+    {
+        // On récupère la session actuelle
+        $session = session();
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
+        }
+
+        $data['tete'] = 'reglesDiffusion';
+        $data['title'] = 'reglesDiffusion';
+
+        echo view('templates/header', $data);
+        echo view('pages/reglesDiffusion' , $data);
+        echo view('templates/footer', $data);
+    }
+
+    public function cookies()
+    {
+        // On récupère la session actuelle
+        $session = session();
+        if (!empty($session->isLoogedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
+        }
+
+        $data['tete'] = 'cookies';
+        $data['title'] = 'cookies';
+
+        echo view('templates/header', $data);
+        echo view('pages/cookies' , $data);
+        echo view('templates/footer', $data);
+    }
 }
