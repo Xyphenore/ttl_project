@@ -1,10 +1,12 @@
 <?php
 helper('html');
 
-echo doctype();
-if (empty($title)) {
-    $title = "sans titre";
+// Si on passe un tableau data contenant title alors il faut définir la variable title comme étant la valeur contenue dans la cellule de data
+if (!empty($data['title'])) {
+    $title = $data['title'];
 }
+
+echo doctype();
 
 // Entête HTML
 echo '<html lang="fr"><head><title>' . esc($title) . '</title>';
@@ -18,7 +20,7 @@ echo '<link rel="stylesheet" type="text/css"
 echo '</head>';
 
 // Corps
-echo '<body class="d-flex flex-column min-vh-100">';
+echo '<body class="d-flex flex-column min-vh-100 bg-light">';
 
 // Barre de navigation commune à toutes les pages
 /**
@@ -35,51 +37,47 @@ echo '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" dat
         </button>';
 
 echo '<div class="collapse navbar-collapse" id="headerNavBar">';
-echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <button class="btn btn-sm btn-outline-secondary">
-                            <a class="nav-link" href="' . esc(base_url('createAds')) . '">+ Ajouter une annonce</a>
-                        </button>
-                    </li>
-                 </ul>';
+
+echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
+        <li class="nav-item me-2 pb-2 pb-lg-0">
+            <button class="btn btn-sm btn-primary" type="button">
+                <a class="nav-link text-white" href="' . esc(base_url('createAds')) . '">+ Ajouter une annonce</a>
+            </button>
+        </li>
+        
+        <li class="nav-item">
+            <button class="btn btn-sm btn-outline-secondary" type="button">
+                <a class="nav-link text-white" href="' . esc(base_url('allAds')) . '">Toutes les annonces</a>
+            </button>
+        </li>
+     </ul>';
+
 
 echo '<ul class="navbar-nav mb-2 mb-lg-0 d-flex">';
 
-echo '<li class="nav-item">
-<a class="nav-link" href="' . esc(base_url('allAds')) . '">Toutes les annonces</a>
-</li>';
-
 // La partie suivante dépend si on est connecté ou non
 // TODO : Déplacer la récupération de la session dans le controller de la page
-if (empty(session()->islogedIn)) {
+if ( empty(session()->isLoogedIn) ) {
     echo '<li class="nav-item">
-            <a class="nav-link" href="' . esc(base_url('login')) . '">Se connecter</a>
+            <a class="nav-link text-white" href="' . esc(base_url('login')) . '">Se connecter</a>
         </li>';
-} else {
+}
+else {
     echo '<li class="nav-item">
-            <a class="nav-link" href="' . esc(base_url('dashboard')) . '">Mon compte</a>
-        </li>';
-        
-        echo '<li class="nav-item">
         <a class="nav-link" href="' . esc(base_url('allMessages')) . '">Messages</a>
         </li>';
 
-        echo '<li class="nav-item">
-        <a class="nav-link" href="' . esc(base_url('privateAds')) . '">Mes annonces</a>
-        </li>';
-
-        echo '<li class="nav-item">';
-    echo service('validation')->listErrors() .
-        '<form action="' . esc(base_url('deconnexion')) . '" method="post">';
+    echo '<li class="nav-item pb-2 pb-lg-0 me-2">
+            <a class="nav-link text-white" href="' . esc(base_url('dashboard')) . '">Mon compte</a>
+        </li>
+        <li class="nav-item">';
+    echo '<form action="' . esc(base_url('logout')) . '" method="post">';
     echo csrf_field();
     echo '<input type="submit" name="submit" value="Déconnexion" class="btn btn-secondary"/>
         </form>
     </li>';
 }
-//<a class='nav-link' href="' . esc(base_url('forms/logout')) . '">Déconnexion</a>
 
 echo '</ul>';
 
-echo '</div> </div> </nav> <section class="bg-white">';
-
-
+echo '</div> </div> </nav>';
