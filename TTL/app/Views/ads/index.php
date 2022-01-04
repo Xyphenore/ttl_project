@@ -3,7 +3,7 @@ Doit etre visible par tout utilisateurs connectés ou non -->
 <!-- TODO retirer les border des div et mettre en forme dans le css -->
 <h2><?= esc($tete) ?></h2>
 <!-- TODO debug à virer -->
-ads/index.php<br/>
+ads/index.php<br />
 <!-- Div principal -->
 <div style="border: thin solid black">
     <?php if (!empty($ads) && is_array($ads)) : ?>
@@ -12,14 +12,13 @@ ads/index.php<br/>
 
             <!-- Div d'une annonce -->
             <div style="border: thin solid blue">
-
                 <!-- Titre et Lien vers le détail de l'annonce -->
                 <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"><strong><?= esc($ads_item['A_titre']) ?></strong></a>
-                <?php if (!empty($session->isLoogedIn)) : ?>
-                    <!-- Icone Si l'utilisateur est le propriétaire de l'annonce -->
-                    <?php if ($ads_item['A_idannonce'] === $iduser) : ?>
-                        <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue"/>' ?><br />
-                    <?php endif ?>
+
+                <!-- Icone Si l'utilisateur est le propriétaire de l'annonce -->
+                <?php if ($ads_item['U_mail'] === $iduser) : ?>
+                    <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue"/>' ?><br />
+
                 <?php endif ?>
 
                 <!-- Div de gauche -->
@@ -50,14 +49,14 @@ ads/index.php<br/>
 
                 Créée le : <?= esc($ads_item['A_date_creation']) ?> par
                 <?php if (!empty($ads_item['U_pseudo'])) : ?>
-                    <a title="Détail du profil" href="/users/<?= esc($ads_item['U_pseudo'], 'url') ?>"><strong><?= esc($ads_item['U_pseudo']) ?></strong></a>      
-                    <?php endif ?><br />
+                    <a title="Détail du profil" href="/users/<?= esc($ads_item['U_pseudo'], 'url') ?>"><strong><?= esc($ads_item['U_pseudo']) ?></strong></a>
+                <?php endif ?><br />
 
-                Editée le : <?= esc($ads_item['A_date_creation']) ?><br/>
+                Editée le : <?= esc($ads_item['A_date_creation']) ?><br />
                 <!-- TODO virer debug -->
-                <sup>debug : <br/>
-                <?= esc($ads_item['A_etat']) ?><br/>
-                <?= esc($ads_item['A_idannonce']) ?><br/></sup>
+                <sup>debug : <br />
+                    <?= esc($ads_item['A_etat']) ?><br />
+                    <?= esc($ads_item['A_idannonce']) ?><br /></sup>
             </div><!-- fin div de l'annonce -->
         <?php endforeach; ?>
     <?php else : ?>

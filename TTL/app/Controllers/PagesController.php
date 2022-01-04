@@ -33,28 +33,15 @@ class PagesController extends BaseController
      */
     public function view(string $page = 'index')
     {
-        if (!is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
-            // Whoops, we don't have a page for that!
-            throw new PageNotFoundException($page);
-        }
-        $data['tete'] = 'TrouveTonLogement - Accueil';
-        $data['title'] = 'Accueil';
+        // if (!is_file(APPPATH . 'Views/' . $page . '.php')) {
+        //     // Whoops, we don't have a page for that!
+        //     throw new PageNotFoundException($page);
+        // }
 
         // On récupère la session actuelle
         $session = session();
 
-        // Si l'utilisateur est connecté
-        if (!empty($session->isLoogedIn)) {
-            // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $session->umail;
-            $data['pseudo'] = $session->upseudo;
-        }
-
-        // Affichage de la page
+        // redirection vers la route adéquate
         return redirect()->to($page);
-
-        // echo view('templates/header', $data);
-        // echo view('ads/' . $page, $data);
-        // echo view('templates/footer', $data);
     }
 }

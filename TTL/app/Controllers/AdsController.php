@@ -52,6 +52,10 @@ class AdsController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
         echo view('templates/header', $data);
@@ -98,10 +102,14 @@ class AdsController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
         echo view('templates/header', $data);
-        echo view('ads/allAds', $data);
+        echo view('ads/index', $data);
         echo view('templates/footer', $data);
     }
 
@@ -135,6 +143,10 @@ class AdsController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
 
@@ -159,6 +171,10 @@ class AdsController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
         // Toutes les annonces quel que soit leur état
@@ -297,7 +313,7 @@ class AdsController extends BaseController
                     $adsModel->update($idAnnonce, ['A_etat' => "Public"]);
                     return redirect()->to('privateAds');
                 case 'Voir';
-                    return redirect()->to('ads/'.$idAnnonce);
+                    return redirect()->to('ads/' . $idAnnonce);
                     // $this->detailView($idAnnonce);
                     // break;
                 case 'Supprimer';
@@ -384,6 +400,10 @@ class AdsController extends BaseController
                         // Récupération du  mail de l'utilisateur
                         $data['iduser'] = $session->umail;
                         $data['pseudo'] = $session->upseudo;
+                    } else {
+
+                        $data['iduser'] = null;
+                        $data['pseudo'] = null;
                     }
                     echo view('templates/header',  $data);
                     echo view('ads/updateAds', $data);

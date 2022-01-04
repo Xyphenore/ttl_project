@@ -31,8 +31,9 @@ class UsersController extends BaseController
             $session->destroy();
             return redirect()->to('index');
         }
-
-        echo view('forms/logout', ['title' => 'logout']);
+        $session->destroy();
+        return redirect()->to('index');
+        // echo view('forms/logout', ['title' => 'logout']);
 
         //
     }
@@ -49,8 +50,6 @@ class UsersController extends BaseController
     public function loggin()
     {
         helper(['form', 'url']);
-
-
         // On récupère la session actuelle
         $session = session();
 

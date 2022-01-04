@@ -58,11 +58,11 @@ $routes->match(['get', 'post'], 'actionAds',        'AdsController::actionAds');
 $routes->match(['get', 'post'], 'updateAds',        'AdsController::updateAds');
 
 $routes->get('ads/userAds',         'AdsController::privateView/$1');
+$routes->get('userAds',             'AdsController::privateView/$1');
+
 $routes->get('allAds',              'AdsController::globalView');
 $routes->get('updateAds',           'AdsController::updateAds');
-$routes->get('userAds',             'AdsController::privateView/$1');
 $routes->get('index',               'AdsController::index');
-$routes->get('allAds',              'AdsController::globalView');
 $routes->get('privateAds',          'AdsController::privateView');
 $routes->get('detail',              'AdsController::detailView/$1');
 $routes->get('ads/(:segment)',      'AdsController::detailView/$1');
@@ -84,8 +84,8 @@ $routes->get('photos',              'PhotoController::index');
 /**
  * Gestion par PageController
  */
-$routes->get('pages/(:segment)',    'PagesController::view/$1');
-$routes->get('pages',               'PagesController::index');
+// $routes->get('pages/(:segment)',    'PagesController::view/$1');
+// $routes->get('pages',               'PagesController::index');
 
 // Redirections pour les pages annexes (CGU, COOKIES, REGLES_DIFFUSION)
 $routes->get('CGU',                 'PagesController::view/cgu');

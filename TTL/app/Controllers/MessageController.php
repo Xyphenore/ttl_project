@@ -23,6 +23,10 @@ class MessageController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
         // récupération des annonces de l'utilisateur
@@ -67,6 +71,10 @@ class MessageController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
         // récupération des messages de l'utilisateur
@@ -105,6 +113,10 @@ class MessageController extends BaseController
             // Récupération du  mail de l'utilisateur
             $data['iduser'] = $session->umail;
             $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
         }
 
         if ($this->request->getMethod() === 'post' && $this->validate([
