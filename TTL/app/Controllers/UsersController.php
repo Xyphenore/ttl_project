@@ -263,7 +263,7 @@ class UsersController extends BaseController
             return redirect()->to('/');
         }
 
-        if ( $session->getVar('isAdmin') == true ) {
+        if ( $session->get('isAdmin') == true ) {
             $session->setFlashdata('error_delete_admin', 'Impossible de supprimer le compte admin');
             return redirect()->to('dashboard');
         }
@@ -284,7 +284,7 @@ class UsersController extends BaseController
         }
 
         echo view('templates/header', ['title' => 'Suppression du compte']);
-        echo view('users/delete_user');
+        echo view('users/userDelete');
         echo view('templates/footer');
 
     }

@@ -109,7 +109,7 @@ $routes->get('reglesDiffusion',     'PagesController::reglesDiffusion');
 $routes->get('cookies',             'PagesController::cookies');
 
 
-$routes->get('/',                   'PagesController::view/index');
+$routes->get('/',                   'AdsController::index');
 $routes->get('(:any)',              'PagesController::view/$1');
 
 
