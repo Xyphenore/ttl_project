@@ -43,7 +43,7 @@ $routes->match(['get', 'post'], 'logout',           'UsersController::logout');
 $routes->match(['get', 'post'], 'deconnexion',      'UsersController::logout');
 $routes->match(['get', 'post'], 'DECONNEXION',      'UsersController::logout');
 $routes->match(['get', 'post'], 'dashboard/action', 'UsersController::actionDashboard');
-$routes->match(['get', 'post'], 'setting_user',     'UsersController::setting_user');
+$routes->match(['get', 'post'], 'UserSetting',      'UsersController::UserSetting');
 $routes->match(['get', 'post'], 'dashboard',        'UsersController::dashboard');
 
 $routes->get('dashboard',           'UsersController::dashboard');

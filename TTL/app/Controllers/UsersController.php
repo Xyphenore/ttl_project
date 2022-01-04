@@ -225,11 +225,11 @@ class UsersController extends BaseController
     }
 
     /**
-     * Fonction appeler par le formulaire View/users/setting_user.php
+     * Fonction appeler par le formulaire View/users/UserSetting.php
      * Elle vérifie les informations fournies par le formulaire et modifie le compte de l'utilisateur
      * @return void
      */
-    public function setting_user()
+    public function usersetting()
     {
         // Chargement des assistances pour le formulaire et les redirections
         helper(['form', 'url']);
@@ -295,7 +295,7 @@ class UsersController extends BaseController
 
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
         echo view('templates/header', ['title' => 'Paramètre du compte']);
-        echo view('users/setting_user', ['data' => $user_array]);
+        echo view('users/userSetting', ['data' => $user_array]);
         echo view('templates/footer');
 
         if (($this->request->getMethod() === 'post') && ($this->validate($formRule))) {
@@ -369,7 +369,7 @@ class UsersController extends BaseController
         //     'prenom' => $user['U_prenom'],
         //     'annonces' => site_url('ads/privateAds'),
         //     'discussion' => site_url('users/messages'),
-        //     'parametre' => site_url('users/setting_user'),
+        //     'parametre' => site_url('users/UserSetting'),
         //     'supprimer' => site_url('users/delete_account'),
         // ];
         $data['tete'] = 'Votre tableau de bord';
@@ -403,10 +403,10 @@ class UsersController extends BaseController
 
         if ($this->request->getMethod() === 'post') {
             switch ($action) {
-                case 'Paramètre';
-                    return redirect()->to('setting_user');
+                case 'Modifier mon compte';
+                    return redirect()->to('UserSetting');
 
-                case 'Supprimer';
+                case 'Supprimer mon compte';
                     $userModel = model(UsersModel::class);
                     $session->destroy();
                     $userModel->delete($session->umail);

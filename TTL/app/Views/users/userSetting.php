@@ -1,8 +1,10 @@
 <h2>Setting </h2>
 <!-- TODO debug à virer -->
-users/setting_user.php<br/>
+users/UserSetting.php<br/>
+
 <?= service('validation')->listErrors() ?>
-<?php echo form_open('users/setting_user'); ?>
+<form action="UserSetting" method="post">
+    <?= csrf_field() ?>
     <label for='nom'>Nom</label>
     <input type='text' name='nom' value="<?php esc($data['nom'])?>"/><br/>
 
