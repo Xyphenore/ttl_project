@@ -73,6 +73,7 @@ CREATE TABLE T_utilisateur(
     U_nom VARCHAR(128) NOT NULL,
     U_prenom VARCHAR(128) NOT NULL,
     U_admin BOOLEAN NOT NULL DEFAULT false, 
+    U_bloc BOOLEAN NOT NULL DEFAULT false, 
 
     PRIMARY KEY (U_mail),
     KEY idx_profil(U_pseudo)
