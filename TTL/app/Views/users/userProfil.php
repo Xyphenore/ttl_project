@@ -1,20 +1,25 @@
 <h2><?= esc($user['U_pseudo']) ?></h2>
 
 <h3>Les annonces publiées par <?= esc($user['U_pseudo']) ?> :</h3>
-<form action="<?= esc(base_url('adminUserAction')) ?>" method="post">
-    <?= csrf_field() ?>
-    <input type="hidden" name="idUser" value="<?= esc($user['U_mail']) ?>" />
-    <input type="hidden" name="pseudoUser" value="<?= esc($user['U_pseudo']) ?>" />
 
-    <?php if ($user['U_bloc'] == 1) : ?>
-        <input type="submit" name="adminAct" value="unblocUser" class='btn btn-success text-white mb-1' />
-    <?php else : ?>
-        <input type="submit" name="adminAct" value="blocUser" class='btn btn-warning text-white mb-1' />
-    <?php endif ?>
-    <input type="submit" name="adminAct" value="editUser" class='btn btn-success text-white mb-1' />
-    <input type="submit" name="adminAct" value="delUser" class='btn btn-danger text-white mb-1' />
-    <input type="submit" name="adminAct" value="mailUser" class='btn btn-dark text-white mb-1' />
-</form>
+<?php if ($user['U_admin'] == 1) : ?>
+    <form action="<?= esc(base_url('adminUserAction')) ?>" method="post">
+        <?= csrf_field() ?>
+        <input type="hidden" name="idUser" value="<?= esc($user['U_mail']) ?>" />
+        <input type="hidden" name="pseudoUser" value="<?= esc($user['U_pseudo']) ?>" />
+
+        <?php if ($user['U_bloc'] == 1) : ?>
+            <input type="submit" name="adminAct" value="unblocUser" class='btn btn-success text-white mb-1' />
+        <?php else : ?>
+            <input type="submit" name="adminAct" value="blocUser" class='btn btn-warning text-white mb-1' />
+        <?php endif ?>
+        <input type="submit" name="adminAct" value="editUser" class='btn btn-success text-white mb-1' />
+        <input type="submit" name="adminAct" value="delUser" class='btn btn-danger text-white mb-1' />
+        <input type="submit" name="adminAct" value="mailUser" class='btn btn-dark text-white mb-1' />
+    </form>
+<?php endif ?>
+
+
 <!-- Div principal -->
 <div style="border: thin solid black">
     <?php if (!empty($ads) && is_array($ads)) : ?>
@@ -57,19 +62,19 @@
                 Créée le : <?= esc($ads_item['A_date_creation']) ?><br />
                 Editée le : <?= esc($ads_item['A_date_creation']) ?><br />
                 <form action="<?= esc(base_url('adminUserAction')) ?>" method="post">
-    <?= csrf_field() ?>
-    <input type="hidden" name="idUser" value="<?= esc($user['U_mail']) ?>" />
-    <input type="hidden" name="pseudoUser" value="<?= esc($user['U_pseudo']) ?>" />
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="idUser" value="<?= esc($user['U_mail']) ?>" />
+                    <input type="hidden" name="pseudoUser" value="<?= esc($user['U_pseudo']) ?>" />
 
-    <?php if ($ads_item['A_etat'] === 'Bloc') : ?>
-        <input type="submit" name="adminAct" value="unblocAd" class='btn btn-success text-white mb-1' />
-    <?php else : ?>
-        <input type="submit" name="adminAct" value="blocAd" class='btn btn-warning text-white mb-1' />
-    <?php endif ?>
-    <input type="submit" name="adminAct" value="editUser" class='btn btn-success text-white mb-1' />
-    <input type="submit" name="adminAct" value="delUser" class='btn btn-danger text-white mb-1' />
-    <input type="submit" name="adminAct" value="mailUser" class='btn btn-dark text-white mb-1' />
-</form>
+                    <?php if ($ads_item['A_etat'] === 'Bloc') : ?>
+                        <input type="submit" name="adminAct" value="unblocAd" class='btn btn-success text-white mb-1' />
+                    <?php else : ?>
+                        <input type="submit" name="adminAct" value="blocAd" class='btn btn-warning text-white mb-1' />
+                    <?php endif ?>
+                    <input type="submit" name="adminAct" value="editUser" class='btn btn-success text-white mb-1' />
+                    <input type="submit" name="adminAct" value="delUser" class='btn btn-danger text-white mb-1' />
+                    <input type="submit" name="adminAct" value="mailUser" class='btn btn-dark text-white mb-1' />
+                </form>
 
 
             </div><!-- fin div de l'annonce -->
