@@ -234,9 +234,9 @@ class UsersController extends BaseController
             $session->setFlashdata('register_success', 'Inscription validée');
 
             // Pour avoir le message de flash data on doit faire une redirection et non pas un echo view()
-//            echo view('templates/header', ['title' => 'Formulaire de connexion']);
-//            echo view('forms/loggin');
-//            echo view('templates/footer');
+            //            echo view('templates/header', ['title' => 'Formulaire de connexion']);
+            //            echo view('forms/loggin');
+            //            echo view('templates/footer');
             //return redirect()->route('named_route');
 
             return redirect()->to('login');
@@ -255,24 +255,25 @@ class UsersController extends BaseController
     }
 
 
-    public function userdelete() {
+    public function userdelete()
+    {
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( empty($session->isloggedIn) ) {
+        if (empty($session->isloggedIn)) {
             return redirect()->to('/');
         }
 
-        if ( $session->get('isAdmin') == true ) {
+        if ($session->get('isAdmin') == true) {
             $session->setFlashdata('error_delete_admin', 'Impossible de supprimer le compte admin');
             return redirect()->to('dashboard');
         }
 
-        if ($this->request->getMethod() === 'post' ) {
+        if ($this->request->getMethod() === 'post') {
             $delete = $this->request->getPost('delete');
 
 
-            if ( strtolower($delete) !== 'oui' ) {
+            if (strtolower($delete) !== 'oui') {
                 return redirect()->to('dashboard');
             }
 
@@ -286,7 +287,6 @@ class UsersController extends BaseController
         echo view('templates/header', ['title' => 'Suppression du compte']);
         echo view('users/userDelete');
         echo view('templates/footer');
-
     }
 
     /**
@@ -302,7 +302,7 @@ class UsersController extends BaseController
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( !isset($session->isloggedIn) ) {
+        if (!isset($session->isloggedIn)) {
             return redirect()->to('/');
         }
 
@@ -315,7 +315,7 @@ class UsersController extends BaseController
         //var_dump($user);
 
         if ($this->request->getMethod() === 'post') {
-            if ( $this->request->getPost('id-form') === 'form-identity' ) {
+            if ($this->request->getPost('id-form') === 'form-identity') {
                 $formRule = [
                     'email' => [],
                     'nom' => [
@@ -378,7 +378,7 @@ class UsersController extends BaseController
 
                     // Mise à jour du compte utilisateur
                     if (!empty($update_data)) {
-                        $usersModel->update($email,$update_data);
+                        $usersModel->update($email, $update_data);
 
                         $session->setFlashdata('success_modify_identity', 'Votre identité a été mise à jour');
                         return redirect()->to('UserSetting');
@@ -386,8 +386,7 @@ class UsersController extends BaseController
                 }
 
                 //$session->setFlashdata('id-form', 'form-identity');
-            }
-            elseif ( $this->request->getPost('id-form') === 'form-password' ) {
+            } elseif ($this->request->getPost('id-form') === 'form-password') {
                 $formRule = [
                     'email' => [],
                     'pass' => [
@@ -447,14 +446,15 @@ class UsersController extends BaseController
         echo view('templates/footer');
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         // Chargement des assistances pour le formulaire et les redirections
         helper(['form', 'url']);
 
         $session = session();
 
         // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if ( !isset($session->isloggedIn) ) {
+        if (!isset($session->isloggedIn)) {
             return redirect()->to('/');
         }
 
@@ -468,7 +468,7 @@ class UsersController extends BaseController
 
         // récupération du nombre de message non lu
         $msg['msg'] = $this->hasUnreadMessage($email);
-        
+
         $data['tete'] = 'Votre tableau de bord';
         $data['title'] = 'Tableau de bord';
         $data['user'] = $session->umail;
@@ -522,7 +522,7 @@ class UsersController extends BaseController
         }
     }
 
-     /**
+    /**
      * Notification si l'utilisateur à des messages non lus
      *
      */
@@ -534,15 +534,16 @@ class UsersController extends BaseController
         $count = 0;
 
         $data['ads'] = $adsModel->getUserAds($idUser);
-        
+
         foreach ($data['ads'] as $v) {
             $count += $messageModel->numberUnreadMessage($v['A_idannonce']);
-            
         }
-        
+
         $data['hasnewmsg'] = ($count > 0);
         $data['count'] = $count;
-        
+
         return $data;
     }
+
+
 }

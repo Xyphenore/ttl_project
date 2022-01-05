@@ -51,12 +51,18 @@ $routes->match(['get', 'post'], 'dashboard',        'UsersController::dashboard'
 
 $routes->get('dashboard',           'UsersController::dashboard');
 
-$routes->get('adminDashboard',      'UsersController::adminDashboard');
-$routes->get('adminAdsManager',      'UsersController::adminAdsManager');
-$routes->get('adminUserManager',      'UsersController::adminUserManager');
-
 $routes->get('users/(:segment)',    'UsersController::view/$1');
 $routes->get('users',               'UsersController::index');
+
+// Partie de l'administrateur
+$routes->match(['get', 'post'], 'adminDashboard',        'AdminController::adminDashboard');
+$routes->match(['get', 'post'], 'adminUserAction', 'AdminController::adminUserAction');
+$routes->get('adminDashboard',      'AdminController::adminDashboard');
+$routes->get('adminAdsManager',      'AdminController::adminAdsManager');
+$routes->get('adminUserManager',      'AdminController::adminUserManager');
+
+$routes->match(['get', 'post'], 'adminAdAction', 'AdminController::adminAdAction');
+$routes->match(['get', 'post'], 'adminMsgAction', 'AdminController::adminAdAction');
 
 /**
  * Gestion par AdsController
