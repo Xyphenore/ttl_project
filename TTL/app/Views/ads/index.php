@@ -20,7 +20,7 @@
 
                 <!-- Icone Si l'utilisateur est le propriétaire de l'annonce -->
                 <?php if ($ads_item['U_mail'] === $iduser) : ?>
-                    <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue"/>' ?><br />
+                    <?php echo '<img src="' . base_url('blue_star.png') . '"alt="Icone etoile bleue" width="15px" height="15px"/>' ?><br />
 
                 <?php endif ?>
 
