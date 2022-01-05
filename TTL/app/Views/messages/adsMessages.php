@@ -76,7 +76,7 @@
                             
                             <!-- Titre et Lien vers le détail de l'annonce -->
                             <a title="Détail de l'annonce" href="/ads/<?= esc($v['A_idannonce'], 'url') ?>">
-                                <strong><?= esc($v['A_titre']) ?></strong></a>
+                                <strong><?= esc($v['A_titre']) ?></strong></a><br/>
                             Liste des messages : <br />
 
                             <?php foreach ($v['msg'] as $msg) : ?>

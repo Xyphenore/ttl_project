@@ -1,7 +1,7 @@
 <div style="border: thin solid blue">
 
-de : <a title="Détail" href="/users/<?= esc($sentby, 'url') ?>">
-        <?= esc($sentby) ?> </a><br />
+de : 
+        <strong><?= esc($msg['U_mail']) ?></strong><br />
     <?= esc($msg['M_dateheure_message']) ?><br />
 
     message :<br />
