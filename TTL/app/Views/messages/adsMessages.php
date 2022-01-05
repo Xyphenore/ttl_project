@@ -47,7 +47,7 @@
                                     <!-- les messages appartenant à cette annonce -->
                                     <?php if ($elem['A_idannonce'] === $v['A_idannonce']) : ?>
 
-                                        de : <a title="Lire le message" href="/asdMessages/<?= esc($elem['M_idmessage'], 'url') ?>">
+                                        de : <a title="Lire le message" href="/adsMessages/<?= esc($elem['M_idmessage'], 'url') ?>">
                                             <strong><?= $elem['U_mail'] ?></strong>
                                             <!-- Si le message est non lu il a une pastille de notification-->
                                             <?php if ($elem['M_lu'] == false) : ?>
@@ -82,7 +82,7 @@
                             <?php foreach ($v['msg'] as $msg) : ?>
                                 <!-- Si l'annonce a des message, et qu'ils sont déjà lu -->
                                 <?php if ($msg['A_idannonce'] === $v['A_idannonce']) : ?>
-                                    de : <a title="Lire le message" href="/asdMessages/<?= esc($msg['M_idmessage'], 'url') ?>">
+                                    de : <a title="Lire le message" href="/adsMessages/<?= esc($msg['M_idmessage'], 'url') ?>">
                                     <strong><?= $elem['U_mail'] ?></strong></a><br />
                                     <sup> le <?= esc($elem['M_dateheure_message']) ?></sup><br />
                                 <?php endif ?>

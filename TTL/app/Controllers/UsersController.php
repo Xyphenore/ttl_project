@@ -511,7 +511,7 @@ class UsersController extends BaseController
                     return redirect()->to('privateAds');
 
                 case 'Messages';
-                    return redirect()->to('asdMessages');
+                    return redirect()->to('adsMessages');
 
                 case 'Paramètre';
                     return redirect()->to('UserSetting');

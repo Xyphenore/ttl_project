@@ -29,14 +29,15 @@ ads/privateAds.php<br />
 
                             <!-- Icone Si l'annonce a des messages -->
                             <?php if ($ads_item['count'] > 0) : ?>
-                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
+                               
+                               <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
-                                <?php if ($ads_item['count'] > 1) : ?>
-                                    <?= esc($ads_item['count']) ?> Messages non lus
-                                <?php else : ?>
-                                    <?= esc($ads_item['count']) ?> Message non lu
-                                <?php endif ?>
-                            <?php endif ?>
+                               <?php if ($ads_item['count'] > 1) : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                               <?php else : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                               <?php endif ?>
+                           <?php endif ?>
 
                             <div class='row g-3 py-2'>
                             <!-- Div de gauche -->
@@ -126,14 +127,15 @@ ads/privateAds.php<br />
 
                             <!-- Icone Si l'annonce a des messages -->
                             <?php if ($ads_item['count'] > 0) : ?>
-                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
+                               
+                               <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
-                                <?php if ($ads_item['count'] > 1) : ?>
-                                    <?= esc($ads_item['count']) ?> Messages non lus
-                                <?php else : ?>
-                                    <?php echo '<img src="' . base_url('no_pic.png') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?><br />
-                                <?php endif ?>
-                            <?php endif ?>
+                               <?php if ($ads_item['count'] > 1) : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                               <?php else : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                               <?php endif ?>
+                           <?php endif ?>
 
                             <div class="row g-3 py-2">
                             <!-- Div de gauche -->
@@ -142,7 +144,7 @@ ads/privateAds.php<br />
                                     <?php if (!empty($ads_item['P_idphoto'])) : ?>
                                         <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['P_data']) . '" alt="' . ($ads_item['P_titre']) . '" class="w-100"/>' ?>
                                     <?php else : ?>
-                                        <?php echo '<img src="' . base_url('no_pic.jpg') . '"alt="Photo par défaut" class="w-100"/>' ?>
+                                        <?php echo '<img src="' . base_url('no_pic.png') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?>
                                     <?php endif ?>
                                 </div><!-- fin div de gauche -->
 
@@ -216,16 +218,17 @@ ads/privateAds.php<br />
                                 <?= esc($ads_item['A_titre']) ?>
                             </a>
 
-                            <!-- Icone Si l'annonce a des messages -->
+                             <!-- Icone Si l'annonce a des messages -->
                             <?php if ($ads_item['count'] > 0) : ?>
-                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
+                               
+                               <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
-                                <?php if ($ads_item['count'] > 1) : ?>
-                                    <?= esc($ads_item['count']) ?> Messages non lus
-                                <?php else : ?>
-                                    <?php echo '<img src="' . base_url('no_pic.png') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?><br />
-                                <?php endif ?>
-                            <?php endif ?>
+                               <?php if ($ads_item['count'] > 1) : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                               <?php else : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                               <?php endif ?>
+                           <?php endif ?>
 
                             <div class='row g-3 py-2'>
                                 <!-- Div de gauche -->
@@ -234,8 +237,9 @@ ads/privateAds.php<br />
                                     <?php if (!empty($ads_item['P_idphoto'])) : ?>
                                         <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['P_data']) . '" alt="' . ($ads_item['P_titre']) . '" class="w-100"/>' ?>
                                     <?php else : ?>
-                                        <?php echo '<img src="' . base_url('no_pic.jpg') . '"alt="Photo par défaut" class="w-100"/>' ?>
+                                        <?php echo '<img src="' . base_url('no_pic.png') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?>
                                     <?php endif ?>
+                                
                                 </div><!-- fin div de gauche -->
 
                                 <!-- Div de droite -->
@@ -306,24 +310,26 @@ ads/privateAds.php<br />
 
                             <!-- Icone Si l'annonce a des messages -->
                             <?php if ($ads_item['count'] > 0) : ?>
-                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
+                               
+                               <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
-                                <?php if ($ads_item['count'] > 1) : ?>
-                                    <?= esc($ads_item['count']) ?> Messages non lus
-                                <?php else : ?>
-                                    <?php echo '<img src="' . base_url('no_pic.png') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?><br />
-                                <?php endif ?>
-                            <?php endif ?>
+                               <?php if ($ads_item['count'] > 1) : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                               <?php else : ?>
+                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                               <?php endif ?>
+                           <?php endif ?>
 
                             <div class='row g-3 py-2'>
                             <!-- Div de gauche -->
-                                <div class='col-5'>
+                            <div class='col-5'>
                                     <!-- Photo principale de l'annonce -->
                                     <?php if (!empty($ads_item['P_idphoto'])) : ?>
                                         <?php echo '<img src = "data:image/png;base64,' . base64_encode($ads_item['P_data']) . '" alt="' . ($ads_item['P_titre']) . '" class="w-100"/>' ?>
                                     <?php else : ?>
-                                        <?php echo '<img src="' . base_url('no_pic.jpg') . '"alt="Photo par défaut" class="w-100"/>' ?>
+                                        <?php echo '<img src="' . base_url('no_pic.png') . '"alt="Photo par défaut" width="100px" height="80px"/>' ?>
                                     <?php endif ?>
+                                
                                 </div><!-- fin div de gauche -->
 
                             <!-- Div de droite -->
