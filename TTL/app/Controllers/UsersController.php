@@ -380,6 +380,10 @@ class UsersController extends BaseController
                     if (!empty($update_data)) {
                         $usersModel->update($email, $update_data);
 
+                        if ( !empty($new_pseudo) ) {
+                            $session->set('upseudo', $new_pseudo);
+                        }
+
                         $session->setFlashdata('success_modify_identity', 'Votre identité a été mise à jour');
                         return redirect()->to('UserSetting');
                     }
