@@ -16,7 +16,7 @@
     }
     ?>
 
-    <form action="<?= esc(base_url('actionAdminDashboard')) ?>" method="post" id="dashboard-action">
+    <form action="<?= esc(base_url('actionAdminDashboard')) ?>" method="post" id="dashboard-admin">
         <?= csrf_field() ?>
        
     </form>
@@ -25,7 +25,7 @@
         <?php //Bloc Annonces 
         ?>
         <div class="col-lg-4">
-            <button class='border border-secondary w-100 h-100 rounded-3  p-3 bg-white' role='button' form='dashboard-action' name='act' type='submit' value='Annonces'>
+            <button class='border border-secondary w-100 h-100 rounded-3  p-3 bg-white' role='button' form='dashboard-admin' name='act' type='submit' value='Annonces'>
                 <div class='pb-2'>
                     <svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' fill='currentColor' class='bi bi-house' viewBox='0 0 16 16'>
                         <path fill-rule='evenodd' d='M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z' />
@@ -42,7 +42,7 @@
         <?php //Bloc Message 
         ?>
         <div class="col-lg-4">
-            <button class='border border-secondary rounded-3 w-100 h-100 p-3 bg-white' role='button' form='dashboard-action' name='act' type='submit' value='Utilisateurs'>
+            <button class='border border-secondary rounded-3 w-100 h-100 p-3 bg-white' role='button' form='dashboard-admin' name='act' type='submit' value='Utilisateurs'>
                 <div class='pb-2'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -62,7 +62,7 @@
         <?php //Bloc Paramètres 
         ?>
         <div class="col-lg-4">
-            <button class='border border-secondary rounded-3 w-100 h-100 p-3 bg-white' role='button' form='dashboard-action' name='act' type='submit' value='Paramètre'>
+            <button class='border border-secondary rounded-3 w-100 h-100 p-3 bg-white' role='button' form='dashboard-admin' name='act' type='submit' value='Paramètre'>
                 <div class='pb-2'>
                     <svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' fill='currentColor' class='bi bi-gear' viewBox='0 0 16 16'>
                         <path d='M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z' />

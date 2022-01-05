@@ -85,7 +85,7 @@
     //Partie admin
     if (session()->isAdmin) {
         echo '<div class=\'row px-4 py-2 g-3\'>
-                    <a href="' . esc(base_url('admin/dashboard')) . '" class="btn btn-secondary text-white">Vers la page administration</a>
+                    <a href="' . esc(base_url('adminDashboard')) . '" class="btn btn-secondary text-white">Vers la page administration</a>
                 </div>';
     }
     ?>

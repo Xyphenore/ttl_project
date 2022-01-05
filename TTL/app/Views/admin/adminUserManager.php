@@ -12,17 +12,13 @@
                 <?= esc($user_item['U_nom']) ?> <?= esc($user_item['U_prenom']) ?><br />
                 Mail : <?= esc($user_item['U_mail']) ?><br />
                 Mot de passe : <?= esc($user_item['U_mdp']) ?><br />
-                <?php if ($user_item['U_bloc'] == 1) : ?>
-                    Bloqué
-                <?php else : ?>
-                    Libre
-                <?php endif ?>
+                
                 <br />
 
 
                 <form action="adminUserAction" method="post">
                     <?= csrf_field() ?>
-                    <input type="text" name="idUser" value="<?= esc($user_item['U_mail']) ?>" />
+                    <input type="hidden" name="idUser" value="<?= esc($user_item['U_mail']) ?>" />
 
                     <?php if ($user_item['U_bloc'] == 1) : ?>
                         <input type="submit" name="adminAct" value="unblocUser" class='btn btn-success text-white mb-1' />

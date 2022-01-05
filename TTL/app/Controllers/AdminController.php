@@ -176,10 +176,10 @@ class AdminController extends BaseController
         if ($this->request->getMethod() === 'post') {
             switch ($action) {
                 case 'Annonces';
-                    return redirect()->to('privateAds');
+                    return redirect()->to('adminAdsManager');
 
                 case 'Utilisateurs';
-                    return redirect()->to('adsMessages');
+                    return redirect()->to('adminUserManager');
 
                 case 'Paramètre';
                     return redirect()->to('UserSetting');
