@@ -10,7 +10,7 @@ class UsersModel extends Model
     protected $primaryKey = 'U_mail';
     protected $useAutoIncrement = false;
 
-    protected $allowedFields = ['U_mail', 'U_mdp', 'U_pseudo', 'U_nom', 'U_prenom'];
+    protected $allowedFields = ['U_mail', 'U_mdp', 'U_pseudo', 'U_nom', 'U_prenom', 'U_bloc'];
 
 
     /**
@@ -22,7 +22,7 @@ class UsersModel extends Model
     public function getUser($pseudo = false)
     {
         if ($pseudo === false) {
-            return $this->findAll();
+            return $this->where(['U_admin' => false])->findAll();
         }
 
         return $this->where(['U_pseudo' => $pseudo])->first();

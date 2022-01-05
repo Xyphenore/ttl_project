@@ -56,11 +56,13 @@ $routes->get('users',               'UsersController::index');
 
 // Partie de l'administrateur
 $routes->match(['get', 'post'], 'adminDashboard',        'AdminController::adminDashboard');
-$routes->match(['get', 'post'], 'adminUserAction', 'AdminController::adminUserAction');
+
 $routes->get('adminDashboard',      'AdminController::adminDashboard');
 $routes->get('adminAdsManager',      'AdminController::adminAdsManager');
 $routes->get('adminUserManager',      'AdminController::adminUserManager');
+$routes->get('adminUserEdit',      'AdminController::adminUserEdit');
 
+$routes->match(['get', 'post'], 'adminUserAction', 'AdminController::adminUserAction');
 $routes->match(['get', 'post'], 'adminAdAction', 'AdminController::adminAdAction');
 $routes->match(['get', 'post'], 'adminMsgAction', 'AdminController::adminAdAction');
 

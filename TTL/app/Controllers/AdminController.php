@@ -23,30 +23,58 @@ class AdminController extends BaseController
 
         $session = session();
 
-        // Impossible d'accéder à la page de settings pour un utilisateur non connecté
-        if (!isset($session->isloggedIn)) {
+        // Impossible d'accéder à la page pour un utilisateur non admin
+        if (!($session->isAdmin)) {
             return redirect()->to('/');
         }
 
-
         $usersModel = model(UsersModel::class);
 
-        $email = $session->umail;
-
-        // Récupération de l'utilisateur
-        $user = $usersModel->where('U_mail', $email)->first();
 
         $data['tete'] = 'Administration';
         $data['title'] = 'Adminsitration';
-        $data['user'] = $session->umail;
-        $data['pseudo'] = $session->upseudo;
-        $data['prenom'] = $user['U_prenom'];
-
+        
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
         echo view('templates/header', $data);
         echo view('admin/adminDashboard', $data);
         echo view('templates/footer', $data);
     }
+
+    /**
+     * Pour la gestion des utilisateurs
+     *
+     * @return void
+     */
+    public function adminUserManager()
+    {
+        $usersModel = model(UsersModel::class);
+        $messageModel = model(MessageModel::class);
+        $adsModel = model(AdsModel::class);
+        
+        // récupère tous les utilisateurs inscrit sauf l'admin
+        $tmp['user' ] = $usersModel->getUser();
+            
+
+        $tmp2 = [];
+        // Récupération du nombre d'annonces publiées par l'utilisateur
+        foreach ($tmp['user'] as $k => $v) {
+
+            $count['count'] = $adsModel->getNumberads($v['U_mail']);
+            $tmp2[] = array_merge($v, $count);
+        }
+
+
+        $data['user'] = $tmp2;
+        $data['title'] = 'Utilisateurs';
+        $data['tete'] = 'Utilisateurs inscrits';
+
+        echo view('templates/header', $data);
+        echo view('admin/adminUserManager', $data);
+        echo view('templates/footer', $data);
+    }
+
+
+
 
     /**
      * Switch la valeur du bouton cliqué et agit en conséquence
@@ -66,21 +94,31 @@ class AdminController extends BaseController
         }
 
         // Récupération de la valeur du bouton qui a été cliqué
-        $action = $this->request->getPost('admin');
+        $action = $this->request->getPost('adminAct');
+
+        // Récupération de l'idUser
+        $idUser = $this->request->getPost('idUser');
 
         // Mise à jour de l'état de l'annonce en BDD
         if ($this->request->getMethod() === 'post') {
             switch ($action) {
                 case 'delUser';
-                   
+                $userModel->delete($idUser);
+                return redirect()->to('adminUserManager');
 
                 case 'mailUser';
                     
 
                 case 'editUser';
-
+               
                 
                 case 'blocUser';
+                $userModel->update($idUser, ['U_bloc' => true]);
+                return redirect()->to('adminUserManager');
+
+                case 'unblocUser';
+                $userModel->update($idUser, ['U_bloc' => false]);
+                return redirect()->to('adminUserManager');
                     
 
                 default:
@@ -88,6 +126,8 @@ class AdminController extends BaseController
             }
         }
     }
+
+    
 
 
     public function adminAdsManager()
@@ -140,35 +180,7 @@ class AdminController extends BaseController
         echo view('templates/footer', $data);
     }
 
-    public function adminUserManager()
-    {
-        $usersModel = model(UsersModel::class);
-        $adsModel = model(AdsModel::class);
-
-
-        $tmp = [
-            'user'  => $usersModel->getUser(),
-            'title' => 'Utilisateurs inscrits',
-        ];
-
-        $tmp2 = [];
-        // Récupération du nombre d'annonces publiées par l'utilisateur
-        foreach ($tmp['user'] as $k => $v) {
-
-            $count['count'] = $adsModel->getNumberads($v['U_mail']);
-            $tmp2[] = array_merge($v, $count);
-        }
-
-
-        $data['user'] = $tmp2;
-        $data['title'] = 'Utilisateurs';
-        $data['tete'] = 'Utilisateurs inscrits';
-
-        echo view('templates/header', $data);
-        echo view('admin/adminUserManager', $data);
-        echo view('templates/footer', $data);
-    }
-
+   
 
     
 }
