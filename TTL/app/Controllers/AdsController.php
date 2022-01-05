@@ -249,17 +249,75 @@ class AdsController extends BaseController
             'type'          => $this->request->getPost('type'),
         ];
 
+        $formRules = [
+            'titre' => [
+                'rules' => 'required|min_length[3]|max_length[128]',
+                'errors' => [
+                    'required' => "Un titre pour l'annonce est nécessaire",
+                    'min_length' => "Le titre doit faire un minimum de 3 caractères",
+                    'max_length' => "Le titre peut au maximum faire 128 caractères",
+                ],
+            ],
+            'loyer' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => "Le loyer est requis",
+                ],
+            ],
+            'chauffage' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => "Le choix du chauffage est nécessaire",
+                ],
+            ],
+            'superficie' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => "La superficie est nécessaire",
+                ],
+            ],
+            'type' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => "Le type de chauffage doit être sélectionné",
+                ],
+            ],
+            'adresse' => [
+                'rules' => 'required|max_length[128]',
+                'errors' => [
+                    'required' => "L'adresse est nécessaire",
+                    'max_length' => "L'adresse peut faire au maximum 128 caractères",
+                ],
+            ],
+            'ville' => [
+                'rules' => 'required|max_length[128]',
+                'errors' => [
+                    'required' => "La ville est nécessaire",
+                    'max_length' => "La ville peut faire au maximum 128 caractères",
+                ],
+            ],
+            'cp' => [
+                'rules' => 'required|exact_length[5]|numeric',
+                'errors' => [
+                    'required' => "Le code postal est nécessaire",
+                    'exact_length' => "Le code postal doit faire 5 chiffres",
+                    'numeric' => "Le code postal doit être un nombre",
+                ],
+            ],
+        ];
 
-        if ($this->request->getMethod() === 'post' && $this->validate([
-            'titre'      => 'required|min_length[3]|max_length[128]',
-            'loyer'      => 'required',
-            'chauffage'  => 'required',
-            'superficie' => 'required',
-            'type'       => 'required',
-            'adresse'    => 'required|max_length[128]',
-            'ville'      => 'required|max_length[128]',
-            'cp'         => 'required|min_length[5]|max_length[5]',
-        ])) {
+//        [
+//            'titre'      => 'required|min_length[3]|max_length[128]',
+//            'loyer'      => 'required',
+//            'chauffage'  => 'required',
+//            'superficie' => 'required',
+//            'type'       => 'required',
+//            'adresse'    => 'required|max_length[128]',
+//            'ville'      => 'required|max_length[128]',
+//            'cp'         => 'required|min_length[5]|max_length[5]',
+//        ]
+
+        if ($this->request->getMethod() === 'post' && $this->validate($formRules)) {
 
             $adsModel->save([
                 'A_titre'            => $data['ads']['titre'],
@@ -342,6 +400,7 @@ class AdsController extends BaseController
                     $data['idAnnonce'] = $this->request->getPost('id');
                     echo view('templates/header', $data);
                     echo view('ads/updateAds', $data);
+                    echo view('templates/footer');
                     break;
                 default:
                     $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
