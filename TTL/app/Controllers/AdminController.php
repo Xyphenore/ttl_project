@@ -178,7 +178,7 @@ class AdminController extends BaseController
                 case 'Annonces';
                     return redirect()->to('privateAds');
 
-                case 'Messages';
+                case 'Utilisateurs';
                     return redirect()->to('adsMessages');
 
                 case 'Paramètre';
