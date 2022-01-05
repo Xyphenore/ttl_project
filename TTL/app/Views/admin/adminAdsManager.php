@@ -31,6 +31,24 @@
                  <?php echo (esc($ads_item['U_mail']))  ?> <br />
 
             </div><!-- fin div de l'annonce -->
+            <?php $session = session(); ?>
+                <?php if ($session->isAdmin) : ?>
+                    <form action="<?= esc(base_url('adminAdAction')) ?>" method="post">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="idUser" value="<?= esc($ads_item['U_mail']) ?>" />
+                        <input type="hidden" name="idAd" value="<?= esc($ads_item['A_idannonce']) ?>" />
+
+                        <?php if ($ads_item['A_etat'] === 'Bloc') : ?>
+                            <input type="submit" name="adminAct" value="unblocAd" class='btn btn-success text-white mb-1' />
+                        <?php else : ?>
+                            <input type="submit" name="adminAct" value="blocAd" class='btn btn-warning text-white mb-1' />
+                        <?php endif ?>
+                        <input type="submit" name="adminAct" value="editAd" class='btn btn-success text-white mb-1' />
+                        <input type="submit" name="adminAct" value="delAd" class='btn btn-danger text-white mb-1' />
+                    </form>
+                <?php endif ?>
+
+                
         <?php endforeach; ?>
     <?php else : ?>
         <h3>Aucune annonce</h3>

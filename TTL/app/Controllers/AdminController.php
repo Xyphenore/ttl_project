@@ -204,6 +204,18 @@ class AdminController extends BaseController
         }
     }
 
+        /**
+     * Switch la valeur du bouton cliqué et agit en conséquence
+     *
+     * @return void
+     */
+    public function debug()
+    {
+       
+        $adsModel = model(AdsModel::class);
+        $adsModel->update(null, ['A_etat' => 'Public']);
+        return redirect()->to('index');
+    }
 
 
 

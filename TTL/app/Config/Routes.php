@@ -67,6 +67,8 @@ $routes->match(['get', 'post'], 'adminUserAction', 'AdminController::adminUserAc
 $routes->match(['get', 'post'], 'adminAdAction', 'AdminController::adminAdAction');
 $routes->match(['get', 'post'], 'adminMsgAction', 'AdminController::adminAdAction');
 
+// TODO debug à virer
+$routes->get('debug',      'AdminController::debug');
 /**
  * Gestion par AdsController
  */
