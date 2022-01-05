@@ -224,7 +224,7 @@ class UsersController extends BaseController
         if ($this->request->getMethod() === 'post' && $this->validate($formRule)) {
             $usersModel->save([
                 'U_mail' => $this->request->getPost('email'),
-                'U_mdp' => password_hash($this->request->getPost('pass'), PASSWORD_BCRYPT),
+                'U_mdp' => $this->request->getPost('pass'), //password_hash($this->request->getPost('pass'), PASSWORD_BCRYPT),
                 'U_pseudo' => $this->request->getPost('pseudo'),
                 'U_nom' => $this->request->getPost('nom'),
                 'U_prenom' => $this->request->getPost('prenom')
@@ -420,7 +420,7 @@ class UsersController extends BaseController
                     $new_password = $this->request->getPost('new_pass');
 
                     if (isset($new_password)) {
-                        $usersModel->update($this->request->getPost('email'), ['U_mdp' => password_hash($new_password, PASSWORD_BCRYPT)]);
+                        $usersModel->update($this->request->getPost('email'), ['U_mdp' => $new_password]); //password_hash($new_password, PASSWORD_BCRYPT)]);
 
                         $session->setFlashdata('success_modify_pw', 'Mot de passe modifié');
                         return redirect()->to('UserSetting');

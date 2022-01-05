@@ -23,7 +23,7 @@ class UsersRules
         if (!$user)
             return false;
 
-        return password_verify($userData['pass'], $user['U_mdp']);
+        return $userData['pass'] == $user['U_mdp']; //password_verify($userData['pass'], $user['U_mdp']);
     }
 
 
