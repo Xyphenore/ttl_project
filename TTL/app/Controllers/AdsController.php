@@ -400,6 +400,7 @@ class AdsController extends BaseController
                     $data['idAnnonce'] = $this->request->getPost('id');
                     echo view('templates/header', $data);
                     echo view('ads/updateAds', $data);
+                    echo view('templates/footer');
                     break;
                 default:
                     $adsModel->update($idAnnonce, ['A_etat' => "Brouillon"]);
