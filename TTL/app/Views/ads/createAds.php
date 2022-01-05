@@ -14,14 +14,14 @@ Seul un utilisateur connecté peut y acceder -->
                 <?php if (!empty($ads) && is_array($ads)) : ?>
 
                     <div class='form-group pb-2'>
-                        <label for="titre" class="form-label">Titre</label>
+                        <label for="titre" class="form-label">Titre*</label>
                         <input type="text" name="titre" id="titre" class="form-control" minlength="3" maxlength="128"
                                required value="<?= esc($ads['titre']) ?>"/>
                     </div>
 
                     <div class='row g-3'>
                         <div class='form-group pb-2 col-md-6'>
-                            <label for="loyer" class="form-label">Loyer</label>
+                            <label for="loyer" class="form-label">Loyer*</label>
                             <div class="input-group">
                                 <input type="number" name="loyer" id="loyer" class="form-control" min="0" required
                                        value="<?= esc($ads['loyer']) ?>"/>
@@ -32,7 +32,7 @@ Seul un utilisateur connecté peut y acceder -->
                         <div class='form-group pb-2 col-md-6'>
                             <label for="charges" class="form-label">Charges</label>
                             <div class='input-group'>
-                                <input type="number" name="charges" id="charges" class="form-control" min="0" required
+                                <input type="number" name="charges" id="charges" class="form-control" min="0" 
                                        value="<?= esc($ads['charges']) ?>"/>
                                 <span class='input-group-text'>€</span>
                             </div>
@@ -40,7 +40,7 @@ Seul un utilisateur connecté peut y acceder -->
                     </div>
 
                     <div class="form-group pb-2">
-                        <label class="form-label me-3">Chauffage : </label>
+                        <label class="form-label me-3">Chauffage* : </label>
 
                         <div class="form-check form-check-inline">
                             <input type='radio' name='chauffage' id="collectif" class="form-check-input"
@@ -55,6 +55,8 @@ Seul un utilisateur connecté peut y acceder -->
                         </div>
                     </div>
 
+                    <!-- TODO ne pas faire apparaitre cette partie si le chauffage est collectif -->
+                    <!-- Section energie -->
                     <div class='form-group pb-2'>
                         <label class='form-label me-3'>Type de chauffage :</label>
                         <div class='form-check form-check-inline'>
@@ -88,9 +90,10 @@ Seul un utilisateur connecté peut y acceder -->
                                    value="Autre" <?php if ($ads['energie'] == 'Autre') : ?> checked<?php endif ?>>
                         </div>
                     </div>
+                    <!-- fin section energie -->
 
                     <div class='form-group pb-2'>
-                        <label class="form-label me-3">Type logement : </label>
+                        <label class="form-label me-3">Type logement* : </label>
                         <div class="form-check form-check-inline">
                             <label for="T1" class="form-check-label">T1</label>
                             <input type="radio" name="type" id="T1" class="form-check-input"
@@ -129,7 +132,7 @@ Seul un utilisateur connecté peut y acceder -->
                     </div>
 
                     <div class="form-group pb-2">
-                        <label for='superficie' class="form-label">Superficie</label>
+                        <label for='superficie' class="form-label">Superficie*</label>
                         <div class='input-group'>
                             <input type='number' name='superficie' id="superficie" class="form-control" required
                                    min='10' max='9999' value="<?= esc($ads['superficie']) ?>"/>
@@ -144,20 +147,20 @@ Seul un utilisateur connecté peut y acceder -->
                     </div>
 
                     <div class="form-group pb-2">
-                        <label for="adresse" class="form-label">Adresse</label>
+                        <label for="adresse" class="form-label">Adresse*</label>
                         <input type="text" name="adresse" id="adresse" class="form-control" required maxlength="128"
                                value="<?= esc($ads['adresse']) ?>"/>
                     </div>
 
                     <div class='row g-3 pb-2'>
                         <div class='form-group pb-2 col-md-6'>
-                            <label for="ville" class='form-label'>Ville</label>
+                            <label for="ville" class='form-label'>Ville*</label>
                             <input type="text" name="ville" id="ville" class='form-control' required maxlength="128"
                                    value="<?= esc($ads['ville']) ?>"/>
                         </div>
 
                         <div class='form-group pb-2 col-md-6'>
-                            <label for="cp" class='form-label'>Code postal</label>
+                            <label for="cp" class='form-label'>Code postal*</label>
                             <input type="number" name="cp" id="cp" class="form-control" min="01000" max="99999" required minlength="5" maxlength="5"
                                    value="<?= esc($ads['cp']) ?>"/>
                         </div>
@@ -166,13 +169,13 @@ Seul un utilisateur connecté peut y acceder -->
                 <?php else : ?>
 
                     <div class='form-group pb-2'>
-                        <label for='titre' class='form-label'>Titre</label>
+                        <label for='titre' class='form-label'>Titre*</label>
                         <input type='text' name='titre' id='titre' class='form-control' minlength='3' maxlength='128' required/>
                     </div>
 
                     <div class='row g-3'>
                         <div class='form-group pb-2 col-md-6'>
-                            <label for='loyer' class='form-label'>Loyer</label>
+                            <label for='loyer' class='form-label'>Loyer*</label>
                             <div class='input-group'>
                                 <input type='number' name='loyer' id='loyer' class='form-control' min='0' required/>
                                 <span class='input-group-text'>€</span>
@@ -182,14 +185,14 @@ Seul un utilisateur connecté peut y acceder -->
                         <div class='form-group pb-2 col-md-6'>
                             <label for='charges' class='form-label'>Charges</label>
                             <div class='input-group'>
-                                <input type='number' name='charges' id='charges' class='form-control' min='0' required/>
+                                <input type='number' name='charges' id='charges' class='form-control' min='0'/>
                                 <span class='input-group-text'>€</span>
                             </div>
                         </div>
                     </div>
 
                     <div class='form-group pb-2'>
-                        <label class='form-label me-3'>Chauffage : </label>
+                        <label class='form-label me-3'>Chauffage* : </label>
 
                         <div class='form-check form-check-inline'>
                             <input type='radio' name='chauffage' id='collectif' class='form-check-input'
@@ -239,7 +242,7 @@ Seul un utilisateur connecté peut y acceder -->
                     </div>
 
                     <div class='form-group pb-2'>
-                        <label class="form-label me-3">Type logement : </label>
+                        <label class="form-label me-3">Type logement* : </label>
                         <div class="form-check form-check-inline">
                             <label for="T1" class="form-check-label">T1</label>
                             <input type="radio" name="type" id="T1" class="form-check-input"
@@ -278,7 +281,7 @@ Seul un utilisateur connecté peut y acceder -->
                     </div>
 
                     <div class="form-group pb-2">
-                        <label for='superficie' class="form-label">Superficie</label>
+                        <label for='superficie' class="form-label">Superficie*</label>
                         <div class='input-group'>
                             <input type='number' name='superficie' id="superficie" class="form-control" required
                                    min='10' max='9999'/>
@@ -292,18 +295,18 @@ Seul un utilisateur connecté peut y acceder -->
                     </div>
 
                     <div class="form-group pb-2">
-                        <label for="adresse" class="form-label">Adresse</label>
+                        <label for="adresse" class="form-label">Adresse*</label>
                         <input type="text" name="adresse" id="adresse" class="form-control" required maxlength="128"/>
                     </div>
 
                     <div class='row g-3 pb-2'>
                         <div class='form-group pb-2 col-md-6'>
-                            <label for="ville" class='form-label'>Ville</label>
+                            <label for="ville" class='form-label'>Ville*</label>
                             <input type="text" name="ville" id="ville" class='form-control' required maxlength="128"/>
                         </div>
 
                         <div class='form-group pb-2 col-md-6'>
-                            <label for="cp" class='form-label'>Code postal</label>
+                            <label for="cp" class='form-label'>Code postal*</label>
                             <input type="number" name="cp" id="cp" class="form-control" min="01000" max="99999" required
                                    minlength="5" maxlength="5"/>
                         </div>
