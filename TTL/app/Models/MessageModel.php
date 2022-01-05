@@ -10,7 +10,7 @@ class MessageModel extends Model
     protected $primaryKey = 'M_idmessage';
     protected $useAutoIncrement = true;
 
-    protected $allowedFields = ['M_dateheure_message', 'M_texte_message', 'U_mail', 'A_idannonce'];
+    protected $allowedFields = ['M_dateheure_message', 'M_texte_message', 'U_mail', 'A_idannonce', 'M_lu'];
 
     /**
      * Récup_re un message en Base de donnée
@@ -40,24 +40,24 @@ class MessageModel extends Model
     }
 
 
-    /**
-     * Calcul le nombre de messages pour une annonce
-     *
-     * @param [type] $idAnnonce
-     * @return void
-     */
-    public function getNumberMessage($idAnnonce = null)
-    {
-        // Retourne le nombre total de message
-        if (($idAnnonce === null)) {
-            return $this->countAllResults();
-        }
+    // /**
+    //  * Calcul le nombre de messages pour une annonce
+    //  *
+    //  * @param [type] $idAnnonce
+    //  * @return void
+    //  */
+    // public function getNumberMessage($idAnnonce = null)
+    // {
+    //     // Retourne le nombre total de message
+    //     if (($idAnnonce === null)) {
+    //         return $this->countAllResults();
+    //     }
 
-        // le nombre de message pour une annonce en particulier
-        return $this
-            ->where(['A_idannonce' => $idAnnonce])
-            ->countAllResults();
-    }
+    //     // le nombre de message pour une annonce en particulier
+    //     return $this
+    //         ->where(['A_idannonce' => $idAnnonce])
+    //         ->countAllResults();
+    // }
 
      /**
      * Calcul le nombre de messages non lu pour une annonce
@@ -72,4 +72,18 @@ class MessageModel extends Model
             ->where(['A_idannonce' => $idAnnonce, 'M_lu' => false])
             ->countAllResults();
     }
+
+    //      /**
+    //  * Calcul le nombre de messages non lu pour un utilisateur
+    //  *
+    //  * @param [type] $idAnnonce
+    //  * @return void
+    //  */
+    // public function UnreadMessage($idUser)
+    // {
+    //     // le nombre de message non lu
+    //     return $this
+    //         ->where(['U_mail' => $idUser, 'M_lu' => false])
+    //         ->countAllResults();
+    // }
 }

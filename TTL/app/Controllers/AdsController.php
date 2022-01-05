@@ -186,7 +186,8 @@ class AdsController extends BaseController
         // TODO faire cette manip en requete dans la base de données
         foreach ($tmp['ads'] as $k => $v) {
 
-            $count['count'] = $messageModel->getNumberMessage($v['A_idannonce']);
+            // Récupère le nombre de message non lu
+            $count['count'] = $messageModel->numberUnreadMessage($v['A_idannonce']);
             if (!empty($photoModel->getAdsPhoto($v['A_idannonce'], true))) {
                 $photo = $photoModel->getAdsPhoto($v['A_idannonce'], true);
                 $tmp2[] = array_merge($v, $photo, $count);
@@ -418,4 +419,40 @@ class AdsController extends BaseController
                 }
         }
     }
+
+    //    /**
+    //  * Notification si l'annonce à des messages non lus
+    //  *
+    //  */
+    // // récupération du nombre de message non lu
+    // // $msg['msg'] = $this->hasUnreadMessage($email);
+    // public function hasUnreadMessage($idAnnonce)
+    // {
+    //     $messageModel = model(MessageModel::class);
+    //     $adsModel = model(AdsModel::class);
+
+    //     // On récupère la session actuelle
+    //     $session = session();
+
+    //     $count = 0;
+    //     $hasnewmsg = false;
+
+    //     $tmp['ads'] = $adsModel->getUserAds($session->umail);
+
+        
+    //     foreach ($tmp['ads'] as $v) {
+    //         // Récupère le nombre de message non lu
+    //       $count['count'] = $messageModel->numberUnreadMessage($v['A_idannonce']);
+    //       $hasnewmsg = $messageModel->numberUnreadMessage($v['A_idannonce']) > 0;
+
+    //       $tmp2[] = array_merge($v, $count, $hasnewmsg);
+            
+    //     }
+          
+        
+    //     $data['hasnewmsg'] = ($count > 0);
+    //     $data['count'] = $count;
+        
+    //     return $data;
+    // }
 }

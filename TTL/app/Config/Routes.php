@@ -81,8 +81,11 @@ $routes->get('ads',                 'AdsController::index');
 /**
  * Gestion par MessageController
  */
-$routes->match(['get', 'post'],'ads/contact',       'MessageController::contact');
-$routes->get('allMessages',         'MessageController::viewAdsMessages');
+$routes->match(['get', 'post'],'actionMessage',       'MessageController::actionMessage');
+$routes->match(['get', 'post'],'contact',               'MessageController::contact');
+$routes->match(['get', 'post'],'messages',               'MessageController::viewMessages');
+$routes->get('messages',            'MessageController::viewMessages');
+$routes->get('messages/(:segment)',      'MessageController::View/$1');
 
  /**
  * Gestion par PhotoController

@@ -46,15 +46,15 @@ Dernière modification le <?= esc($ads['A_date_modification']) ?><br />
         <h3>Aucune photos</h3>
     <?php endif ?>
     <br />
- 
+
     <?php $session = session(); ?>
     <?php if (!empty($session->isloggedIn)) : ?>
-        <form action="contact" method="post">
+        <form action=<?= esc(base_url('contact')) ?> method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="idAnnonce" value=<?= esc($ads['A_idannonce']) ?> /><br />
 
-            <label for="contact">Contacter l'annonceur :</label>
-            <textarea name="message" placeholder="" cols="45" rows="4">
+            <label for="contact">Contacter l'annonceur :</label><br/>
+            <textarea name="message" placeholder="" cols="45" rows="2">
             Bonjour , merci de me donner plus d'information sur le bien proposé.
         </textarea><br />
             <input type="submit" name="act" value="Contacter" />

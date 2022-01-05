@@ -25,7 +25,14 @@ ads/privateAds.php<br />
 
                             <!-- Icone Si l'annonce a des messages -->
                             <?php if ($ads_item['count'] > 0) : ?>
-                                <?php echo '<img src="' . base_url('msg.png') . '"alt="icone message"/>' ?><?= esc($ads_item['count']) ?> message(s) <br />
+                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
+
+                                <?php if ($ads_item['count'] > 1) : ?>
+                                    <?= esc($ads_item['count']) ?> Messages non lus<br />
+                                <?php else : ?>
+                                    <?= esc($ads_item['count']) ?> Message non lu<br />
+                                <?php endif ?>
+
                             <?php endif ?>
 
                             <!-- Div de gauche -->

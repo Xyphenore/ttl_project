@@ -465,21 +465,17 @@ class UsersController extends BaseController
 
         // Récupération de l'utilisateur
         $user = $usersModel->where('U_mail', $email)->first();
-        //var_dump($user);
 
-        // $data = [
-        //     'user' => $session->umail,
-        //     'pseudo' => $session->upseudo,
-        //     'prenom' => $user['U_prenom'],
-        //     'annonces' => site_url('ads/privateAds'),
-        //     'discussion' => site_url('users/messages'),
-        //     'parametre' => site_url('users/setting_user'),
-        //     'supprimer' => site_url('users/delete_account'),
-        // ];
+        // récupération du nombre de message non lu
+        $msg['msg'] = $this->hasUnreadMessage($email);
+        
         $data['tete'] = 'Votre tableau de bord';
         $data['title'] = 'Tableau de bord';
         $data['user'] = $session->umail;
         $data['pseudo'] = $session->upseudo;
+        $data['prenom'] = $user['U_prenom'];
+        $data['nbmsg'] =  $msg['msg']['count'];
+        $data['hasmsg'] =  $msg['msg']['hasnewmsg'];
         $data['prenom'] = $user['U_prenom'];
 
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
@@ -515,7 +511,7 @@ class UsersController extends BaseController
                     return redirect()->to('privateAds');
 
                 case 'Messages';
-                    return redirect()->to('allMessages');
+                    return redirect()->to('messages');
 
                 case 'Paramètre';
                     return redirect()->to('UserSetting');
@@ -526,5 +522,27 @@ class UsersController extends BaseController
         }
     }
 
-     
+     /**
+     * Notification si l'utilisateur à des messages non lus
+     *
+     */
+    public function hasUnreadMessage($idUser)
+    {
+        $messageModel = model(MessageModel::class);
+        $adsModel = model(AdsModel::class);
+
+        $count = 0;
+
+        $data['ads'] = $adsModel->getUserAds($idUser);
+        
+        foreach ($data['ads'] as $v) {
+            $count += $messageModel->numberUnreadMessage($v['A_idannonce']);
+            
+        }
+        
+        $data['hasnewmsg'] = ($count > 0);
+        $data['count'] = $count;
+        
+        return $data;
+    }
 }

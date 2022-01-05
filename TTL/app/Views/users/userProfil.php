@@ -44,7 +44,6 @@ users/userProfil.php<br/>
                 Créée le : <?= esc($ads_item['A_date_creation']) ?><br/>
                 Editée le : <?= esc($ads_item['A_date_creation']) ?><br/>
 
-                <p>TODO lien pour contacter l'annonceur</p>
                 <!-- TODO virer debug -->
                 <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?><br/></sup>
 
