@@ -17,10 +17,10 @@
                 <?php foreach ($ads as $ads_item) : ?>
                     <?php if ($ads_item['A_etat'] === 'Public') : ?>
                         <!-- Div d'une annonce -->
-                        <div class='border border-secondary bg-secondary text-white rounded-3 p-3 mb-3'>
+                        <div class='border border-secondary bg-white rounded-3 p-3 mb-3'>
 
                             <!-- Titre et Lien vers le détail de l'annonce -->
-                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>" class='text-white fs-3 me-2'>
+                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>" class='fs-3 me-2'>
                                 <?= esc($ads_item['A_titre']) ?>
                             </a>
 
@@ -31,9 +31,9 @@
                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
                                <?php if ($ads_item['count'] > 1) : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                                   <a title="voir les messages" href="/adsMessages" ><?= esc($ads_item['count']) ?> Messages non lus </a>
                                <?php else : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                                   <a title="voir les messages" href="/adsMessages" ><?= esc($ads_item['count']) ?> Message non lu </a>
                                <?php endif ?>
                            <?php endif ?>
 
@@ -111,10 +111,10 @@
                 <?php foreach ($ads as $ads_item) : ?>
                     <?php if ($ads_item['A_etat'] === 'Brouillon') : ?>
                         <!-- Div d'une annonce -->
-                        <div class="border border-secondary bg-secondary text-white rounded-3 p-3 mb-3">
+                        <div class="border border-secondary bg-white  rounded-3 p-3 mb-3">
 
                             <!-- Titre et Lien vers le détail de l'annonce -->
-                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>" class="text-white fs-3 me-2">
+                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>" class=" fs-3 me-2">
                                 <?= esc($ads_item['A_titre']) ?>
                             </a>
 
@@ -125,9 +125,9 @@
                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
                                <?php if ($ads_item['count'] > 1) : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                                   <a title="voir les messages" href="/adsMessages" ><?= esc($ads_item['count']) ?> Messages non lus </a>
                                <?php else : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                                   <a title="voir les messages" href="/adsMessages"  ><?= esc($ads_item['count']) ?> Message non lu </a>
                                <?php endif ?>
                            <?php endif ?>
 
@@ -200,10 +200,10 @@
                 <?php foreach ($ads as $ads_item) : ?>
                     <?php if ($ads_item['A_etat'] === 'Archive') : ?>
                         <!-- Div d'une annonce -->
-                        <div class='border border-secondary bg-secondary text-white rounded-3 p-3 mb-3'>
+                        <div class='border border-secondary bg-white rounded-3 p-3 mb-3'>
 
                             <!-- Titre et Lien vers le détail de l'annonce -->
-                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>" class='text-white fs-3 me-2'>
+                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>" class='fs-3 me-2'>
                                 <?= esc($ads_item['A_titre']) ?>
                             </a>
 
@@ -213,9 +213,9 @@
                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
                                <?php if ($ads_item['count'] > 1) : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                                   <a title="voir les messages" href="/adsMessages" ><?= esc($ads_item['count']) ?> Messages non lus </a>
                                <?php else : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                                   <a title="voir les messages" href="/adsMessages"  ><?= esc($ads_item['count']) ?> Message non lu </a>
                                <?php endif ?>
                            <?php endif ?>
 
@@ -286,10 +286,10 @@
                 <?php foreach ($ads as $ads_item) : ?>
                     <?php if ($ads_item['A_etat'] === 'Bloc') : ?>
                         <!-- Div d'une annonce -->
-                        <div class='border border-secondary bg-secondary text-white rounded-3 p-3 mb-3'>
+                        <div class='border border-secondary bg-white rounded-3 p-3 mb-3'>
 
                             <!-- Titre et Lien vers le détail de l'annonce -->
-                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"  class='text-white fs-3 me-2'>
+                            <a title="Détail de l'annonce" href="/ads/<?= esc($ads_item['A_idannonce'], 'url') ?>"  class=' fs-3 me-2'>
                                 <?= esc($ads_item['A_titre']) ?>
                             </a>
 
@@ -299,9 +299,9 @@
                                <?php echo '<img src="' . base_url('red.png') . '"alt="icone message" width="20px" height="20px"/>' ?>
 
                                <?php if ($ads_item['count'] > 1) : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Messages non lus </a>
+                                   <a title="voir les messages" href="/adsMessages" ><?= esc($ads_item['count']) ?> Messages non lus </a>
                                <?php else : ?>
-                                   <a title="voir les messages" href="/adsMessages"  class='text-white'><?= esc($ads_item['count']) ?> Message non lu </a>
+                                   <a title="voir les messages" href="/adsMessages"  ><?= esc($ads_item['count']) ?> Message non lu </a>
                                <?php endif ?>
                            <?php endif ?>
 
