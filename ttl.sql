@@ -123,24 +123,3 @@ INSERT INTO `T_energie` (`E_idenergie`, `E_description`) VALUES
     ('Gaz', 'Chauffage au gaz'), 
     ('Bois', 'Cheminée, Poêle à bois'), 
     ('Autre', 'Autre source d energie');
-
-delimiter $$
-CREATE TRIGGER trigger_insert_mdp BEFORE INSERT ON T_utilisateur FOR EACH ROW
-        IF UPPER(NEW.U_mdp) = 'FALSE' THEN
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Cannot insert into T_mdp : hash_password (PHP) failed';
-        END IF $$
-delimiter ;
-
-delimiter $$
-CREATE TRIGGER trigger_update_mdp BEFORE UPDATE ON T_utilisateur FOR EACH ROW
-
-        IF UPPER(NEW.U_mdp) = 'FALSE' THEN
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Cannot update T_mdp : hash_password (PHP) failed';
-        END IF $$
-delimiter ;
-
-
-
-

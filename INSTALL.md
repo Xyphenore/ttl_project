@@ -8,17 +8,24 @@ Via une interface graphique :
  - Après cela, la base de données sera fonctionnelle pour l'application
 
 Installation du site web :
- - Copier le dossier TTL à l'endroit voulu sur le serveur web
- - Effectuer une redirection vers index.php du dossier TTL/public
- - Renommer le fichier 'env' en '.env'
- - Configurer le fichier .env pour que le site web communique avec la base de données : À partir de la ligne 48
-   - Adresse de la base de données
-   - Le nom d'utilisateur
-   - Le mot de passe
-   - Le port
-   - Le nom de la base de donnée
-   - Le charset s'il est différent d'utf8
- - Configurer le fichier .env pour que l'application sache l'adresse racine du site, il faudra modifier la variable app.baseUrl, à la ligne 24
+* Il est nécessaire d'activer les extensions suivantes :
+  * [intl](http://php.net/manual/en/intl.requirements.php)
+  * [libcurl](http://php.net/manual/en/curl.requirements.php)
+  * json (activé par défaut)
+  * [mbstring](http://php.net/manual/en/mbstring.installation.php)
+  * [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
+  * xml (activé par défaut)
+- Copier le dossier TTL à l'endroit voulu sur le serveur web
+- Effectuer une redirection vers index.php du dossier TTL/public, soit en modifiant les paramètres d'Apache pour que le DocumentRoot pointe vers le dossier /TTL/public/
+- Renommer le fichier 'env' en '.env'
+- Configurer le fichier .env pour que le site web communique avec la base de données : À partir de la ligne 48
+  - Adresse de la base de données
+  - Le nom d'utilisateur
+  - Le mot de passe
+  - Le port
+  - Le nom de la base de donnée
+  - Le charset s'il est différent d'utf8
+- Configurer le fichier .env pour que l'application sache l'adresse racine du site, il faudra modifier la variable app.baseUrl, à la ligne 24
 
 Créer un seul compte en cliquant sur le bouton 'Se connecter' puis 'S'inscrire'.
 
@@ -27,3 +34,5 @@ Exécuter le script admin.sql sur la base de données créée, il passera toutes
 Il vous faudra vous déconnecter et vous reconnecter, pour obtenir les droits admin sur le site.
 
 Après ça, tous est bon. Le site est fonctionnel, bravo, vous avez configuré l'application manuellement.
+
+Note : pour que les envoies de mail, un serveur de mail doit être configuré sur la même machine.
