@@ -306,16 +306,16 @@ class AdsController extends BaseController
             ],
         ];
 
-//        [
-//            'titre'      => 'required|min_length[3]|max_length[128]',
-//            'loyer'      => 'required',
-//            'chauffage'  => 'required',
-//            'superficie' => 'required',
-//            'type'       => 'required',
-//            'adresse'    => 'required|max_length[128]',
-//            'ville'      => 'required|max_length[128]',
-//            'cp'         => 'required|min_length[5]|max_length[5]',
-//        ]
+        //        [
+        //            'titre'      => 'required|min_length[3]|max_length[128]',
+        //            'loyer'      => 'required',
+        //            'chauffage'  => 'required',
+        //            'superficie' => 'required',
+        //            'type'       => 'required',
+        //            'adresse'    => 'required|max_length[128]',
+        //            'ville'      => 'required|max_length[128]',
+        //            'cp'         => 'required|min_length[5]|max_length[5]',
+        //        ]
 
         if ($this->request->getMethod() === 'post' && $this->validate($formRules)) {
 
@@ -395,6 +395,7 @@ class AdsController extends BaseController
                     return redirect()->to('privateAds');
 
                 case 'Modifier';
+                // $this->updateAds($this->request->getPost('id'));
                     $data['tete'] = 'Modification de l\'annonce';
                     $data['title'] = 'Edition annnonce';
                     $data['idAnnonce'] = $this->request->getPost('id');
@@ -414,7 +415,7 @@ class AdsController extends BaseController
      *
      * @return void
      */
-    public function updateAds()
+    public function updateAds($idannonce = null)
     {
         $data['tete'] = 'Modification d\'une annonce';
         $data['title'] = 'Edition annonce';
@@ -423,6 +424,9 @@ class AdsController extends BaseController
         $session = session();
 
         $action = $this->request->getPost('act');
+
+        if ($idannonce == null)
+            $idannonce = $this->request->getPost('id');
 
         switch ($action) {
             case 'Annuler';
@@ -440,7 +444,7 @@ class AdsController extends BaseController
                     'ville'      => 'required|max_length[128]',
                     'cp'         => 'required|min_length[5]|max_length[5]',
                 ])) {
-                    $adsModel->update($data['idAnnonce'], [
+                    $adsModel->update($idannonce, [
                         'A_titre'            => $this->request->getPost('title'),
                         'A_cout_loyer'       => $this->request->getPost('loyer'),
                         'A_cout_charges'     => $this->request->getPost('charges'),
@@ -457,7 +461,7 @@ class AdsController extends BaseController
                     $photoModel->save([
                         'P_titre'            => $this->request->getPost('titrePhoto'),
                         'P_data'             => $this->request->getPost('photo'),
-                        'A_idannonce'        => $data['idAnnonce'],
+                        'A_idannonce'        => $idannonce,
                     ]);
 
                     return redirect()->to('privateAds');
@@ -478,6 +482,4 @@ class AdsController extends BaseController
                 }
         }
     }
-
-    
 }

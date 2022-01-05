@@ -49,6 +49,8 @@ Dernière modification le <?= esc($ads['A_date_modification']) ?><br />
 
     <?php $session = session(); ?>
     <?php if (!empty($session->isloggedIn)) : ?>
+        <?php if ($ads['U_mail'] != $session->umail) : ?>
+
         <form action=<?= esc(base_url('contact')) ?> method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="idAnnonce" value=<?= esc($ads['A_idannonce']) ?> /><br />
@@ -59,6 +61,19 @@ Dernière modification le <?= esc($ads['A_date_modification']) ?><br />
         </textarea><br />
             <input type="submit" name="act" value="Contacter" />
         </form>
+        <?php else : ?>
+            <form action=<?= esc(base_url('actionAds')) ?>  method="post">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="id" value=<?= esc($ads['A_idannonce']) ?>/>
+
+                                <input type="submit" name="act" value="Archiver" class='btn btn-dark text-white mb-1'/>
+                                <input type="submit" name="act" value="Brouillon" class='btn btn-dark text-white mb-1'/>
+                                <input type="submit" name="act" value="Modifier" class='btn btn-dark text-white mb-1'/>
+                                <input type="submit" name="act" value="Supprimer" class='btn btn-danger text-white mb-1'/>
+                            </form>
+        <?php endif ?>
+
+
     <?php else : ?>
         Vous devez être connecté pour contacter un propriétaire </br>
         <a class="nav-link" href=<?= esc(base_url('login')) ?>>Se connecter</a>
