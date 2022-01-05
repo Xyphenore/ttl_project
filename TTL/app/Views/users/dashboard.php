@@ -7,7 +7,7 @@ nombre d'annonce en ligne<br />
 
 
 
-<section class='container border border-secondary my-auto rounded-3 p-4'>
+<section class='container border border-secondary my-auto rounded-3 p-4 mb-4'>
     <?php // Chargement des icones nécessaire 
     ?>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
