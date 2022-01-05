@@ -144,31 +144,3 @@ delimiter ;
 
 
 
-INSERT INTO `T_annonce` (`A_idannonce`, `A_titre`, `A_cout_loyer`, `A_cout_charges`, `A_type_chauffage`, `A_superficie`, `A_description`, `A_adresse`, `A_ville`, `A_CP`, `A_etat`, `E_idenergie`, `T_type`, `U_mail`) 
-VALUES 
-(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '71000', default, default, 'T4', 'admin@domaine.com'), 
-(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '62900', 'Public', 'Fuel', 'T3', 'admin@domaine.com'),
-(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', default, 'Bois', 'T2', 'goi.suzy@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com'),
-(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'goi.suzy@gmail.com')  ,
-(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com') ,
-(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'toto@mail.com')  ,
-(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'toto@mail.com')  ,
-(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'suzy.test@test.fr')  ,
-(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'suzy.test@test.fr') ,
-(NULL, 'Maison Témoin', '1000', '150', 'Collectif', '110', 'Description maison témoin avec chauffage collectif', 'rue je ne sais pas', 'Tataouine les bains', '71000', default, default, 'T4', 'admin@domaine.com'), 
-(NULL, 'Maison ancienne', '600', '20', 'Individuel', '80', 'Description maison avec chauffage individuel au fuel', 'impasse dans la foret', 'Farfarfaraway', '62900', 'Public', 'Fuel', 'T3', 'admin@domaine.com'),
-(NULL, 'Appartement', '720', '45', 'Individuel', '95', 'Appartement à louer', 'Bois versun', 'Arles', '13200', default, 'Bois', 'T2', 'goi.suzy@gmail.com'),
-(NULL, 'Studio Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com'),
-(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'chonchon@gmail.com')  ,
-(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com')  ,
-(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'goi.suzy@gmail.com')  ,
-(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com') ,
-(NULL, ' Meublé', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'goi.suzy@gmail.com')  ,
-(NULL, 'Studio ', '390', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'toto@mail.com')  ,
-(NULL, 'chambre', '300', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', default, default, 'T1', 'suzy.test@test.fr')  ,
-(NULL, 'chateau', '3000', '45', 'Collectif', '45', 'studio à louer', 'Centre ville', 'Arles', '13200', 'Public', default, 'T1', 'goi.suzy@gmail.com')    ; 
-
-
