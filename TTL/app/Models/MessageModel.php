@@ -10,7 +10,7 @@ class MessageModel extends Model
     protected $primaryKey = 'M_idmessage';
     protected $useAutoIncrement = true;
 
-    protected $allowedFields = ['M_dateheure_message', 'M_texte_message', 'U_mail', 'A_idannonce', 'M_lu'];
+    protected $allowedFields = ['M_idmessage','M_dateheure_message', 'M_texte_message', 'U_mail', 'A_idannonce', 'M_lu'];
 
     /**
      * Récup_re un message en Base de donnée
@@ -37,6 +37,19 @@ class MessageModel extends Model
             ->where(['U_mail' => $idUser])
             ->orderBy('M_dateheure_message', 'DESC')
             ->findAll();
+    }
+
+    /**
+     * Récup_re un message en Base de donnée
+     *
+     * @return response
+     */
+    public function getMessageById($idmessage)
+    {
+     
+        return $this
+            ->where(['M_idmessage' => $idmessage])
+            ->first();
     }
 
 
@@ -70,6 +83,20 @@ class MessageModel extends Model
         // le nombre de message non lu
         return $this
             ->where(['A_idannonce' => $idAnnonce, 'M_lu' => false])
+            ->countAllResults();
+    }
+
+         /**
+     * Calcul le nombre de messages pour une annonce
+     *
+     * @param [type] $idAnnonce
+     * @return void
+     */
+    public function numberMessage($idAnnonce)
+    {
+        // le nombre de message non lu
+        return $this
+            ->where(['A_idannonce' => $idAnnonce])
             ->countAllResults();
     }
 

@@ -17,60 +17,65 @@ class MessageController extends BaseController
      */
     public function view($idMessage = null)
     {
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur est connecté
+        if (!empty($session->isloggedIn)) {
+            // Récupération du  mail de l'utilisateur
+            $data['iduser'] = $session->umail;
+            $data['pseudo'] = $session->upseudo;
+        } else {
+
+            $data['iduser'] = null;
+            $data['pseudo'] = null;
+        }
+
         $adsModel = model(AdsModel::class);
         $photoModel = model(PhotoModel::class);
         $usersModel = model(UsersModel::class);
-        $messageModel = model(MessagesModel::class);
+        $messageModel = model(MessageModel::class);
 
-        $data['msg'] = $adsModel->getAds($idMessage);
+        $data['msg'] = $messageModel->getMessageById($idMessage);
         $data['title'] = 'Détail du message';
 
         if (empty($data['msg'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Impossible de trouver le message ' . $idMessage);
         }
 
+        // var_dump($data['msg']);
+        $mail = $data['msg']['U_mail'];
+        // Passe l'état du message à lu
         $messageModel->update($idMessage, ['M_lu' => true]);
 
-        // récupération de la photo vitrine rattachées à l'annonce
-        $data['vitrine'] = $photoModel->getAdsPhoto($data['msg']['A_idannonce'], true);
-        // récupération des 4 autres photos éventuelles rattachées à l'annonce
-        $data['photos'] = $photoModel->getAdsPhoto($data['msg']['A_idannonce'], false);
+        // // récupération de la photo vitrine rattachées à l'annonce
+        // $data['vitrine'] = $photoModel->getAdsPhoto($data['msg']['A_idannonce'], true);
+        // // récupération des 4 autres photos éventuelles rattachées à l'annonce
+        // $data['photos'] = $photoModel->getAdsPhoto($data['msg']['A_idannonce'], false);
         // récupération du pseudo de l'utilisateur qui a envoyé le message
-        $data['sentby']  =  $usersModel->getUser($usersModel->getAdsOwner($data['msg']['U_mail']));
+        $tmp = $usersModel->getPseudo($mail);
+        // var_dump($tmp);
+        // echo $tmp[0];
+        $data['sentby'] = $tmp[0];
+        echo $data['sentby'];
 
-        $data['tete'] = $data['msg']['sentby'];
+        $data['tete'] = "Message de " . $data['sentby'];
 
-        // On récupère la session actuelle
-        $session = session();
-
-        // Si l'utilisateur est connecté
-        if (!empty($session->isloggedIn)) {
-            // Récupération du  mail de l'utilisateur
-            $data['iduser'] = $session->umail;
-            $data['pseudo'] = $session->upseudo;
-        } else {
-
-            $data['iduser'] = null;
-            $data['pseudo'] = null;
-        }
 
         echo view('templates/header',  $data);
         echo view('messages/msg', $data);
         echo view('templates/footer', $data);
-    
     }
-
-
-
-
-
 
 
     public function viewMessages()
     {
+        $adsModel = model(AdsModel::class);
         $usersModel = model(UsersModel::class);
         $messageModel = model(MessageModel::class);
-        $adsModel = model(adsModel::class);
+        $photoModel = model(PhotoModel::class);
+
+
         // On récupère la session actuelle
         $session = session();
 
@@ -85,76 +90,84 @@ class MessageController extends BaseController
             $data['pseudo'] = null;
         }
 
-        $data['title'] = 'Messages';
-        $data['tete'] = 'Vos messages';
-
         // On vérifie si l'utilisateur a des annonces
         if (!empty($adsModel->getUserAds($session->umail))) {
-            // récupération des annonces de l'utilisateur
+            // Toutes les annonces quel que soit leur état
             $tmp['ads'] = $adsModel->getUserAds($session->umail);
-            $tmp2 = [];
 
+            $tmp2 = [];
+            $count = [];
+
+            // fusion des requetes
+            // TODO faire cette manip en requete dans la base de données
+            // TODO faire un groupBY 
             foreach ($tmp['ads'] as $k => $v) {
+                // Récupère le nombre de message non lu
+                // $count['unread'] = $messageModel->numberUnreadMessage($v['A_idannonce']);
+                $count['nbmessage'] = $messageModel->numberMessage($v['A_idannonce']);
+                // récupération du nombre de message non lu
+                $unread['unread'] = $this->hasUnreadMessage($v['A_idannonce']);
+
                 // on récupère les messages concernant cette annonce
                 if (!empty($messageModel->getMessage(null, $v['A_idannonce']))) {
-                    $tmp2[] = $messageModel->getMessage(null, $v['A_idannonce']);
+                    $tmp3['msg'] = $messageModel->getMessage(null, $v['A_idannonce']);
+
+                    $tmp2[] = array_merge($v, $tmp3, $unread,  $count);
+                } else {
+                    $tmp2[] = array_merge($v, $unread,  $count);
                 }
             }
-            $tmp3['msg'] = $tmp2;
-
+            $data['ads'] = $tmp2;
             $tmp4 = [];
-            // pour chaque message concernant cette annonce
-            foreach ($tmp3['msg'] as $key => $value) {
-                foreach ($value as $k => $v) {
-                    // on récupère le pseudo de l'utilisateur qui a initié la discussion
-                    if (!empty($usersModel->getPseudo($v['U_mail']))) {
-                        $pseudo = $usersModel->getPseudo($v['U_mail']);
-                        // on fusionne (TODO, faire jointure en BDD directement)
-                        $tmp4[] = array_merge($v, $pseudo);
-                    }
-                }
-            }
-            $data['messages'] = $tmp4;
+            $sentby = [];
+            $tmp5 = [];
 
-            echo view('templates/header', $data);
-            echo view('messages/messages', $data);
-            echo view('templates/footer', $data);
-            
-        } else 
-        
-        // TODO à revoir dans une amélioration de la messagerie (fil de discussion)
-        {
-            $tmp['msg'] = $messageModel->getMessage($session->umail, null);
-            $tmp2 = [];
-            // pour chaque message concernant cet utilisateur
-            foreach ($tmp['msg'] as $key => $value) {
-                // On récupère les annonces concernée par les messages de cet utilisateurs
-                if (!empty($messageModel->getMessage(null, $value['A_idannonce']))) {
-                    $tmp2[] = $messageModel->getMessage(null, $value['A_idannonce']);
-                }
-            }
-            $tmp3['ads'] = $tmp2;
-
-            $tmp4 = [];
-            // pour chaque annonce concernée
-            foreach ($tmp3['ads'] as $key => $value) {
-                foreach ($value as $k => $v) {
-                    // on récupère le pseudo du propriétaire
-                    if (!empty($usersModel->getPseudo($v['U_mail']))) {
-                        $pseudo = $usersModel->getPseudo($v['U_mail']);
-                        // on fusionne (TODO, faire jointure en BDD directement)
-                        $tmp4[] = array_merge($v, $pseudo);
-                    }
-                }
-            }
-            $data['messages'] = $tmp4;
-
-            echo view('templates/header', $data);
-            echo view('messages/messages', $data);
-            echo view('templates/footer', $data);
+            // $listmsg=[];
+            // $listAds=[];
+            // foreach ($data['ads'] as $key => $value) {
+            //     if (!empty($value['msg'])) {
+            //         foreach ($value['msg'] as $elem) {
+            //             // on récupère le pseudo de l'utilisateur qui a initié la discussion
+            //             $tmp4 = $elem;
+            //             $tmp4['sentby']=$usersModel->getPseudo($elem['U_mail'])[0];
+            //            $listmsg[] = $tmp4;
+            //         }
+            //     }
+            //     $value=['msg'=> $listmsg];
+            //     // $listAds[] = array_merge($value['msg'] = $listmsg);
+            // }
         }
+
+        //     $data['ads'] = $tmp4;
+        // }
+
+        // var_dump($data['ads']);
+
+        $data['tete'] = 'Vos messages';
+        $data['title'] = 'vos message';
+
+        echo view('templates/header', $data);
+        echo view('messages/adsMessages', $data);
+        echo view('templates/footer', $data);
     }
 
+    /**
+     * pour la notification si une annonce à des messages non lus
+     *
+     */
+    public function hasUnreadMessage($idAnnonce)
+    {
+        $messageModel = model(MessageModel::class);
+
+
+        $count = $messageModel->numberUnreadMessage($idAnnonce);
+
+
+        $data['hasnewmsg'] = ($count > 0);
+        $data['count'] = $count;
+
+        return $data;
+    }
 
     /**
      * Sauvegarde un message en base de donnée

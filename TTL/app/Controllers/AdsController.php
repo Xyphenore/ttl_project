@@ -420,39 +420,5 @@ class AdsController extends BaseController
         }
     }
 
-    //    /**
-    //  * Notification si l'annonce à des messages non lus
-    //  *
-    //  */
-    // // récupération du nombre de message non lu
-    // // $msg['msg'] = $this->hasUnreadMessage($email);
-    // public function hasUnreadMessage($idAnnonce)
-    // {
-    //     $messageModel = model(MessageModel::class);
-    //     $adsModel = model(AdsModel::class);
-
-    //     // On récupère la session actuelle
-    //     $session = session();
-
-    //     $count = 0;
-    //     $hasnewmsg = false;
-
-    //     $tmp['ads'] = $adsModel->getUserAds($session->umail);
-
-        
-    //     foreach ($tmp['ads'] as $v) {
-    //         // Récupère le nombre de message non lu
-    //       $count['count'] = $messageModel->numberUnreadMessage($v['A_idannonce']);
-    //       $hasnewmsg = $messageModel->numberUnreadMessage($v['A_idannonce']) > 0;
-
-    //       $tmp2[] = array_merge($v, $count, $hasnewmsg);
-            
-    //     }
-          
-        
-    //     $data['hasnewmsg'] = ($count > 0);
-    //     $data['count'] = $count;
-        
-    //     return $data;
-    // }
+    
 }
