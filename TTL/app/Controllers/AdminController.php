@@ -33,7 +33,7 @@ class AdminController extends BaseController
 
         $data['tete'] = 'Administration';
         $data['title'] = 'Adminsitration';
-        
+
         // Affichage de la page avec les champs remplis avec les informations du compte actuel
         echo view('templates/header', $data);
         echo view('admin/adminDashboard', $data);
@@ -50,10 +50,10 @@ class AdminController extends BaseController
         $usersModel = model(UsersModel::class);
         $messageModel = model(MessageModel::class);
         $adsModel = model(AdsModel::class);
-        
+
         // récupère tous les utilisateurs inscrit sauf l'admin
-        $tmp['user' ] = $usersModel->getUser();
-            
+        $tmp['user'] = $usersModel->getUser();
+
 
         $tmp2 = [];
         // Récupération du nombre d'annonces publiées par l'utilisateur
@@ -84,6 +84,7 @@ class AdminController extends BaseController
     public function adminUserAction()
     {
         $userModel = model(UsersModel::class);
+        $adsModel = model(AdsModel::class);
 
         // On récupère la session actuelle
         $session = session();
@@ -98,36 +99,101 @@ class AdminController extends BaseController
 
         // Récupération de l'idUser
         $idUser = $this->request->getPost('idUser');
+        // Récupération du pseudo de l'user
+        $pseudoUser = $this->request->getPost('pseudoUser');
 
         // Mise à jour de l'état de l'annonce en BDD
         if ($this->request->getMethod() === 'post') {
             switch ($action) {
                 case 'delUser';
-                $userModel->delete($idUser);
-                return redirect()->to('adminUserManager');
+                    $userModel->delete($idUser);
+                    return redirect()->to('adminUserManager');
 
                 case 'mailUser';
-                    
+                // TODO mailUser
+                break;
 
                 case 'editUser';
-               
-                
+                // TODO editUser
+                break;
+
                 case 'blocUser';
-                $userModel->update($idUser, ['U_bloc' => true]);
-                return redirect()->to('adminUserManager');
+                    $userModel->update($idUser, ['U_bloc' => true]);
+
+                    $data['ads'] = $adsModel->getUserAds($idUser);
+                    foreach ($data['ads'] as $elem) {
+                        // bloque toutes les annonces
+                        $adsModel->update($elem['A_idannonce'], ['A_etat' => 'Bloc']);
+                    }
+                    return redirect()->to('users/' . $pseudoUser);
 
                 case 'unblocUser';
-                $userModel->update($idUser, ['U_bloc' => false]);
-                return redirect()->to('adminUserManager');
-                    
+                    $userModel->update($idUser, ['U_bloc' => false]);
+
+                    $data['ads'] = $adsModel->getUserAds($idUser);
+                    foreach ($data['ads'] as $elem) {
+                        // débloque toutes les annonces
+                        $adsModel->update($elem['A_idannonce'], ['A_etat' => 'Brouillon']);
+                    }
+                    return redirect()->to('users/' . $pseudoUser);
 
                 default:
-                   
             }
         }
     }
 
-    
+
+    /**
+     * Switch la valeur du bouton cliqué et agit en conséquence
+     *
+     * @return void
+     */
+    public function adminAdAction()
+    {
+        $userModel = model(UsersModel::class);
+        $adsModel = model(AdsModel::class);
+
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur n'est pas connecté
+        if (empty($session->isloggedIn)) {
+            return redirect()->to('login');
+        }
+
+        // Récupération de la valeur du bouton qui a été cliqué
+        $action = $this->request->getPost('adminAct');
+
+        // Récupération de l'idUser
+        $idUser = $this->request->getPost('idUser');
+        // Récupération de l'idAnnonce
+        $idAnnonce = $this->request->getPost('idAd');
+
+        // Mise à jour de l'état de l'annonce en BDD
+        if ($this->request->getMethod() === 'post') {
+            switch ($action) {
+                case 'delAd';
+                    $adsModel->delete($idAnnonce);
+                    return redirect()->to('adminAdsManager');
+
+                case 'editAd';
+
+
+                case 'blocAd';
+                    $adsModel->update($idAnnonce, ['A_etat' => 'Bloc']);
+                    return redirect()->to('adminAdsManager');
+
+                case 'unblocAd';
+                    $adsModel->update($idAnnonce, ['A_etat' => 'Brouillon']);
+                    return redirect()->to('adminAdsManager');
+
+
+                default:
+            }
+        }
+    }
+
+
 
 
     public function adminAdsManager()
@@ -179,8 +245,4 @@ class AdminController extends BaseController
         echo view('admin/adminAdsManager', $data);
         echo view('templates/footer', $data);
     }
-
-   
-
-    
 }

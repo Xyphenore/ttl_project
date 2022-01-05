@@ -93,4 +93,6 @@ class AdsModel extends Model
         return $this->where(['U_mail' => $idUser, 'A_etat' => $etat])
         ->countAllResults();
     }
+
+    
 }
