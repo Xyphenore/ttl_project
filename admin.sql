@@ -1,0 +1,1 @@
+update T_utilisateur SET U_admin = 1;

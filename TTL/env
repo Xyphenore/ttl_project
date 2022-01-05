@@ -14,13 +14,20 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-CI_ENVIRONMENT = development
+CI_ENVIRONMENT = production
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
+# A compléter après l'installation du site
+app.baseURL = ''
+
+# Paramétrage de la langue et de l'heure du site
+app.defaultLocale = 'fr'
+app.appTimezone = 'Europe/Paris'
+app.charset = 'UTF-8'
+
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -37,12 +44,15 @@ CI_ENVIRONMENT = development
 # DATABASE
 #--------------------------------------------------------------------
 
- database.default.hostname = mysql-ttl-dev.alwaysdata.net
- database.default.database = ttl-dev_bdd
- database.default.username = ttl-dev
- database.default.password = zbhT7if.eeP.@dm
+# A compléter après l'installation du site
+ database.default.hostname =
+ database.default.database =
+ database.default.username =
+ database.default.password =
  database.default.DBDriver = MySQLi
  database.default.DBPrefix =
+ database.default.port = 3306
+ database.default.charset = utf8
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4
