@@ -2,8 +2,6 @@
 //Affichage de toutes les annonces publiées ou non sur le site n'est visible que par l'utilisateur les ayant créées
 ?>
 
-<!-- TODO debug à virer -->
-ads/privateAds.php<br />
 
 <section class="container my-3">
     <h1 class="fs-3">Vos annonces</h1>
@@ -86,10 +84,6 @@ ads/privateAds.php<br />
                                     </ul>
                                 </div>
 
-
-                            <!-- TODO virer debug -->
-                            <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?>
-                                <br/></sup>
 
                             <form action="actionAds" method="post">
                                 <?= csrf_field() ?>
@@ -181,11 +175,6 @@ ads/privateAds.php<br />
                             </div>
 
 
-
-                            <!-- TODO virer debug -->
-                            <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?>
-                                <br/></sup>
-
                             <form action="actionAds" method="post">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="id" value=<?= esc($ads_item['A_idannonce']) ?>/>
@@ -275,10 +264,6 @@ ads/privateAds.php<br />
                             </div>
 
 
-                            <!-- TODO virer debug -->
-                            <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?>
-                                <br/></sup>
-
                             <form action="actionAds" method="post">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="id" value=<?= esc($ads_item['A_idannonce']) ?>/>
@@ -362,10 +347,6 @@ ads/privateAds.php<br />
                                 </ul>
                             </div>
 
-
-                            <!-- TODO virer debug -->
-                            <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?>
-                                <br/></sup>
 
                             <form action="actionAds" method="post">
                                 <?= csrf_field() ?>

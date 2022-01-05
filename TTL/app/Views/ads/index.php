@@ -56,10 +56,7 @@
                 <?php endif ?><br />
 
                 Editée le : <?= esc($ads_item['A_date_creation']) ?><br />
-                <!-- TODO virer debug -->
-                <sup>debug : <br />
-                    <?= esc($ads_item['A_etat']) ?><br />
-                    <?= esc($ads_item['A_idannonce']) ?><br /></sup>
+                
             </div><!-- fin div de l'annonce -->
         <?php endforeach; ?>
     <?php else : ?>

@@ -1,6 +1,5 @@
 <h2><?= esc($tete) ?></h2>
-<!-- TODO debug à virer -->
-admin/usersManager.php<br/>
+
 <div>
     <?php if (!empty($user) && is_array($user)) : ?>
 

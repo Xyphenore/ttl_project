@@ -1,11 +1,3 @@
-<!-- TODO debug à virer -->
-users/dashboard.php<br />
-nombre d'annonce total<br />
-nombre d'annonce en ligne<br />
-
-
-
-
 
 <section class='container border border-secondary my-auto rounded-3 p-4 mb-4'>
     <?php // Chargement des icones nécessaire 

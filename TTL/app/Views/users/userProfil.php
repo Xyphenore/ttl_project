@@ -1,6 +1,5 @@
 <h2><?= esc($user['U_pseudo']) ?></h2>
-<!-- TODO debug à virer -->
-users/userProfil.php<br/>
+
 <h3>Les annonces publiées par <?= esc($user['U_pseudo']) ?> :</h3>
 <!-- Div principal -->
 <div style="border: thin solid black">
@@ -43,9 +42,6 @@ users/userProfil.php<br/>
 
                 Créée le : <?= esc($ads_item['A_date_creation']) ?><br/>
                 Editée le : <?= esc($ads_item['A_date_creation']) ?><br/>
-
-                <!-- TODO virer debug -->
-                <sup>debug : <?= esc($ads_item['A_etat']) ?> <?= esc($ads_item['A_idannonce']) ?><br/></sup>
 
 
             </div><!-- fin div de l'annonce -->

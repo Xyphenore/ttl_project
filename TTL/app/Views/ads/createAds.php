@@ -1,7 +1,6 @@
 <!-- Formulaire de création d'une nouvelle annonce
 Seul un utilisateur connecté peut y acceder -->
-<!-- TODO debug à virer -->
-ads/createAds.php<br/>
+
 
 <section class="container py-3">
     <h1 class='fs-2'>Création d'une annonce</h1>
