@@ -102,6 +102,72 @@ class UsersController extends BaseController
         echo view('templates/footer');
     }
 
+    public function forgottenPassword() {
+        helper(['form', 'url']);
+
+
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si déjà connecté alors on accède l'espace
+        if (!empty($session->isloggedIn)) {
+            return redirect()->to('dashboard');
+        }
+
+        $formRules = [
+            'email' => [
+                'rules' => 'required|valid_email|is_not_unique[T_utilisateur.U_mail]',
+                'errors' => [
+                    'required' => "L'adresse mail est nécessaire",
+                    'valid_email' => "L'adresse mail doit être valide",
+                    'is_not_unique' => "Cette adresse mail n'existe pas",
+                ],
+            ]
+        ];
+
+        // L'utilisateur n'est pas connecté
+        if ($this->request->getMethod() === 'post' && $this->validate($formRules)) {
+            $usersModel = model(UsersModel::class);
+
+            $email = $this->request->getPost('email');
+
+            // Récupération des informations de l'utilisateur de la base de donnée
+            $user = $usersModel->where('U_mail', $email)->first();
+
+            // Génération d'un nouveau mot de passe
+            $new_password = bin2hex(mt_rand());
+
+
+            $usersModel->update( $email, ['U_mdp' => $new_password]); //password_hash($new_password, PASSWORD_BCRYPT)]);
+
+            $session->setFlashdata('success_modify_pw', 'Mot de passe envoyé par mail');
+
+            $username = $user['U_pseudo'];
+
+            $msg =<<<MSG
+                Bonjour $username,
+                Voici votre nouveau mot de passe : $new_password.
+                Veuillez, vous connectez à votre espace et le modifier.
+                
+                TTL Project
+MSG;
+
+            $mail_recu = mail($email, 'Réinitialisation du mot de passe', $msg);
+
+            if ( !$mail_recu ) {
+                $session->setFlashdata('fail_mail', 'Le mail a été refusé');
+
+                return redirect()->to('forgottenPassword');
+            }
+
+            return redirect()->to('login');
+        }
+
+        echo view('templates/header', ['title' => 'Récupération du mot de passe']);
+        echo view('forms/forgottenPW');
+        echo view('templates/footer');
+    }
+
 
     public function index()
     {

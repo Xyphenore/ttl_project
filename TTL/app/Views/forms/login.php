@@ -12,6 +12,15 @@
             }
             ?>
 
+            <?php
+            // Affichage du message de succès de modification de mot de passe
+            if (!empty(session()->success_modify_pw)) {
+                echo '<div class="bg-success border border-success rounded-3 pt-2 d-flex mb-2">
+                            <p class="text-white mx-auto">Modification du mot de passe réussie</p>
+                    </div>';
+            }
+            ?>
+
 
             <?= service('validation')->listErrors() ?>
             <form method="post" action="<?= esc(base_url('login')) ?>" id="login_form" accept-charset='utf-8'>
@@ -24,10 +33,13 @@
 
                 <div class='form-group pb-2'>
                     <label for='pass' class='form-label'>Mot de passe</label>
-                    <input type='password' name='pass' id="pass" class="form-control"
-                           placeholder="Entrer votre mot de passe"/>
+                    <input type='password' name='pass' id="pass" class="form-control" placeholder="Entrer votre mot de passe"/>
                 </div>
             </form>
+
+            <a href="<?= esc(base_url('forgottenPassword')) ?>" role='button' class='link mb-3'>
+                Récupérer le mot de passe
+            </a>
 
             <div class="btn-toolbar mx-auto" role="toolbar">
                 <button type='submit' class='btn btn-dark mx-sm-5' value='Connexion' name='submit' form='login_form'>
