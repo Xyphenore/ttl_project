@@ -159,7 +159,7 @@ ads/createAds.php<br/>
 
                         <div class='form-group pb-2 col-md-6'>
                             <label for="cp" class='form-label'>Code postal</label>
-                            <input type="text" name="cp" id="cp" class="form-control" min="01000" max="99999" required
+                            <input type="text" name="cp" id="cp" class="form-control" min="01000" max="99999" required minlength="5" maxlength="5"
                                    value="<?= esc($ads['cp']) ?>"/>
                         </div>
                     </div>
