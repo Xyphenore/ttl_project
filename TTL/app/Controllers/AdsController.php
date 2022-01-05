@@ -301,7 +301,7 @@ class AdsController extends BaseController
                 'errors' => [
                     'required' => "Le code postal est nécessaire",
                     'exact_length' => "Le code postal doit faire 5 chiffres",
-                    'numeric' => "Le code postal est un nombre",
+                    'numeric' => "Le code postal doit être un nombre",
                 ],
             ],
         ];
