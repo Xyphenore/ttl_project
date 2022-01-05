@@ -152,7 +152,43 @@ class AdminController extends BaseController
             }
         }
     }
+/**
+     * Switch la valeur du bouton cliqué et redirige l'utilisateur de manière adequate
+     *
+     * @return void
+     */
+    public function actionAdminDashboard()
+    {
+        $userModel = model(UsersModel::class);
 
+        // On récupère la session actuelle
+        $session = session();
+
+        // Si l'utilisateur n'est pas connecté
+        if (empty($session->isloggedIn)) {
+            return redirect()->to('login');
+        }
+
+        // Récupération de la valeur du bouton qui a été cliqué
+        $action = $this->request->getPost('act');
+
+        // Mise à jour de l'état de l'annonce en BDD
+        if ($this->request->getMethod() === 'post') {
+            switch ($action) {
+                case 'Annonces';
+                    return redirect()->to('privateAds');
+
+                case 'Messages';
+                    return redirect()->to('adsMessages');
+
+                case 'Paramètre';
+                    return redirect()->to('UserSetting');
+
+                default:
+                    return redirect()->to('dashboard');
+            }
+        }
+    }
 
     /**
      * Switch la valeur du bouton cliqué et agit en conséquence

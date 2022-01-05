@@ -56,7 +56,7 @@ $routes->get('users/(:segment)',    'UsersController::view/$1');
 $routes->get('users',               'UsersController::index');
 
 // Partie de l'administrateur
-$routes->match(['get', 'post'], 'adminDashboard',        'AdminController::adminDashboard');
+$routes->match(['get', 'post'], 'actionAdminDashboard',        'AdminController::actionAdminDashboard');
 
 $routes->get('adminDashboard',      'AdminController::adminDashboard');
 $routes->get('adminAdsManager',      'AdminController::adminAdsManager');
